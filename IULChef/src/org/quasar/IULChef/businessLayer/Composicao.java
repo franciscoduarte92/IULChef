@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Composicao.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -123,9 +123,8 @@ public class Composicao implements Comparable<Object>
 	
 	public void checkQuantidadeDeveSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.quantidade.isDefined
-		boolean invariant = true;
+		boolean invariant = quantidade!=null;
 		
 		assert invariant : "A quantidade do ingrediente na composição do produto composto deve ser preenchida!";
 	}
@@ -141,7 +140,6 @@ public class Composicao implements Comparable<Object>
 	{
 		assert other instanceof Composicao;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.quantidade.compareTo(((Composicao) other).quantidade);
 		return this.hashCode() - ((Composicao) other).hashCode();
 	}

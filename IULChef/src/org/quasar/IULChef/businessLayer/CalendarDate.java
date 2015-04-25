@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: CalendarDate.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -110,8 +110,10 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public void init(Integer day, Integer month, Integer year)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.day := day; self.month := month; self.year := year
+		this.day = day;
+		this.month = month;
+		this.year = year;
 	}
 	
 	/**********************************************************************
@@ -120,8 +122,10 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public void initS(String date)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.year := date.substring(1,4).toInteger; self.month := date.substring(6,7).toInteger; self.day := date.substring(9,10).toInteger
+		this.year = Integer.parseInt(date.substring(0, 3));
+		this.month = Integer.parseInt(date.substring(5, 6));
+		this.day = Integer.parseInt(date.substring(8, 9));
 	}
 	
 	/**********************************************************************
@@ -130,9 +134,8 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Boolean isAfter(CalendarDate t)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return if (self.year = t.year) then if (self.month = t.month) then (self.day > t.day) else (self.month > t.month) endif else (self.year > t.year) endif
-		return null;
+		return this.year == t.year ? this.month == t.month ? this.day > t.day : this.month > t.month : this.year > t.year;
 	}
 	
 	/**********************************************************************
@@ -141,9 +144,8 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Boolean isBefore(CalendarDate t)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return if (self.year = t.year) then if (self.month = t.month) then (self.day < t.day) else (self.month < t.month) endif else (self.year < t.year) endif
-		return null;
+		return this.year == t.year ? this.month == t.month ? this.day < t.day : this.month < t.month : this.year < t.year;
 	}
 	
 	/**********************************************************************
@@ -153,9 +155,8 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Boolean isDivisible(Integer x, Integer y)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return (((x div y) * y) = x)
-		return null;
+		return x / y * y == x;
 	}
 	
 	/**********************************************************************
@@ -164,9 +165,8 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Boolean isEqual(CalendarDate t)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return (((self.year = t.year) and (self.month = t.month)) and (self.day = t.day))
-		return null;
+		return this.year == t.year && this.month == t.month && this.day == t.day;
 	}
 	
 	/**********************************************************************
@@ -174,9 +174,16 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Boolean isLeap()
 	{
-		//	TODO conclude the implementation for this SOIL specification:
-		//	return if (self.isDivisible(self.year, 400) or self.isDivisible(self.year, 4)) then true else if self.isDivisible(self.year, 100) then false else if self.isDivisible(self.year, 4) then true else false endif endif endif
-		return null;
+		if (isDivisible(this.year, 400) || isDivisible(this.year, 4))
+			return true;
+		else
+			if (isDivisible(this.year, 100))
+				return false;
+			else
+				if (isDivisible(this.year, 4))
+					return true;
+				else
+					return false;
 	}
 	
 	/**********************************************************************
@@ -184,9 +191,12 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Boolean isValid()
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return ((((self.month >= 1) and (self.month <= 12)) and (self.day >= 1)) and if self.isLeap() then (self.day <= Sequence {31,29,31,30,31,30,31,31,30,31,30,31}->at(self.month)) else (self.day <= Sequence {31,28,31,30,31,30,31,31,30,31,30,31}->at(self.month)) endif)
-		return null;
+		Integer[] regularDays	= {31,28,31,30,31,30,31,31,30,31,30,31};
+		Integer[] leapDays		= {31,29,31,30,31,30,31,31,30,31,30,31};
+		
+		return this.month >= 1 && this.month <= 12 && this.day >= 1 && 
+					this.isLeap() ? this.day <= leapDays[month-1] : this.day <= regularDays[month-1];
 	}
 	
 	/**********************************************************************
@@ -195,9 +205,16 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public CalendarDate stringToDate(String date)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	declare date_year : String, date_month : String, date_day : String; date_year := date.substring(1,4); date_month := date.substring(6,7); date_day := date.substring(9,10); result := CalendarDate.allInstances->select(cd : CalendarDate | (((cd.year = date_year.toInteger) and (cd.month = date_month.toInteger)) and (cd.day = date_day.toInteger)))->asSequence->first; if result.isUndefined then result := new CalendarDate(((('D' + date_year) + date_month) + date_day)); result.initS(date) end
-		return null;
+		CalendarDate temp = new CalendarDate();
+		temp.initS(date);
+			
+		for (CalendarDate d: allInstances())
+			if (d.equals(temp))
+				return d;
+							
+		Database.insert(temp);
+		return temp;
 	}
 	
 	/**********************************************************************
@@ -205,9 +222,8 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public String toString()
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return self.year.toString.concat('/').concat(self.month.toString).concat('/').concat(self.day.toString)
-		return null;
+		return "" + this.year + '-' + this.month + '-' + this.day;
 	}
 	
 	/**********************************************************************
@@ -216,9 +232,11 @@ public class CalendarDate implements Comparable<Object>
 	**********************************************************************/
 	public Integer yearsSince(CalendarDate t)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	return if ((self.month < t.month) or ((self.month = t.month) and (self.day < t.day))) then ((self.year - t.year) - 1) else (self.year - t.year) endif
-		return null;
+		if (this.month < t.month || this.month == t.month && this.day < t.day)
+			return this.year - t.year -1;
+		else
+			return this.year - t.year;
 	}
 	
 	/**********************************************************************
@@ -232,16 +250,14 @@ public class CalendarDate implements Comparable<Object>
 	
 	public void checkDateIsValid()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.isValid()
-		boolean invariant = true;
+		boolean invariant = this.isValid();
 		
 		assert invariant : "The current date must be a valid one";
 	}
 	
 	public void checkDatesAreDistinct()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	CalendarDate.allInstances->isUnique($elem21 : CalendarDate | $elem21.toString())
 		boolean invariant = true;
 		
@@ -259,11 +275,10 @@ public class CalendarDate implements Comparable<Object>
 	{
 		assert other instanceof CalendarDate;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.day.compareTo(((CalendarDate) other).day);
 		//	return this.month.compareTo(((CalendarDate) other).month);
 		//	return this.year.compareTo(((CalendarDate) other).year);
-		return this.hashCode() - ((CalendarDate) other).hashCode();
+		return this.isBefore((CalendarDate) other) ? -1 : this.equals(other) ? 0 : 1;
 	}
 	
 	/**********************************************************************

@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Inventario.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -131,8 +131,8 @@ public class Inventario implements Comparable<Object>
 	**********************************************************************/
 	public void init(CalendarDate data)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.data := data
+		this.data=data;
 	}
 	
 	/**********************************************************************
@@ -153,9 +153,8 @@ public class Inventario implements Comparable<Object>
 	{
 		assert other instanceof Inventario;
 		
-		//	TODO: uncomment the option that is best suitable
-		//	return this.data.compareTo(((Inventario) other).data);
-		return this.hashCode() - ((Inventario) other).hashCode();
+			return this.data.compareTo(((Inventario) other).data);
+//		return this.hashCode() - ((Inventario) other).hashCode();
 	}
 	
 	/**********************************************************************
