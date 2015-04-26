@@ -291,6 +291,14 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// declare cd : CalendarDate, c : Contrato; cd := new CalendarDate; c :=
 		// new Contrato between (r,e); cd.initS('2014-06-25'); c.inicio := cd;
 		// cd.initS('2015-06-25'); c.fim := cd; c.vencimento := 800
+		CalendarDate d1 = new CalendarDate();
+		CalendarDate d2 = new CalendarDate();
+		Contrato c = new Contrato(r, e);
+		d1.initS("2014-06-25");
+		d2.initS("2015-06-25");
+		c.setInicio(d1);
+		c.setFim(d2);
+		c.setVencimento((double) 800);
 		// -----------------------------------------------------------------------------
 		// (self.empregadores->collect($e : Restaurante |
 		// $e.contratados)->includes(e) = false)
@@ -400,8 +408,8 @@ public class Empregado extends Entidade implements Comparable<Object> {
 
 		assert pre_DespedirMinimoDeVendas : "Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas";
 		// -----------------------------------------------------------------------------
-		// TODO conclude the implementation for this SOIL specification:
 		// delete (r,empre) from Contrato
+		Database.delete(r, empre);
 		// -----------------------------------------------------------------------------
 		// (self.empregadores->collect($e : Restaurante |
 		// $e.contratados)->includes(empre) = false)
