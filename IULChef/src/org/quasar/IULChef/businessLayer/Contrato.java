@@ -167,27 +167,24 @@ public class Contrato implements Comparable<Object>
 	
 	public void checkDataFimDeveSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.fim.isDefined
-		boolean invariant = true;
+		boolean invariant = fim != null;
 		
 		assert invariant : "A data de fim do contrato deve ser preenchida!";
 	}
 	
 	public void checkVencimentoDeveSerPreenchido()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.vencimento.isDefined
-		boolean invariant = true;
+		boolean invariant = vencimento != null;
 		
 		assert invariant : "O vencimento a pagar mensalmente ao empregado no âmbito do contrato deve ser preenchido!";
 	}
 	
 	public void checkDataInicioDeveSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.inicio.isDefined
-		boolean invariant = true;
+		boolean invariant = inicio != null;
 		
 		assert invariant : "A data de início do contrato deve ser preenchida!";
 	}
@@ -203,7 +200,6 @@ public class Contrato implements Comparable<Object>
 	{
 		assert other instanceof Contrato;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.fim.compareTo(((Contrato) other).fim);
 		//	return this.inicio.compareTo(((Contrato) other).inicio);
 		//	return this.vencimento.compareTo(((Contrato) other).vencimento);
