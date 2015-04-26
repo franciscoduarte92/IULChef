@@ -137,27 +137,24 @@ public class Mesa implements Comparable<Object>
 	
 	public void checkMesaTemUmEmpregado()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	(self.restaurante.contratados->asSet->size >= 1)
-		boolean invariant = true;
+		boolean invariant = restaurante.contratados().size()>=1;
 		
 		assert invariant : "Uma mesa tem apenas um empregado";
 	}
 	
 	public void checkNumeroMesaFixo()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	if (Mesa.allInstances->size <= 4) then true else false endif
-		boolean invariant = true;
+		boolean invariant = allInstances().size()<=4;
 		
 		assert invariant : "O restaurante tem apenas quatro mesas.";
 	}
 	
 	public void checkNumeroDeveSerPreenchido()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.numero.isDefined
-		boolean invariant = true;
+		boolean invariant = numero!=null;
 		
 		assert invariant : "O número de mesa deve ser preenchido!";
 	}
@@ -173,9 +170,8 @@ public class Mesa implements Comparable<Object>
 	{
 		assert other instanceof Mesa;
 		
-		//	TODO: uncomment the option that is best suitable
-		//	return this.numero.compareTo(((Mesa) other).numero);
-		return this.hashCode() - ((Mesa) other).hashCode();
+			return this.numero.compareTo(((Mesa) other).numero);
+//		return this.hashCode() - ((Mesa) other).hashCode();
 	}
 	
 	/**********************************************************************
