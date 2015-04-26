@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Fornecedor.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -96,9 +96,8 @@ public class Fornecedor extends Entidade implements Comparable<Object>
 	
 	public void checkMoradaFornecedorTemDeSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.morada.isDefined
-		boolean invariant = true;
+		boolean invariant=this.morada!=null;
 		
 		assert invariant : "A morada do fornecedor tem de ser sempre preenchida!";
 	}
@@ -114,11 +113,10 @@ public class Fornecedor extends Entidade implements Comparable<Object>
 	{
 		assert other instanceof Fornecedor;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.morada.compareTo(((Fornecedor) other).morada);
-		//	return this.nc.compareTo(((Fornecedor) other).nc);
+			return this.nc.compareTo(((Fornecedor) other).nc);
 		//	return this.nome.compareTo(((Fornecedor) other).nome);
-		return this.hashCode() - ((Fornecedor) other).hashCode();
+//		return this.hashCode() - ((Fornecedor) other).hashCode();
 	}
 	
 	/**********************************************************************

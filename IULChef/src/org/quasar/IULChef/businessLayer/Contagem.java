@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Contagem.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -136,8 +136,9 @@ public class Contagem implements Comparable<Object>
 	
 	public void checkExistenciasTeemDeSerPreenchidas()
 	{
+		//	TODO conclude the implementation of this OCL invariant:
 		//	self.existencias.isDefined
-		boolean invariant = existencias != null;
+		boolean invariant = true;
 		
 		assert invariant : "Todas as existencias teem que ser preenchidas na contagem";
 	}
@@ -153,6 +154,7 @@ public class Contagem implements Comparable<Object>
 	{
 		assert other instanceof Contagem;
 		
+		//	TODO: uncomment the option that is best suitable
 		//	return this.existencias.compareTo(((Contagem) other).existencias);
 		//	return this.quebras.compareTo(((Contagem) other).quebras);
 		return this.hashCode() - ((Contagem) other).hashCode();

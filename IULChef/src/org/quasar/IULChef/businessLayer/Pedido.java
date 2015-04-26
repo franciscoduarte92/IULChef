@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Pedido.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -133,8 +133,7 @@ public class Pedido implements Comparable<Object>
 	public void init(Integer quantidade)
 	{
 		//	self.quantidade := quantidade; self.devolvido := false
-		this.quantidade = quantidade;
-		this.devolvido = false;
+		this.quantidade=quantidade;
 	}
 	
 	/**********************************************************************
@@ -155,6 +154,7 @@ public class Pedido implements Comparable<Object>
 	{
 		assert other instanceof Pedido;
 		
+		//	TODO: uncomment the option that is best suitable
 		//	return this.devolvido.compareTo(((Pedido) other).devolvido);
 		//	return this.quantidade.compareTo(((Pedido) other).quantidade);
 		return this.hashCode() - ((Pedido) other).hashCode();

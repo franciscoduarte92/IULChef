@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Cliente.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -96,9 +96,14 @@ public class Cliente extends Entidade implements Comparable<Object>
 	
 	public void checkClienteTemUmaFaturaEmesa()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.faturas->collect($e : Fatura | $e.mesa)->isUnique(m : Mesa | Tuple {numero:m.numero})
-		boolean invariant = true;
+		boolean invariant = false;
+		for (Fatura el : faturas()) {
+			if(el.mesa()!=null)
+				invariant=true;
+		}
+		
+		
 		
 		assert invariant : "O cliente tem uma fatura associada a uma e so uma mesa!";
 	}
@@ -114,11 +119,10 @@ public class Cliente extends Entidade implements Comparable<Object>
 	{
 		assert other instanceof Cliente;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.morada.compareTo(((Cliente) other).morada);
-		//	return this.nc.compareTo(((Cliente) other).nc);
+			return this.nc.compareTo(((Cliente) other).nc);
 		//	return this.nome.compareTo(((Cliente) other).nome);
-		return this.hashCode() - ((Cliente) other).hashCode();
+//		return this.hashCode() - ((Cliente) other).hashCode();
 	}
 	
 	/**********************************************************************

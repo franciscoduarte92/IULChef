@@ -1,7 +1,7 @@
 /**********************************************************************
 * Filename: Fatura.java
-* Created: 2015/04/25
-* @author Francisco Duarte & Hugo CHaves
+* Created: 2015/04/24
+* @author Hugo e Francisco
 **********************************************************************/
 package org.quasar.IULChef.businessLayer;
 
@@ -218,7 +218,8 @@ public class Fatura implements Comparable<Object>
 	**********************************************************************/
 	public void init(Integer numero, CalendarDate data)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
+		this.numero=numero;
+		this.data=data;
 		//	self.numero := numero; self.data := data
 	}
 	
@@ -244,18 +245,16 @@ public class Fatura implements Comparable<Object>
 	
 	public void checkNumeroDeveSerPreenchido()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.numero.isDefined
-		boolean invariant = true;
+		boolean invariant = this.numero!=null;
 		
 		assert invariant : "O número de mesa deve ser preenchido!";
 	}
 	
 	public void checkDataDeveSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.data.isDefined
-		boolean invariant = true;
+		boolean invariant = this.data!=null;
 		
 		assert invariant : "A data da fatura deve ser preenchida!";
 	}
@@ -280,10 +279,9 @@ public class Fatura implements Comparable<Object>
 	{
 		assert other instanceof Fatura;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.data.compareTo(((Fatura) other).data);
-		//	return this.numero.compareTo(((Fatura) other).numero);
-		return this.hashCode() - ((Fatura) other).hashCode();
+			return this.numero.compareTo(((Fatura) other).numero);
+//		return this.hashCode() - ((Fatura) other).hashCode();
 	}
 	
 	/**********************************************************************
