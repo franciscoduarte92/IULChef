@@ -427,18 +427,23 @@ public class Empregado extends Entidade implements Comparable<Object>
 	
 	public void checkEmpregadoSoTemUmaMorada()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	Empregado.allInstances->select($elem12 : Empregado | $elem12.oclIsKindOf(Entidade))->isUnique($elem13 : Empregado | $elem13.morada)
-		boolean invariant = true;
+		int count = 0;
+		for (Entidade m : allInstances()) {
+			for (Entidade m2 : allInstances()) {
+				if (m.morada().equals(m2.morada()))
+					count++;
+			}
+		}
+		boolean invariant = count < 2;
 		
 		assert invariant : "Empregado so tem uma morada!";
 	}
 	
 	public void checkTipoDeveSerPreenchido()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.tipo.isDefined
-		boolean invariant = true;
+		boolean invariant = tipo!=null;
 		
 		assert invariant : "O tipo de empregado deve ser preenchido!";
 	}
@@ -454,13 +459,12 @@ public class Empregado extends Entidade implements Comparable<Object>
 	{
 		assert other instanceof Empregado;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.idade.compareTo(((Empregado) other).idade);
 		//	return this.tipo.compareTo(((Empregado) other).tipo);
 		//	return this.morada.compareTo(((Empregado) other).morada);
-		//	return this.nc.compareTo(((Empregado) other).nc);
+			return this.nc.compareTo(((Empregado) other).nc);
 		//	return this.nome.compareTo(((Empregado) other).nome);
-		return this.hashCode() - ((Empregado) other).hashCode();
+//		return this.hashCode() - ((Empregado) other).hashCode();
 	}
 	
 	/**********************************************************************
