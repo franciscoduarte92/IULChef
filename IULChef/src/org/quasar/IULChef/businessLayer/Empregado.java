@@ -189,24 +189,24 @@ public class Empregado extends Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void ComprarIngredientes(Restaurante r, Fornecedor f, ProdutoSimples p, Integer quantidade, Double preco, CalendarDate data)
 	{
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(preco <= 3)
-		boolean pre_ComprarIngredientesPrecoAquisicaoBarato = true;
+		boolean pre_ComprarIngredientesPrecoAquisicaoBarato = preco <= 3;
 		
 		assert pre_ComprarIngredientesPrecoAquisicaoBarato : "Preco tem de ser mais barato que 3";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(quantidade >= 5)
-		boolean pre_ComprarIngredientesQuantidadeMinima = true;
+		boolean pre_ComprarIngredientesQuantidadeMinima = quantidade >= 5;
 		
 		assert pre_ComprarIngredientesQuantidadeMinima : "Tem que se comprar pelo menos 5 produtos";
 		//	-----------------------------------------------------------------------------
 		//	TODO conclude the implementation for this SOIL specification:
 		//	declare c : Compra; c := new Compra; c.init(quantidade, preco, data); insert (c,p) into Compra_ProdutoSimples; insert (c,f) into Compra_Fornecedor; insert (r,c) into Restaurante_Compra
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL postcondition:
 		//	(p.compras->select(c : Compra | (c.data = data))->isEmpty = false)
-		boolean post_ComprarIngredientesCompraSemSucesso = true;
+		boolean post_ComprarIngredientesCompraSemSucesso = false;
+		for (Compra c : p.compras()) {
+			if (c.data() == data) post_ComprarIngredientesCompraSemSucesso = true;
+		}
 		
 		assert post_ComprarIngredientesCompraSemSucesso : "Nao foi possivel efectuar a compra";
 	}
@@ -218,36 +218,53 @@ public class Empregado extends Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void ContrataEmpregado(Restaurante r, Empregado e)
 	{
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(e.idade >= 21)
-		boolean pre_ContrataEmpregadoMaiorIdade = true;
+		boolean pre_ContrataEmpregadoMaiorIdade = e.idade() >= 21;
 		
 		assert pre_ContrataEmpregadoMaiorIdade : "Para contratar um empregado este necessita ser maior de idade(21 anos)";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(self.empregadores->collect($e : Restaurante | $e.contratados)->select(x : Empregado | (x.nome = e.nome))->includes(e) = false)
 		boolean pre_ContrataEmpregadoVerificaJaContratado = true;
 		
+		for (Restaurante rest : empregadores()) {
+			for (Empregado emp : rest.contratados()) {
+				if (emp.nome() == e.nome() && rest.nome() == r.nome()) pre_ContrataEmpregadoVerificaJaContratado = false;
+			}
+		}
+		
 		assert pre_ContrataEmpregadoVerificaJaContratado : "Só se pode contratar o empregado se ele não estiver já contratado no mesmo restaurante";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(Empregado.allInstances->select($elem3 : Empregado | ($elem3.tipo = TipoEmpregado::Gerente))->includes(self) = true)
-		boolean pre_ContrataEmpregadoVerificaSeGerente = true;
+		boolean pre_ContrataEmpregadoVerificaSeGerente = tipo() == TipoEmpregado.Gerente;
 		
 		assert pre_ContrataEmpregadoVerificaSeGerente : "Só o tipo de empregado Gerente é que pode contratar um empregado";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	((self.empregadores->collect($e : Restaurante | $e.contratados)->select(x : Empregado | (x.tipo = TipoEmpregado::Cozinheiro))->size < 1) = true)
 		boolean pre_ContrataEmpregadoSoUmCozinheiro = true;
+		int count = 0;
+		for (Restaurante rest : empregadores()) {
+			for (Empregado emp : rest.contratados()) {
+				if ((rest.nome() == r.nome()) && (emp.tipo() == TipoEmpregado.Cozinheiro)) count++;
+			}
+		}
+		
+		pre_ContrataEmpregadoSoUmCozinheiro = count == 0;
 		
 		assert pre_ContrataEmpregadoSoUmCozinheiro : "Não é permitido mais do que um cozinheiro por restaurante";
 		//	-----------------------------------------------------------------------------
 		//	TODO conclude the implementation for this SOIL specification:
 		//	declare cd : CalendarDate, c : Contrato; cd := new CalendarDate; c := new Contrato between (r,e); cd.initS('2014-06-25'); c.inicio := cd; cd.initS('2015-06-25'); c.fim := cd; c.vencimento := 800
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL postcondition:
 		//	(self.empregadores->collect($e : Restaurante | $e.contratados)->includes(e) = false)
-		boolean post_ContrataEmpregadoInsucesso = true;
+		
+		boolean post_ContrataEmpregadoInsucesso = false;
+		
+		count = 0;
+		for (Restaurante rest : empregadores()) {
+			for (Empregado emp : rest.contratados()) {
+				if ((rest.nome() == r.nome()) && (emp.nc() == e.nc())) post_ContrataEmpregadoInsucesso = true;
+			}
+		}
 		
 		assert post_ContrataEmpregadoInsucesso : "Contrato nao realizado";
 	}
@@ -265,24 +282,21 @@ public class Empregado extends Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void CriarProdutoComposto(String nome, TipoProduto tipop, Unidade unidade, Double precoVenda, Integer quantidade, Queue<Integer> quantidades_ingredientes, Set<ProdutoSimples> ingredientes, GrupoProdutoComposto grupo)
 	{
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(Empregado.allInstances->select($elem4 : Empregado | ($elem4.tipo = TipoEmpregado::Cozinheiro))->includes(self) = true)
-		boolean pre_CriarProdutoCompostoVerificaSeCozinheiro = true;
+		boolean pre_CriarProdutoCompostoVerificaSeCozinheiro = this.tipo.equals(TipoEmpregado.Cozinheiro);
 		
 		assert pre_CriarProdutoCompostoVerificaSeCozinheiro : "Só o tipo de empregado Cozinheiro é que pode criar um produto composto";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(ingredientes->size = quantidades_ingredientes->size)
-		boolean pre_CriarProdutoCompostoVerificaTamanhoListasIgual = true;
+		boolean pre_CriarProdutoCompostoVerificaTamanhoListasIgual = ingredientes.size()==quantidade;
 		
 		assert pre_CriarProdutoCompostoVerificaTamanhoListasIgual : "Só o tipo de empregado Cozinheiro é que pode criar um produto composto";
 		//	-----------------------------------------------------------------------------
 		//	TODO conclude the implementation for this SOIL specification:
 		//	declare itr : Integer, c : Composicao, pc : ProdutoComposto; pc := new ProdutoComposto; pc.init(nome, tipop, unidade, precoVenda, quantidade); pc.grupo := grupo; itr := 0; for ing in ingredientes do c := new Composicao((pc.nome + itr.toString)) between (pc,ing); c.quantidade := quantidades_ingredientes->at(itr); itr := (itr + 1) end
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL postcondition:
 		//	(Pedido.allInstances->collect($e : Pedido | $e.produto)->select(p : Produto | (p.nome = nome))->notEmpty = false)
-		boolean post_CriarProdutoCompostoInsucesso = true;
+		boolean post_CriarProdutoCompostoInsucesso = Pedido.allInstances().contains(nome);
 		
 		assert post_CriarProdutoCompostoInsucesso : "Nao foi possivel criar o produto composto";
 	}
@@ -294,24 +308,28 @@ public class Empregado extends Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void Despedir(Restaurante r, Empregado empre)
 	{
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(self.empregadores->collect($e : Restaurante | $e.contratados)->select(e : Empregado | (e.nome = empre.nome))->includes(empre) = true)
 		boolean pre_DespedirVerificaContratado = true;
-		
+		for (Restaurante e : empregadores()) {
+			if(!e.contratados().contains(empre))
+				pre_DespedirVerificaContratado = false;
+		}
 		assert pre_DespedirVerificaContratado : "Só se pode despedir o empregado se ele estiver já contratado no mesmo restaurante";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	((empre.faturas->size < 5) = true)
-		boolean pre_DespedirMinimoDeVendas = true;
+		boolean pre_DespedirMinimoDeVendas = this.faturas().size()<5;
 		
 		assert pre_DespedirMinimoDeVendas : "Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas";
 		//	-----------------------------------------------------------------------------
 		//	TODO conclude the implementation for this SOIL specification:
 		//	delete (r,empre) from Contrato
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL postcondition:
 		//	(self.empregadores->collect($e : Restaurante | $e.contratados)->includes(empre) = false)
 		boolean post_DespedirInsucesso = true;
+		for (Restaurante e : empregadores()) {
+			if(e.contratados().contains(empre))
+				post_DespedirInsucesso = false;
+		}
 		
 		assert post_DespedirInsucesso : "Nao foi possivel despedir o empregado";
 	}
@@ -324,9 +342,12 @@ public class Empregado extends Entidade implements Comparable<Object>
 		//	TODO conclude the implementation for this SOIL specification:
 		//	declare pe : Bag(Pedido); pe := Pedido.allInstances->asBag->select(p : Pedido | (p.devolvido = true)); for b in pe do destroy b end; destroy pe
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL postcondition:
 		//	(Pedido.allInstances->asBag->exists(p : Pedido | (p.devolvido = true)) = false)
 		boolean post_EliminarDevolucoesInsusesso = true;
+		for (Pedido p : Pedido.allInstances()) {
+			if(p.devolvido()==true)
+				post_EliminarDevolucoesInsusesso = false;
+		}
 		
 		assert post_EliminarDevolucoesInsusesso : "Devolucoes nao eliminadas";
 	}
@@ -349,24 +370,21 @@ public class Empregado extends Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void FazerPedido(Fatura f, Produto p, Integer quantidade)
 	{
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(quantidade >= 1)
-		boolean pre_FazerPedidoQuantidadeMaisDeUmPedido = true;
+		boolean pre_FazerPedidoQuantidadeMaisDeUmPedido = quantidade >=1;
 		
 		assert pre_FazerPedidoQuantidadeMaisDeUmPedido : "Para fazer pedido tem que se pedir 1 produto pelo menos";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(Empregado.allInstances->select($elem2 : Empregado | ($elem2.tipo = TipoEmpregado::EmpregadoMesa))->includes(self) = true)
-		boolean pre_FazerPedidoVerificaEmpregadoMesa = true;
+		boolean pre_FazerPedidoVerificaEmpregadoMesa = this.tipo.equals(TipoEmpregado.EmpregadoMesa);
 		
 		assert pre_FazerPedidoVerificaEmpregadoMesa : "Só o tipo de empregado Empregado de Mesa é que pode fazer pedido";
 		//	-----------------------------------------------------------------------------
 		//	TODO conclude the implementation for this SOIL specification:
 		//	declare pe : Pedido; pe := new Pedido; pe.init(quantidade); insert (pe,p) into Pedido_Produto; insert (f,pe) into Fatura_Pedido
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL postcondition:
 		//	Pedido.allInstances->collect($e : Pedido | $e.produto)->includes(p)
-		boolean post_FazerPedidoNaoRealizado = true;
+		boolean post_FazerPedidoNaoRealizado = Pedido.allInstances().contains(p);
 		
 		assert post_FazerPedidoNaoRealizado : "Pedido nao realizado";
 	}
@@ -380,15 +398,17 @@ public class Empregado extends Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void PassaFatura(Cliente c, Mesa m, CalendarDate data, Integer numF)
 	{
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(Fatura.allInstances->exists($elem0 : Fatura | ($elem0.numero = numF)) = false)
-		boolean pre_PassaFaturaUnica = true;
+		boolean pre_PassaFaturaUnica = false;
+		for (Fatura f : faturas()) {
+			if(f.numero()!=numF)
+				pre_PassaFaturaUnica = true;
+		}
 		
 		assert pre_PassaFaturaUnica : "Ja existe uma fatura com o mesmo numero";
 		//	-----------------------------------------------------------------------------
-		//	TODO conclude the implementation of this OCL precondition:
 		//	(Empregado.allInstances->select($elem1 : Empregado | ($elem1.tipo = TipoEmpregado::EmpregadoMesa))->includes(self) = true)
-		boolean pre_PassaFaturaVerificaEmpregadoMesa = true;
+		boolean pre_PassaFaturaVerificaEmpregadoMesa = this.tipo.equals(TipoEmpregado.EmpregadoMesa);
 		
 		assert pre_PassaFaturaVerificaEmpregadoMesa : "Só o tipo de empregado ‘Empregado de Mesa’ é que pode passar faturas";
 		//	-----------------------------------------------------------------------------
