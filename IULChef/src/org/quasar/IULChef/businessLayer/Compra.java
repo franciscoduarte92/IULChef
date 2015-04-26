@@ -177,8 +177,10 @@ public class Compra implements Comparable<Object>
 	**********************************************************************/
 	public void init(Integer quantidade, Double precoAquisicao, CalendarDate data)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.quantidade := quantidade; self.precoAquisicao := precoAquisicao; self.data := data
+		this.quantidade = quantidade;
+		this.precoAquisicao = precoAquisicao;
+		this.data = data;
 	}
 	
 	/**********************************************************************
@@ -191,9 +193,8 @@ public class Compra implements Comparable<Object>
 	
 	public void checkDataDeveSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.data.isDefined
-		boolean invariant = true;
+		boolean invariant = data != null;
 		
 		assert invariant : "A data da compra deve ser preenchida!";
 	}
@@ -209,7 +210,6 @@ public class Compra implements Comparable<Object>
 	{
 		assert other instanceof Compra;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.data.compareTo(((Compra) other).data);
 		//	return this.precoAquisicao.compareTo(((Compra) other).precoAquisicao);
 		//	return this.quantidade.compareTo(((Compra) other).quantidade);
