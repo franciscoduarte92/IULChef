@@ -188,63 +188,67 @@ public class ProdutoSimples extends Produto implements Comparable<Object>
 	
 	public void checkTemQueTerPeloMenosUmProduto()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	(ProdutoSimples.allInstances->collect($elem20 : ProdutoSimples | $elem20.contagens->collect($e : Contagem | $e.existencias))->asSequence->first >= 1)
-		boolean invariant = true;
+		boolean invariant = !contagens().isEmpty();
 		
 		assert invariant : "Tem que existir pelo menos uma produto!";
 	}
 	
 	public void checkNaoPodeHaverMaisQue20Quebras()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	(ProdutoSimples.allInstances->collect($elem19 : ProdutoSimples | $elem19.contagens->collect($e : Contagem | $e.quebras))->asSequence->last < 20)
-		boolean invariant = true;
+		boolean invariant = false;
+		for (Contagem c : contagens()) {
+			if(c.quebras()<=20)
+				invariant = true;
+		}
 		
 		assert invariant : " O valor das quebras tem de ser =< 20";
 	}
 	
 	public void checkNaoPodeHaverMaisQue300produtos()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	(ProdutoSimples.allInstances->collect($elem18 : ProdutoSimples | $elem18.contagens->collect($e : Contagem | $e.existencias))->asSequence->last < 300)
-		boolean invariant = true;
+		boolean invariant = Produto.allInstances().size() < 300;
 		
 		assert invariant : " O valor das existencias tem de ser <300";
 	}
 	
 	public void checkCodigoBarrasMinDigitos()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	(ProdutoSimples.allInstances->collect($elem16 : ProdutoSimples | $elem16.codigoBarras)->min >= 0)
-		boolean invariant = true;
+		boolean invariant = codigoBarras.toString().length()<9;
 		
 		assert invariant : "O valor minimo do codigo de barras tem que ter 9 digitos";
 	}
 	
 	public void checkFamiliaDeveSerPreenchida()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.familia.isDefined
-		boolean invariant = true;
+		boolean invariant = familia!=null;
 		
 		assert invariant : "A familia do produto simples deve ser preenchida!";
 	}
 	
 	public void checkCodigoBarrasMaxDigitos()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	(ProdutoSimples.allInstances->collect($elem17 : ProdutoSimples | $elem17.codigoBarras)->max <= 999999999)
-		boolean invariant = true;
+		boolean invariant = codigoBarras.toString().length()<9;
 		
 		assert invariant : "O valor maximo do codigo de barras tem que ter 9 digitos";
 	}
 	
 	public void checkCodigoBarrasDeveSerUnico()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	ProdutoSimples.allInstances->select($elem14 : ProdutoSimples | $elem14.codigoBarras.isDefined)->isUnique($elem15 : ProdutoSimples | $elem15.codigoBarras)
-		boolean invariant = true;
+		int count = 0;
+		for (Produto m : allInstances()) {
+			for (Produto m2 : allInstances()) {
+				if (m.equals(m2))
+					count++;
+			}
+		}
+		boolean invariant = count < 2;
 		
 		assert invariant : "O código de barras do produto deve ser único!";
 	}
@@ -260,15 +264,14 @@ public class ProdutoSimples extends Produto implements Comparable<Object>
 	{
 		assert other instanceof ProdutoSimples;
 		
-		//	TODO: uncomment the option that is best suitable
-		//	return this.codigoBarras.compareTo(((ProdutoSimples) other).codigoBarras);
+			return this.codigoBarras.compareTo(((ProdutoSimples) other).codigoBarras);
 		//	return this.familia.compareTo(((ProdutoSimples) other).familia);
 		//	return this.nome.compareTo(((ProdutoSimples) other).nome);
 		//	return this.precoVenda.compareTo(((ProdutoSimples) other).precoVenda);
 		//	return this.quantidade.compareTo(((ProdutoSimples) other).quantidade);
 		//	return this.tipo.compareTo(((ProdutoSimples) other).tipo);
 		//	return this.unidade.compareTo(((ProdutoSimples) other).unidade);
-		return this.hashCode() - ((ProdutoSimples) other).hashCode();
+//		return this.hashCode() - ((ProdutoSimples) other).hashCode();
 	}
 	
 	/**********************************************************************
