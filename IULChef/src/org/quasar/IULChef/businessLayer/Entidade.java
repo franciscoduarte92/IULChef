@@ -108,8 +108,10 @@ public abstract class Entidade implements Comparable<Object>
 	**********************************************************************/
 	public void init(String nome, String morada, Integer nc)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.nome := nome; self.morada := morada; self.nc := nc
+		this.nome=nome;
+		this.morada=morada;
+		this.nc=nc;
 	}
 	
 	/**********************************************************************
@@ -125,9 +127,8 @@ public abstract class Entidade implements Comparable<Object>
 	
 	public void checkNCdeveSerUnico()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	Entidade.allInstances->isUnique($elem5 : Entidade | $elem5.nc)
-		boolean invariant = true;
+		boolean invariant = allInstances().contains(this);
 		
 		assert invariant : "O número de contribuinte da entidade deve ser único!";
 	}
