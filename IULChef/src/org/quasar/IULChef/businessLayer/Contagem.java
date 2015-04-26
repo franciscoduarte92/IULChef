@@ -136,9 +136,8 @@ public class Contagem implements Comparable<Object>
 	
 	public void checkExistenciasTeemDeSerPreenchidas()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.existencias.isDefined
-		boolean invariant = true;
+		boolean invariant = existencias != null;
 		
 		assert invariant : "Todas as existencias teem que ser preenchidas na contagem";
 	}
@@ -154,7 +153,6 @@ public class Contagem implements Comparable<Object>
 	{
 		assert other instanceof Contagem;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.existencias.compareTo(((Contagem) other).existencias);
 		//	return this.quebras.compareTo(((Contagem) other).quebras);
 		return this.hashCode() - ((Contagem) other).hashCode();

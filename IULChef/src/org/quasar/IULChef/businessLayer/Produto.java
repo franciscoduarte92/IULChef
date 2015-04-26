@@ -281,8 +281,12 @@ public abstract class Produto implements Comparable<Object>
 	**********************************************************************/
 	public void init(String nome, TipoProduto tipo, Unidade unidade, Double precoVenda, Integer quantidade)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.nome := nome; self.tipo := tipo; self.unidade := unidade; self.precoVenda := precoVenda; self.quantidade := quantidade
+		this.nome = nome;
+		this.tipo = tipo;
+		this.unidade = unidade;
+		this.precoVenda = precoVenda; 
+		this.quantidade = quantidade;
 	}
 	
 	/**********************************************************************
