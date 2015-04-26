@@ -177,7 +177,6 @@ public class Compra implements Comparable<Object>
 	**********************************************************************/
 	public void init(Integer quantidade, Double precoAquisicao, CalendarDate data)
 	{
-		//	TODO conclude the implementation for this SOIL specification:
 		//	self.quantidade := quantidade; self.precoAquisicao := precoAquisicao; self.data := data
 		this.quantidade = quantidade;
 		this.precoAquisicao = precoAquisicao;
