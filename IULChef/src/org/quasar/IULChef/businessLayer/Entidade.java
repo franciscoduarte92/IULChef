@@ -135,27 +135,25 @@ public abstract class Entidade implements Comparable<Object>
 	
 	public void checkNCDeveSerPreenchido()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.nc.isDefined
-		boolean invariant = true;
+		boolean invariant = nc!=null;
 		
 		assert invariant : "O número de contribuinte da entidade deve ser preenchido!";
 	}
 	
 	public void checkNomeDeveSerPreenchido()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	self.nome.isDefined
-		boolean invariant = true;
+		boolean invariant = nome!=null;
 		
 		assert invariant : "O nome da entidade deve ser preenchido!";
 	}
 	
 	public void checkNCcomNoveDigitos()
 	{
-		//	TODO conclude the implementation of this OCL invariant:
 		//	Entidade.allInstances->sortedBy($elem6 : Entidade | $elem6.nc)->forAll($elem7 : Entidade | (($elem7.oclAsType(Entidade).nc > 0) and ($elem7.oclAsType(Entidade).nc < 999999999)))
-		boolean invariant = true;
+		@SuppressWarnings("static-access")
+		boolean invariant = nc.SIZE==9;
 		
 		assert invariant : "O valor do numero de contribuinte tem ter 9 digitos";
 	}
@@ -171,11 +169,10 @@ public abstract class Entidade implements Comparable<Object>
 	{
 		assert other instanceof Entidade;
 		
-		//	TODO: uncomment the option that is best suitable
 		//	return this.morada.compareTo(((Entidade) other).morada);
-		//	return this.nc.compareTo(((Entidade) other).nc);
+			return this.nc.compareTo(((Entidade) other).nc);
 		//	return this.nome.compareTo(((Entidade) other).nome);
-		return this.hashCode() - ((Entidade) other).hashCode();
+//		return this.hashCode() - ((Entidade) other).hashCode();
 	}
 	
 	/**********************************************************************
