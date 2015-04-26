@@ -370,7 +370,7 @@ public class Empregado extends Entidade implements Comparable<Object>
 	 **********************************************************************/
 	public void FazerInventario(CalendarDate data)
 	{
-		//	declare quantidade : Integer, contagem : Contagem, produtos_simples : Set(Produto), invent : Inventario;
+		//		declare quantidade : Integer, contagem : Contagem, produtos_simples : Set(Produto), invent : Inventario;
 		//		invent := new Inventario; invent.init(data);
 		//		produtos_simples := self.empregadores->collect($e : Restaurante | $e.produtos)->asSet;
 		//		for ps in produtos_simples do quantidade := produtos_simples->select(p : Produto | (p.nome = ps.nome))->collect($e : Produto | $e.quantidade)->sum;
