@@ -9,7 +9,7 @@ package org.quasar.IULChef.presentationLayer;
  *
  * @author terroma
  */
-public class IULChef_ContratarEmpregado extends javax.swing.JFrame {
+public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
 
     /**
      * Creates new form IULChef_ContratarEmpregado
@@ -17,6 +17,7 @@ public class IULChef_ContratarEmpregado extends javax.swing.JFrame {
     public IULChef_ContratarEmpregado() {
         initComponents();
         this.setTitle("Contratar Empregado");
+        setModalityType(DEFAULT_MODALITY_TYPE);
     }
 
     /**

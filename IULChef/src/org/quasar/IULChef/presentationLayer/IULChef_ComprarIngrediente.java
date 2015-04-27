@@ -14,7 +14,7 @@ import org.quasar.IULChef.persistenceLayer.Database;
  *
  * @author terroma
  */
-public class IULChef_ComprarIngrediente extends javax.swing.JFrame {
+public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 
     /**
      * Creates new form IULChef_ComprarIngrediente
@@ -23,6 +23,7 @@ public class IULChef_ComprarIngrediente extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Comprar Ingrediente");
         preencheComboBox();
+        setModalityType(DEFAULT_MODALITY_TYPE);
     }
 
     @SuppressWarnings("unchecked")
