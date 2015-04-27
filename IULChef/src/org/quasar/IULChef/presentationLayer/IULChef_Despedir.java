@@ -9,12 +9,13 @@ import javax.swing.JComboBox;
 
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Entidade;
+import org.quasar.IULChef.persistenceLayer.Database;
 
 /**
  *
  * @author terroma
  */
-public class IULChef_Despedir extends javax.swing.JFrame {
+public class IULChef_Despedir extends javax.swing.JDialog {
 
     /**
      * Creates new form IULChef_Despedir
@@ -23,6 +24,7 @@ public class IULChef_Despedir extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Despedir");
         preencheComboBox();
+        setModalityType(DEFAULT_MODALITY_TYPE);
     }
 
     /**
@@ -41,7 +43,7 @@ public class IULChef_Despedir extends javax.swing.JFrame {
         jButtonVoltar = new javax.swing.JButton();
         jComboBoxEmpregados = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabelEmpregado.setText("Empregado");
 
@@ -61,7 +63,7 @@ public class IULChef_Despedir extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxEmpregados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+//        jComboBoxEmpregados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,31 +122,24 @@ public class IULChef_Despedir extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDespedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespedirActionPerformed
-    	String[] empregados = null;
-    	int i=0;
     	for (Entidade e : Empregado.allInstances()) {
-//			if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {
-//				tipoEmpregadoLogado = ((Empregado) e).tipo();
-//			}
-    		empregados[i] = e.nome()+"-"+e.nc();
-    		i++;
-		}
-    	jComboBoxEmpregados = new JComboBox<>(empregados);
+    		if(e.nc()==jComboBoxEmpregados.getSelectedItem()){
+    			Database.delete(e);
+    		}
+    	}
     }//GEN-LAST:event_jButtonDespedirActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        janelaGerente = new IULChef_Gerente();
-        janelaGerente.setVisible(true);
-        dispose();
+        Database.close();
+    	dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
-    private void preencheComboBox(){
+    @SuppressWarnings("unchecked")
+	private void preencheComboBox(){
+//    	TODO
+    	Database.open("/Users/terroma/git/IULChef/IULChef/database", "IULChef", "db4o");
     	String empregados = null;
-    	int i=0;
     	for (Entidade e : Empregado.allInstances()) {
-//			if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {
-//				tipoEmpregadoLogado = ((Empregado) e).tipo();
-//			}
     		empregados = e.nome()+"-"+e.nc();
     		jComboBoxEmpregados.addItem(empregados);
 		}
@@ -194,6 +189,5 @@ public class IULChef_Despedir extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelEmpregado;
     private javax.swing.JLabel jLabelNc;
     private javax.swing.JPanel jPanel1;
-    private IULChef_Gerente janelaGerente;
     // End of variables declaration//GEN-END:variables
 }
