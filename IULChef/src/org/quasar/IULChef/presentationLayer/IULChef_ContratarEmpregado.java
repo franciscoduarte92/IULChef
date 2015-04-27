@@ -5,6 +5,8 @@
  */
 package org.quasar.IULChef.presentationLayer;
 
+import javax.swing.JOptionPane;
+
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.businessLayer.TipoEmpregado;
@@ -28,7 +30,7 @@ public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Contratar Empregado");
         setModalityType(DEFAULT_MODALITY_TYPE);
-        setLocation(550, 350);
+        setLocation(450, 350);
     }
 
     /**
@@ -172,8 +174,14 @@ public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
     
     
     private void jButtonContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContratarActionPerformed
+    	int tamanhoAntigo=Empregado.allInstances().size();
     	Empregado novoEmpregado = new Empregado(jTextFieldMorada.getText(), Integer.parseInt(jTextFieldNcEmpregado1.getText()), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()), getSelectedTipo());
     	empregado.ContrataEmpregado(restaurante, novoEmpregado);
+    	if(Empregado.allInstances().size()>tamanhoAntigo){
+    		JOptionPane.showMessageDialog(this, "Empregado contratado com sucesso!");
+    	}else{
+    		JOptionPane.showMessageDialog(this, "Nao foi possivel contratar Empregado!");
+    	}
     }//GEN-LAST:event_jButtonContratarActionPerformed
 
     private TipoEmpregado getSelectedTipo() {

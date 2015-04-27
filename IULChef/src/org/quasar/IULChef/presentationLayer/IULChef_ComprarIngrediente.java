@@ -8,6 +8,7 @@ package org.quasar.IULChef.presentationLayer;
 import java.util.Calendar;
 
 import org.quasar.IULChef.businessLayer.CalendarDate;
+import org.quasar.IULChef.businessLayer.Compra;
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Entidade;
 import org.quasar.IULChef.businessLayer.Fornecedor;
@@ -45,7 +46,7 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
         this.setTitle("Comprar Ingrediente");
         preencheComboBox();
         setModalityType(DEFAULT_MODALITY_TYPE);
-        setLocation(550, 350);
+        setLocation(450, 350);
     }
 
     
@@ -187,15 +188,11 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 
     @SuppressWarnings("unchecked")
 	private void preencheComboBox() {
-    	String fornecedores = null;
     	for (Entidade e : Fornecedor.allInstances()) {
-    		fornecedores = e.nome();
-    		jComboBoxFornecedores.addItem(fornecedores);
+    		jComboBoxFornecedores.addItem(e.nome());
 		}
-    	String produtoSimples = null;
     	for(Produto p : ProdutoSimples.allInstances()){
-    		produtoSimples = p.nome();
-    		jComboBoxNomeProduto.addItem(produtoSimples);
+    		jComboBoxNomeProduto.addItem(p.nome());
     	}
 	}
     
@@ -216,11 +213,13 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        empregado.ComprarIngredientes(restaurante, getSelectedFornecedor(), getSelectedProduto(), Integer.parseInt(jTextFieldQuantidade.getText()), Double.parseDouble(jTextFieldPreco.getText()), new CalendarDate(Calendar.DAY_OF_MONTH,Calendar.MONTH, Calendar.YEAR));
-//        JOptionPane sucess= new JOptionPane();
-//        sucess.setMessage("Produto Encomendado com sucesso!");
-//        sucess.createDialog("Atenção");
-//        sucess.setOptionType(JOptionPane.OK_OPTION);
+        int quantidadeComprasAnt = Compra.allInstances().size();
+    	empregado.ComprarIngredientes(restaurante, getSelectedFornecedor(), getSelectedProduto(), Integer.parseInt(jTextFieldQuantidade.getText()), Double.parseDouble(jTextFieldPreco.getText()), new CalendarDate(Calendar.DAY_OF_MONTH,Calendar.MONTH, Calendar.YEAR));
+    	if(Compra.allInstances().size()>quantidadeComprasAnt){
+    		JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso!");
+    	}else{
+    		JOptionPane.showMessageDialog(this, "Nao foi possivel efetuar compra!");
+    	}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed

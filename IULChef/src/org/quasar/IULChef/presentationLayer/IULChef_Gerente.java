@@ -137,7 +137,6 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     private void jButtonContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContratarActionPerformed
         janelaContratar = new IULChef_ContratarEmpregado(empregado,restaurante);
         janelaContratar.setVisible(true);
-        dispose();
     }//GEN-LAST:event_jButtonContratarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed

@@ -143,10 +143,8 @@ public class IULChef_Despedir extends javax.swing.JDialog {
 
     @SuppressWarnings("unchecked")
 	private void preencheComboBox(){
-    	String empregados = null;
     	for (Entidade e : Empregado.allInstances()) {
-    		empregados = e.nome()+"-"+e.nc();
-    		jComboBoxEmpregados.addItem(empregados);
+    		jComboBoxEmpregados.addItem(e.nome());
 		}
     	
     }//GEN-LAST:event

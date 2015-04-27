@@ -73,7 +73,7 @@ public class IULChef_Login extends JFrame {
 				}
 				
 				for (Entidade r : Restaurante.allInstances()) {
-					if (r.nome() == NOME_RESTAURANTE) {
+					if (r.nome().equals(NOME_RESTAURANTE)) {
 						restaurante = ((Restaurante) r);
 					}
 				}

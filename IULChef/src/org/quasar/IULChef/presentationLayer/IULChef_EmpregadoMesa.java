@@ -9,8 +9,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import org.quasar.IULChef.businessLayer.Empregado;
+import org.quasar.IULChef.businessLayer.Entidade;
+import org.quasar.IULChef.businessLayer.Fornecedor;
+import org.quasar.IULChef.businessLayer.Mesa;
+import org.quasar.IULChef.businessLayer.Produto;
+import org.quasar.IULChef.businessLayer.ProdutoSimples;
 import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.persistenceLayer.Database;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -20,6 +28,8 @@ public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
 
     private Empregado empregado;
 	private Restaurante restaurante;
+	private IULChef_PassarFatura painelPassarFatura;
+	private IULChef_FazerPedido painelFazerPedido;
 	/**
      * Creates new form IULChef_swing
      * @param restaurante 
@@ -30,6 +40,8 @@ public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
     	this.restaurante = restaurante;
         initComponents();
         this.setTitle("Empregado de Mesa");
+        setLocation(450,350);
+        setSize(279, 197);
     }
 
     /**
@@ -52,7 +64,6 @@ public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
         jButtonPassarFatura = new javax.swing.JButton();
         jButtonPedido = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
-        jButtonDevolverPedido = new javax.swing.JButton();
 
         jButtonPassarFatura.setText("Passar Fatura");
         jButtonPassarFatura.addActionListener(new java.awt.event.ActionListener() {
@@ -68,78 +79,70 @@ public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
             }
         });
 
-        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.setText("Logout");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVoltarActionPerformed(evt);
             }
         });
 
-        jButtonDevolverPedido.setText("Devolver Pedido");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonPassarFatura, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonVoltar))
-                    .addComponent(jButtonDevolverPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(jButtonPedido, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+        				.addComponent(jButtonPassarFatura, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+        				.addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        					.addGap(0, 75, Short.MAX_VALUE)
+        					.addComponent(jButtonVoltar)))
+        			.addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonPassarFatura, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonDevolverPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonVoltar)
-                .addContainerGap())
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jButtonPassarFatura, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jButtonPedido, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addComponent(jButtonVoltar)
+        			.addContainerGap())
         );
+        jPanel1.setLayout(jPanel1Layout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(78, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         pack();
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void jButtonPassarFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPassarFaturaActionPerformed
-        // TODO add your handling code here:
+        painelPassarFatura = new IULChef_PassarFatura(empregado,restaurante);
+        painelPassarFatura.setVisible(true);
     }//GEN-LAST:event_jButtonPassarFaturaActionPerformed
 
     private void jButtonPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoActionPerformed
-        // TODO add your handling code here:
+    	painelFazerPedido = new IULChef_FazerPedido(empregado,restaurante);
+    	painelFazerPedido.setVisible(true);
     }//GEN-LAST:event_jButtonPedidoActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        // TODO add your handling code here:
+    	dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDevolverPedido;
     private javax.swing.JButton jButtonPassarFatura;
     private javax.swing.JButton jButtonPedido;
     private javax.swing.JButton jButtonVoltar;
