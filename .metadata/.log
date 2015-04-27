@@ -20,3 +20,17 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 4 0 2015-04-27 03:00:48.621
+!MESSAGE An internal error occurred
+!STACK 0
+org.eclipse.jgit.api.errors.JGitInternalException: Entry not found by path: J-USE/bin/org/quasar/juse/api/implementation/.svn/text-base/ProgramingFacade.java.svn-base
+	at org.eclipse.jgit.api.CommitCommand.createTemporaryIndex(CommitCommand.java:432)
+	at org.eclipse.jgit.api.CommitCommand.call(CommitCommand.java:203)
+	at org.eclipse.egit.core.op.CommitOperation.commit(CommitOperation.java:243)
+	at org.eclipse.egit.core.op.CommitOperation.access$5(CommitOperation.java:232)
+	at org.eclipse.egit.core.op.CommitOperation$1.run(CommitOperation.java:196)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2313)
+	at org.eclipse.egit.core.op.CommitOperation.execute(CommitOperation.java:206)
+	at org.eclipse.egit.ui.internal.commit.CommitJob.run(CommitJob.java:93)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
