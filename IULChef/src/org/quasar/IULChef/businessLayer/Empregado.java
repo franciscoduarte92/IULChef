@@ -203,9 +203,10 @@ public class Empregado extends Entidade implements Comparable<Object> {
 	 * @param data
 	 *            the data to set
 	 **********************************************************************/
-	public void ComprarIngredientes(Restaurante r, Fornecedor f, ProdutoSimples p, Integer quantidade, Double preco, CalendarDate data)
-	{
-		//	(preco <= 3)
+	public void ComprarIngredientes(Restaurante r, Fornecedor f,
+			ProdutoSimples p, Integer quantidade, Double preco,
+			CalendarDate data) {
+		// (preco <= 3)
 		boolean pre_ComprarIngredientesPrecoAquisicaoBarato = preco <= 3;
 
 		assert pre_ComprarIngredientesPrecoAquisicaoBarato : "Preco tem de ser mais barato que 3";
@@ -357,21 +358,21 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// c.quantidade := quantidades_ingredientes->at(itr); itr := (itr + 1)
 		// end
 		int itr;
-		Composicao c;
 		ProdutoComposto pc;
-		
+
 		pc = new ProdutoComposto();
 		pc.init(nome, tipop, unidade, precoVenda, quantidade);
 		pc.setGrupo(grupo);
-		
+
 		itr = 0;
 		for (ProdutoSimples ing : ingredientes) {
-			
-			c = new Composicao(pc, ing, (double)quantidades_ingredientes.toArray()[itr]);
+
+			new Composicao(pc, ing,
+					(double) quantidades_ingredientes.toArray()[itr]);
 			itr++;
-			
+
 		}
-		
+
 		// -----------------------------------------------------------------------------
 		// (Pedido.allInstances->collect($e : Pedido | $e.produto)->select(p :
 		// Produto | (p.nome = nome))->notEmpty = false)
@@ -422,24 +423,25 @@ public class Empregado extends Entidade implements Comparable<Object> {
 	/**********************************************************************
 	 * User-defined operation specified in SOIL/OCL
 	 **********************************************************************/
+	@SuppressWarnings("null")
 	public void EliminarDevolucoes() {
 		// declare pe : Bag(Pedido); pe := Pedido.allInstances->asBag->select(p
 		// : Pedido | (p.devolvido = true)); for b in pe do destroy b end;
 		// destroy pe
 		Set<Pedido> pedidos_devolvidos = null;
-		
+
 		for (Pedido pe : Pedido.allInstances()) {
 			if (pe.devolvido() == true) {
 				pedidos_devolvidos.add(pe);
 			}
 		}
-		
+
 		for (Pedido pe : pedidos_devolvidos) {
 			Database.delete(pe);
 		}
-		
+
 		pedidos_devolvidos.clear();
-		
+
 		// -----------------------------------------------------------------------------
 		// (Pedido.allInstances->asBag->exists(p : Pedido | (p.devolvido =
 		// true)) = false)
@@ -458,26 +460,30 @@ public class Empregado extends Entidade implements Comparable<Object> {
 	 * @param data
 	 *            the data to set
 	 **********************************************************************/
-	public void FazerInventario(CalendarDate data)
-	{
-		//		declare quantidade : Integer, contagem : Contagem, produtos_simples : Set(Produto), invent : Inventario;
-		//		invent := new Inventario; invent.init(data);
-		//		produtos_simples := self.empregadores->collect($e : Restaurante | $e.produtos)->asSet;
-		//		for ps in produtos_simples do quantidade := produtos_simples->select(p : Produto | (p.nome = ps.nome))->collect($e : Produto | $e.quantidade)->sum;
-		//		contagem := new Contagem; contagem.existencias := quantidade; insert (contagem,ps.oclAsType(ProdutoSimples)) into Contagem_ProdutoSimples;
-		//		insert (invent,contagem) into Inventario_Contagem end
-		Integer quantidade = 0 ;
+	public void FazerInventario(CalendarDate data) {
+		// declare quantidade : Integer, contagem : Contagem, produtos_simples :
+		// Set(Produto), invent : Inventario;
+		// invent := new Inventario; invent.init(data);
+		// produtos_simples := self.empregadores->collect($e : Restaurante |
+		// $e.produtos)->asSet;
+		// for ps in produtos_simples do quantidade :=
+		// produtos_simples->select(p : Produto | (p.nome =
+		// ps.nome))->collect($e : Produto | $e.quantidade)->sum;
+		// contagem := new Contagem; contagem.existencias := quantidade; insert
+		// (contagem,ps.oclAsType(ProdutoSimples)) into Contagem_ProdutoSimples;
+		// insert (invent,contagem) into Inventario_Contagem end
+		Integer quantidade = 0;
 		Contagem contagem = new Contagem();
 		Inventario invent = new Inventario();
 		Set<Produto> produto_simples = null;
 		for (Restaurante res : empregadores()) {
-			produto_simples =res.produtos();
+			produto_simples = res.produtos();
 		}
 		for (Produto produto : produto_simples) {
-			quantidade+=produto.quantidade();
+			quantidade += produto.quantidade();
 			contagem.setExistencias(quantidade);
-			Database.insert(contagem,produto);
-			Database.insert(invent,contagem);
+			Database.insert(contagem, produto);
+			Database.insert(invent, contagem);
 		}
 	}
 
@@ -509,7 +515,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		Pedido pe;
 		pe = new Pedido();
 		pe.init(quantidade);
-		
+
 		Database.insert(pe, p);
 		Database.insert(f, pe);
 		// -----------------------------------------------------------------------------
@@ -556,7 +562,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		Fatura f;
 		f = new Fatura();
 		f.init(numF, data);
-		
+
 		Database.insert(f, c);
 		Database.insert(f, this);
 		Database.insert(f, m);
