@@ -1,0 +1,409 @@
+-- IULChef ----------------------------------------------------------------------------------
+
+reset
+
+-- Data -------------------------------------------------------------------------------------
+
+!new CalendarDate('vencimento')
+!vencimento.day := 12
+!vencimento.month := 9
+!vencimento.year := 2017
+
+!new CalendarDate('ontem')
+!ontem.day := 6
+!ontem.month := 3
+!ontem.year := 2015
+
+!new CalendarDate('hoje')
+!@hoje.day := 7
+!@hoje.month := 3
+!@hoje.year := 2015
+
+
+-- Dados do restaurante -------------------------------------------------------------------------
+
+!new Restaurante('mrPizza')
+!mrPizza.nome := 'Pizzaria Mr. Pizza'
+!mrPizza.morada := 'Av. Forcas Armadas, 89C, Lisboa'
+!mrPizza.nc := 934587994
+
+!new Mesa('mesa1')
+!mesa1.numero := 1
+!insert (mrPizza,mesa1) into Restaurante_Mesa
+
+!new Mesa('mesa2')
+!mesa2.numero := 2
+!insert (mrPizza,mesa2) into Restaurante_Mesa
+
+!new Mesa('mesa3')
+!mesa3.numero := 3
+!insert (mrPizza,mesa3) into Restaurante_Mesa
+
+
+!new Empregado('bob')
+!bob.tipo := TipoEmpregado::Cozinheiro
+!bob.nome := 'Bob Miguel Rodrigues'
+!bob.morada := 'R. das Flores, N8, S. Marcos'
+!bob.nc := 849766485
+!bob.idade := 23;
+
+!new Empregado('alice')
+!alice.tipo := TipoEmpregado::EmpregadoMesa
+!alice.nome := 'Alice Vitoria'
+!alice.morada := 'Praceta Pedro Nunes, 12, 3dto, Lisboa'
+!alice.nc := 234191999
+!alice.idade := 33;
+
+!new Empregado('ze')
+!ze.tipo := TipoEmpregado::Gerente
+!ze.nome := 'Ze Manel'
+!ze.morada := 'Av. do Miradouro, N12, Amadora'
+!ze.nc := 744122586
+!ze.idade := 29;
+
+
+!create contrato1: Contrato between (mrPizza,ze)
+!contrato1.inicio := hoje
+!contrato1.vencimento := 1000
+!contrato1.fim := vencimento
+
+!create contrato2: Contrato between (mrPizza,bob)
+!contrato2.inicio := hoje
+!contrato2.vencimento := 800
+!contrato2.fim := vencimento
+
+!create contrato3: Contrato between (mrPizza,alice)
+!contrato3.inicio := hoje
+!contrato3.vencimento := 650
+!contrato3.fim := vencimento
+
+
+-- produtos do super-mercado ----------------------------------------------------------------
+
+!new ProdutoSimples('tomates')
+!tomates.quantidade := 100;
+!tomates.nome := 'Tomates Cherry'
+!tomates.unidade := Unidade::Avulso
+!tomates.tipo := TipoProduto::Perecivel
+!tomates.familia := FamiliaProdutoSimples::Vegetais
+!tomates.precoVenda := 1.99
+!tomates.codigoBarras := 123456789
+
+!new ProdutoSimples('pimentos')
+!pimentos.quantidade := 100;
+!pimentos.nome := 'Pimentos Amarelos'
+!pimentos.unidade := Unidade::Avulso
+!pimentos.tipo := TipoProduto::Perecivel
+!pimentos.familia := FamiliaProdutoSimples::Vegetais
+!pimentos.precoVenda := 1.00
+!pimentos.codigoBarras := 987654321
+
+!new ProdutoSimples('mozzarella')
+!mozzarella.quantidade := 100;
+!mozzarella.nome := 'Queijo Mozzarella'
+!mozzarella.unidade := Unidade::Kilo
+!mozzarella.tipo := TipoProduto::Perecivel
+!mozzarella.familia := FamiliaProdutoSimples::LacteosOvos
+!mozzarella.precoVenda := 6.25
+!mozzarella.codigoBarras := 376424801
+
+!new ProdutoSimples('oregaos')
+!oregaos.quantidade := 100;
+!oregaos.nome := 'Frasco Oregaos'
+!oregaos.unidade := Unidade::Avulso
+!oregaos.tipo := TipoProduto::NaoPerecivel
+!oregaos.familia := FamiliaProdutoSimples::Vegetais
+!oregaos.precoVenda := 0.69
+!oregaos.codigoBarras := 648392916
+
+!new ProdutoSimples('fiambre')
+!fiambre.quantidade := 100;
+!fiambre.nome := 'Fiambre Perna Extra'
+!fiambre.unidade := Unidade::Kilo
+!fiambre.tipo := TipoProduto::Perecivel
+!fiambre.familia := FamiliaProdutoSimples::Carne
+!fiambre.precoVenda := 6.25
+!fiambre.codigoBarras := 312879801
+
+!new ProdutoSimples('massa')
+!massa.quantidade := 100;
+!massa.nome := 'Massa de Pizza'
+!massa.unidade := Unidade::Kilo
+!massa.tipo := TipoProduto::Perecivel
+!massa.familia := FamiliaProdutoSimples::Cereais
+!massa.precoVenda := 6.93
+!massa.codigoBarras := 376835301
+
+!new ProdutoSimples('cogumelos')
+!cogumelos.quantidade := 100;
+!cogumelos.nome := 'Cogumelos Frescos'
+!cogumelos.unidade := Unidade::Kilo
+!cogumelos.tipo := TipoProduto::Perecivel
+!cogumelos.familia := FamiliaProdutoSimples::Outros
+!cogumelos.precoVenda := 5.49
+!cogumelos.codigoBarras := 385569711
+
+!new ProdutoSimples('azeitonas')
+!azeitonas.quantidade := 100;
+!azeitonas.nome := 'Azeitonas Retalhadas'
+!azeitonas.unidade := Unidade::Kilo
+!azeitonas.tipo := TipoProduto::Perecivel
+!azeitonas.familia := FamiliaProdutoSimples::Frutos
+!azeitonas.precoVenda := 3.53
+!azeitonas.codigoBarras := 322581360
+
+!new ProdutoSimples('alho')
+!alho.quantidade := 100;
+!alho.nome := 'Dente de Alho'
+!alho.unidade := Unidade::Avulso
+!alho.tipo := TipoProduto::Perecivel
+!alho.familia := FamiliaProdutoSimples::Vegetais
+!alho.precoVenda := 0.80
+!alho.codigoBarras := 748392647
+
+!new ProdutoSimples('pao')
+!pao.quantidade := 100;
+!pao.nome := 'Pao Baguete'
+!pao.unidade := Unidade::Kilo
+!pao.tipo := TipoProduto::Perecivel
+!pao.familia := FamiliaProdutoSimples::Cereais
+!pao.precoVenda := 1.93
+!pao.codigoBarras := 376830301
+
+!new ProdutoSimples('manteiga')
+!manteiga.quantidade := 100;
+!manteiga.nome := 'Manteiga Milanesa'
+!manteiga.unidade := Unidade::Kilo
+!manteiga.tipo := TipoProduto::Perecivel
+!manteiga.familia := FamiliaProdutoSimples::Cereais
+!manteiga.precoVenda := 2.93
+!manteiga.codigoBarras := 376805301
+
+
+!insert (mrPizza,tomates) into Restaurante_Produto
+!insert (mrPizza,pimentos) into Restaurante_Produto
+!insert (mrPizza,mozzarella) into Restaurante_Produto
+!insert (mrPizza,oregaos) into Restaurante_Produto
+!insert (mrPizza,fiambre) into Restaurante_Produto
+!insert (mrPizza,massa) into Restaurante_Produto
+!insert (mrPizza,cogumelos) into Restaurante_Produto
+!insert (mrPizza,azeitonas) into Restaurante_Produto
+!insert (mrPizza,alho) into Restaurante_Produto
+!insert (mrPizza,pao) into Restaurante_Produto
+!insert (mrPizza,manteiga) into Restaurante_Produto
+
+
+-- Pizzas ----------------------------------------------------------------------------------
+
+!new ProdutoComposto('margherita')
+!margherita.quantidade := 20;
+!margherita.nome := 'Pizza Margherita'
+!margherita.unidade := Unidade::Dose
+!margherita.precoVenda := 8.30
+!margherita.tipo := TipoProduto::Perecivel
+!margherita.grupo := GrupoProdutoComposto::PratoPrincipal
+
+!b1 := new Composicao('b1') between (@margherita,@tomates)
+!@b1.quantidade := 2
+
+!b2 := new Composicao('b2') between (@margherita,@mozzarella)
+!@b2.quantidade := 0.2
+
+!b3 := new Composicao('b3') between (@margherita,@oregaos)
+!@b3.quantidade := 0.1
+
+!b4 := new Composicao('b4') between (@margherita,@massa)
+!@b4.quantidade := 1
+
+
+!new ProdutoComposto('fourStagioni')
+!fourStagioni.quantidade := 20;
+!fourStagioni.nome := 'Pizza 4 STAGIONI'
+!fourStagioni.unidade := Unidade::Dose
+!fourStagioni.precoVenda := 8.80
+!fourStagioni.tipo := TipoProduto::Perecivel
+!fourStagioni.grupo := GrupoProdutoComposto::PratoPrincipal
+
+!c1 := new Composicao('c1') between (@fourStagioni,@tomates)
+!@c1.quantidade := 2
+
+!c2 := new Composicao('c2') between (@fourStagioni,@mozzarella)
+!@c2.quantidade := 0.2
+
+!c3 := new Composicao('c3') between (@fourStagioni,@fiambre)
+!@c3.quantidade := 0.25
+
+!c4 := new Composicao('c4') between (@fourStagioni,@cogumelos)
+!@c4.quantidade := 0.2
+
+!c5 := new Composicao('c5') between (@fourStagioni,@azeitonas)
+!@c5.quantidade := 0.2
+
+!c6 := new Composicao('c6') between (@fourStagioni,@oregaos)
+!@c4.quantidade := 0.1
+
+!c7 := new Composicao('c7') between (@fourStagioni,@massa)
+!@c4.quantidade := 1
+
+
+!new  ProdutoComposto('primavera')
+!primavera.quantidade := 20;
+!primavera.nome := 'Pizza Primavera'
+!primavera.unidade := Unidade::Dose
+!primavera.precoVenda := 12.50
+!primavera.tipo := TipoProduto::Perecivel
+!primavera.grupo := GrupoProdutoComposto::PratoPrincipal
+
+!a1 := new Composicao('a1') between (@primavera,@tomates)
+!@a1.quantidade := 2
+
+!a2 := new Composicao('a2') between (@primavera,@mozzarella)
+!@a2.quantidade := 0.2
+
+!a3 := new Composicao('a3') between (@primavera,@cogumelos)
+!@a3.quantidade := 0.2
+
+!a4 := new Composicao('a4') between (@primavera,@pimentos)
+!@a4.quantidade := 0.5
+
+!a5 := new Composicao('a5') between (@primavera,@massa)
+!@a5.quantidade := 1
+
+
+!new ProdutoComposto('paoAlho')
+!paoAlho.quantidade := 20;
+!paoAlho.nome := 'Pao de Alho'
+!paoAlho.unidade := Unidade::Dose
+!paoAlho.precoVenda := 3.20
+!paoAlho.tipo := TipoProduto::Perecivel
+!paoAlho.grupo := GrupoProdutoComposto::Entrada
+
+!d1 := new Composicao('d1') between (@paoAlho,@pao)
+!@d1.quantidade := 2
+
+!d2 := new Composicao('d2') between (@paoAlho,@alho)
+!@d2.quantidade := 0.1
+
+!d3 := new Composicao('d3') between (@paoAlho,@manteiga)
+!@d3.quantidade := 0.1
+
+
+-- Dados de faturação ---------------------------------------------------------------------------
+
+!new Cliente('joao')
+!@joao.nome := 'Joao Antonio'
+!@joao.morada := 'R. dos Pombos'
+!@joao.nc := 128897455
+
+!new Cliente('andre')
+!@andre.nome := 'Andre Antonio'
+!@andre.morada := 'R. das Pombas'
+!@andre.nc := 736352925
+
+
+!new Fatura('f1')
+!f1.numero := 456
+!f1.data := hoje
+!insert (@f1,@joao) into Fatura_Cliente
+!insert (@f1,@alice) into Fatura_Empregado
+!insert (@f1,@mesa1) into Fatura_Mesa
+
+!new Fatura('f2')
+!f2.numero := 456
+!f2.data := hoje
+!insert (@f2,@andre) into Fatura_Cliente
+!insert (@f2,@alice) into Fatura_Empregado
+!insert (@f2,@mesa2) into Fatura_Mesa
+
+
+!new Pedido('p1_f1')
+!insert (@f1,@p1_f1) into Fatura_Pedido
+!insert (@p1_f1,@margherita) into Pedido_Produto
+!p1_f1.quantidade := 1
+!p1_f1.devolvido := true
+
+!new Pedido('p2_f2')
+!insert (@f2,@p2_f2) into Fatura_Pedido
+!insert (@p2_f2,@primavera) into Pedido_Produto
+!p2_f2.quantidade := 2
+!p2_f2.devolvido := false
+
+!new Pedido('p3_f2')
+!insert (@f2,@p3_f2) into Fatura_Pedido
+!insert (@p3_f2,@paoAlho) into Pedido_Produto
+!p3_f2.quantidade := 4
+!p3_f2.devolvido := false
+
+!insert (mrPizza,@f1) into Restaurante_Fatura
+!insert (mrPizza,@f2) into Restaurante_Fatura
+
+
+-- Inventários ----------------------------------------------------------------------------------
+
+!new Inventario('inv_2015_03_07')
+!insert (mrPizza,inv_2015_03_07) into Restaurante_Inventarios
+
+!new Inventario('inv_2015_03_06')
+!inv_2015_03_06.data := ontem
+!insert (mrPizza,inv_2015_03_06) into Restaurante_Inventarios
+
+
+!new Contagem('cogumelos_2015_03_07')
+!@cogumelos_2015_03_07.existencias := 60
+!@cogumelos_2015_03_07.quebras := 1
+
+!insert (@inv_2015_03_07,@cogumelos_2015_03_07) into Inventario_Contagem
+!insert (cogumelos_2015_03_07,cogumelos) into Contagem_ProdutoSimples
+!inv_2015_03_07.data := hoje
+
+
+!new Contagem('azeitonas_2015_03_07')
+!@azeitonas_2015_03_07.existencias := 20
+!@azeitonas_2015_03_07.quebras := 0
+
+!insert (@inv_2015_03_07,@azeitonas_2015_03_07) into Inventario_Contagem
+!insert (azeitonas_2015_03_07,azeitonas) into Contagem_ProdutoSimples
+!inv_2015_03_07.data := hoje
+
+
+!new Contagem('pimentos_2015_03_07')
+!@pimentos_2015_03_07.existencias := 21
+!@pimentos_2015_03_07.quebras := 0
+
+!insert (@inv_2015_03_07,@pimentos_2015_03_07) into Inventario_Contagem
+!insert (pimentos_2015_03_07,pimentos) into Contagem_ProdutoSimples
+!inv_2015_03_07.data := hoje
+
+
+!new Contagem('tomates_2015_03_06')
+!@tomates_2015_03_06.existencias := 17
+!@tomates_2015_03_06.quebras := 0
+
+!insert (@inv_2015_03_07,@tomates_2015_03_06) into Inventario_Contagem
+!insert (tomates_2015_03_06,tomates) into Contagem_ProdutoSimples
+!inv_2015_03_07.data := hoje
+
+
+-- Compras -------------------------------------------------------------------------------------
+
+!new Fornecedor('horta')
+!horta.nome := 'Horta da Maria S.A.'
+!horta.morada := 'Rua dos Gambuzinos, 1, Sintra'
+!horta.nc := 789456123
+
+
+!new Compra('compra1')
+!insert (compra1,tomates) into Compra_ProdutoSimples
+!compra1.quantidade := 30
+!compra1.precoAquisicao := 1.99
+!compra1.data := hoje
+!insert (compra1,horta) into Compra_Fornecedor
+!insert (mrPizza,compra1) into Restaurante_Compra
+
+!new Compra('compra2')
+!insert (compra2,azeitonas) into Compra_ProdutoSimples
+!compra1.quantidade := 20
+!compra1.precoAquisicao := 3.53
+!compra1.data := hoje
+!insert (compra2,horta) into Compra_Fornecedor
+!insert (mrPizza,compra2) into Restaurante_Compra

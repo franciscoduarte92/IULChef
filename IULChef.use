@@ -1,0 +1,821 @@
+
+---------------------------------------------------------------------------------
+model IULChef
+---------------------------------------------------------------------------------
+
+enum TipoEmpregado {Gerente, Cozinheiro, EmpregadoMesa}
+enum Unidade {Kilo, Litro, Dose, Avulso}
+enum TipoProduto {Perecivel, NaoPerecivel}
+enum FamiliaProdutoSimples {BebidasNaoAlcoolicas, BebidasAlcoolicas, Cereais, Carne,
+        Peixe, LacteosOvos, GordurasAlimentares, Frutos, Vegetais, Doces, Outros}
+enum GrupoProdutoComposto {Menu, Entrada, PratoPrincipal, Guarnicao, Sobremesa, Cocktail}
+
+--------------------------------------------------------------
+-- Domain types
+--------------------------------------------------------------
+abstract class Entidade
+    attributes
+        nome: String
+        morada: String
+        nc: Integer
+    
+    operations
+
+    	init(nome: String, morada: String, nc: Integer)
+    		begin
+    			self.nome:=nome;
+    			self.morada:=morada;
+    			self.nc:=nc;
+    		end
+
+    constraints
+        @NomeDeveSerPreenchido(rationale="O nome da entidade deve ser preenchido!")
+        inv NomeDeveSerPreenchido: self.nome.isDefined()
+        
+        @NCDeveSerPreenchido(rationale="O número de contribuinte da entidade deve ser preenchido!")
+        inv NCDeveSerPreenchido: self.nc.isDefined()
+        
+        @NCdeveSerUnico(rationale="O número de contribuinte da entidade deve ser único!")
+        inv NCdeveSerUnico: Entidade.allInstances->isUnique(nc)
+
+
+        @NCcomNoveDigitos (rationale="O valor do numero de contribuinte tem ter 9 digitos")
+            inv NCcomNoveDigitos:
+                Entidade.allInstances->sortedBy(nc)->forAll (oclAsType (Entidade).nc >000000000 and oclAsType (Entidade).nc <999999999)
+
+
+end
+--------------------------------------------
+class Restaurante < Entidade
+
+    constraints
+        @NumeroMesaDeveSerUnico(rationale="Um restaurante não pode ter mais do que uma mesa com o mesmo número!")
+        inv NumeroMesaDeveSerUnico: self.mesas->isUnique(numero)
+        
+        --@NumeroFaturaDeveSerUnico(rationale="Um restaurante não pode ter mais do que uma fatura com o mesmo número!")
+        --inv NumeroFaturaDeveSerUnico: self.faturas->isUnique(numero)
+        
+        @DataInventarioDeveSerUnica(rationale="Um restaurante não pode ter mais do que um inventário com a mesma data!")            
+        inv DataInventarioDeveSerUnica: self.inventarios->isUnique(data)
+
+
+        @RestauranteTemVariosProdutos(rationale="O restaurante tem mais que um produto!")
+        inv RestauranteTemVariosProdutos: self.produtos -> asSequence() -> size() > 1
+
+        --@RestaurateNaoPodeTerUmProdutoCompostoComMesmoNome(rationale="Um restaurate não pode ter produtos compostos com o mesmo nome")
+        --inv RestaurateNaoPodeTerUmProdutoCompostoComMesmoNome: Produto.allInstances -> sortedBy(nome)->isUnique (p:Produto | Tuple {nome:String = p.nome})
+
+        --@RestauranteTemDeTodosTiposEmpregados(rationale="Um restaurante precisa ter pelo menos um empregado de cada tipo!")
+        --inv TemQueHaverUmTipoDeCadaEmpregado: self.contratados -> exists((oclAsType(Empregado).tipo = #Gerente) and (oclAsType(Empregado).tipo = #Cozinheiro) and (oclAsType(Empregado).tipo = #EmpregadoMesa))
+
+        @RestauranteTemPeloMenosUmFornecedor(rationale="Um restaurante tem de ter um fornecedor")
+        inv RestauranteTemPeloMenosUmFornecedor: Restaurante.allInstances.compras->collect(fornecedor)->size>1
+
+        @RestauranteTemPeloMenosUmEmpregado(rationale="Um restaurante tem de ter pelo menos um empregado")
+        inv RestauranteTemPeloMenosUmEmpregado: Restaurante.allInstances.contratados->collect(contrato)->size>1
+        
+
+end
+--------------------------------------------
+class Empregado < Entidade
+    attributes
+        tipo: TipoEmpregado
+	idade: Integer
+
+    operations
+
+	    PassaFatura(c : Cliente, m : Mesa, data : CalendarDate, numF : Integer)
+	        begin
+	            declare
+		    	--numero : Integer,
+	            	f : Fatura;
+
+		        --numero := Fatura.allInstances -> size + 1;
+	            f := new Fatura;
+		        f.init(numF, data);
+	            insert(f,c) into Fatura_Cliente;
+	            insert(f,self) into Fatura_Empregado;
+	            insert(f,m) into Fatura_Mesa;
+		end
+
+		--PRE-CONDITIONS
+		@PassaFaturaUnica(rationale="Ja existe uma fatura com o mesmo numero", type="E", msg="Ja existe uma fatura com o mesmo numero")
+		pre PassaFaturaUnica:
+				Fatura.allInstances() -> exists(numero=numF)=false
+
+		@PassaFaturaVerificaEmpregadoMesa(rationale="Só o tipo de empregado ‘Empregado de Mesa’ é que pode passar faturas", type="E", msg="Só o tipo de empregado ‘Empregado de Mesa’ é que pode passar faturas")
+		pre PassaFaturaVerificaEmpregadoMesa: Empregado.allInstances()->select(tipo = #EmpregadoMesa)->includes(self)=true
+
+		--POST-CONDITIONS
+           --@PassaFaturaEmpregadoNaoAutorizado(rationale="Só o tipo de empregado ‘Empregado de Mesa’ é que pode passar faturas", type="E", msg="Só o tipo de empregado ‘Empregado de Mesa’ é que pode passar faturas")
+	       --	post FaturaEmpregadoNaoAutorizado: Empregado.allInstances()->select(tipo = #EmpregadoMesa)->includes(self)=false
+
+		FazerPedido(f: Fatura, p: Produto,quantidade: Integer)
+            begin
+                declare
+                    pe: Pedido;
+					
+				pe:= new Pedido;
+				pe.init(quantidade);
+                insert(pe,p) into Pedido_Produto;
+                insert(f,pe) into Fatura_Pedido;
+            end
+
+		--PRE-CONDITIONS
+		@FazerPedidoQuantidadeMaisDeUmPedido(rationale="Para fazer pedido tem que se pedir 1 produto pelo menos", type="E", msg="Para fazer pedido tem que se pedir 1 produto pelo menos")
+		pre FazerPedidoQuantidadeMaisDeUmPedido:	
+			quantidade >= 1
+		
+        @FazerPedidoVerificaEmpregadoMesa(rationale="Só o tipo de empregado Empregado de Mesa é que pode fazer pedido", type="E", msg="Só o tipo de empregado Empregado de Mesa é que pode fazer pedido")
+   		pre FazerPedidoVerificaEmpregadoMesa: Empregado.allInstances()->select(tipo = #EmpregadoMesa)->includes(self) = true	
+
+		--POST-CONDITIONS
+		@FazerPedidoNaoRealizado(rationale="Pedido nao realizado", type="E", msg="Pedido nao realizado")
+			post FazerPedidoNaoRealizado:
+Pedido.allInstances().produto->includes(p)
+
+ContrataEmpregado(r : Restaurante, e : Empregado)
+	begin
+		declare
+			cd : CalendarDate,
+			--r : Restaurante,
+			c : Contrato;
+		
+		cd := new CalendarDate;
+		--r := new Restaurante;
+		--r := self.empregadores->asSequence->first;
+		c := new Contrato between (r, e);
+		cd.initS('2014-06-25');
+		c.inicio := cd;
+		cd.initS('2015-06-25');
+		c.fim := cd;
+ 		c.vencimento := 800;
+	end
+
+--PRE-CONDITIONS
+@ContrataEmpregadoMaiorIdade(rationale="Para contratar um empregado este necessita ser maior de idade(21 anos)", type="E", msg="Para contratar um empregado este necessita ser maior de idade(21 anos)")
+			pre ContrataEmpregadoMaiorIdade: 
+e.idade>=21
+
+@ContrataEmpregadoVerificaJaContratado(rationale="Só se pode contratar o empregado se ele não estiver já contratado no mesmo restaurante", type="E", msg="Só se pode contratar o empregado se ele não estiver já contratado no mesmo restaurante")
+   			 pre ContrataEmpregadoVerificaJaContratado: self.empregadores.contratados -> select (x | x.nome=e.nome) -> includes (e) = false
+
+@ContrataEmpregadoVerificaSeGerente(rationale="Só o tipo de empregado Gerente é que pode contratar um empregado", type="E", msg="Só o tipo de empregado Gerente é que pode contratar um empregado")
+   			 pre ContrataEmpregadoVerificaSeGerente: Empregado.allInstances()->select(tipo = #Gerente)->includes(self)=true
+
+@ContrataEmpregadoSoUmCozinheiro(rationale="Não é permitido mais do que um cozinheiro por restaurante", type="E", msg="Não é permitido mais do que um cozinheiro por restaurante")
+   			 pre ContrataEmpregadoSoUmCozinheiro: (self.empregadores.contratados -> select (x | x.tipo = #Cozinheiro) -> size < 1) = true
+
+--POST-CONDITIONS
+@ContrataEmpregadoInsucesso(rationale="Contrato nao realizado", type="E", msg="Contrato nao realizado")
+			post ContrataEmpregadoInsucesso:
+			self.empregadores.contratados->includes(e) = false
+
+ComprarIngredientes(r: Restaurante, f: Fornecedor, p:ProdutoSimples,quantidade: Integer, preco: Real, data: CalendarDate)
+	begin
+		declare
+			c: Compra;
+			
+		c:= new Compra;
+		c.init(quantidade,preco,data);
+		insert(c, p) into Compra_ProdutoSimples;
+		insert(c, f) into Compra_Fornecedor;
+		insert(r, c) into Restaurante_Compra;
+	end
+
+--PRE-CONDITIONS
+@ComprarIngredientesPrecoAquisicaoBarato(rationale="Preco tem de ser mais barato que 3", type="E", msg="Preco tem de ser mais barato que 33")
+	pre ComprarIngredientesPrecoAquisicaoBarato:
+	preco <=3
+
+@ComprarIngredientesQuantidadeMinima(rationale="Tem que se comprar pelo menos 5 produtos", type="E", msg="Tem que se comprar pelo menos 5 produtos")
+	pre ComprarIngredientesQuantidadeMinima:
+	quantidade>=5
+
+	
+--@ComprarIngredientesVerificaSeGerente(rationale="Só o tipo de empregado Gerente é que pode comprar ingredientes", type="E", msg="Só o tipo de empregado Gerente é que pode comprar ingredientes")
+   			 --pre FazerPedidoVerificaSeGerente: Empregado.allInstances()->select(tipo = #Gerente)->includes(self)=true
+
+--POST-CONDITIONS
+@ComprarIngredientesCompraSemSucesso(rationale="Nao foi possivel efectuar a compra", type="E", msg="Nao foi possivel efectuar a compra")
+   			 post ComprarIngredientesCompraSemSucesso: 
+	(p.compras -> select (c | c.data = data) -> isEmpty) = false
+
+
+
+
+
+
+Despedir(r: Restaurante, empre: Empregado)
+	begin
+		delete(r, empre) from Contrato;
+	end
+
+
+--PRE-CONDITIONS
+@DespedirVerificaContratado(rationale="Só se pode despedir o empregado se ele estiver já contratado no mesmo restaurante", type="E", msg="Só se pode despedir o empregado se ele estiver já contratado no mesmo restaurante")
+   			 pre DespedirVerificaContratado: self.empregadores.contratados -> select (e | e.nome=empre.nome) -> includes (empre) = true
+
+@DespedirMinimoDeVendas(rationale="Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas", type="E",msg="Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas")
+	pre DespedirMinimoDeVendas: empre.faturas->size<5=true
+
+--@DespedirVerificaSeGerente(rationale="Só o tipo de empregado Gerente é que pode despedir um empregado", type="E", msg="Só o tipo de empregado Gerente é que pode despedir um empregado")
+   			 --pre FazerPedidoVerificaSeGerente: Empregado.allInstances()->select(tipo = #Gerente)->includes(self)=true
+
+
+--POST-CONDITIONS
+@DespedirInsucesso(rationale="Nao foi possivel despedir o empregado", type="E", msg="Nao foi possivel despedir o empregado")
+	post DespedirInsucesso:
+self.empregadores.contratados->includes(empre)=false
+
+
+EliminarDevolucoes()
+	begin    
+   		declare
+   			pe: Bag(Pedido);
+
+   		pe := Pedido.allInstances -> asBag -> select(p | p.devolvido=true);
+		
+   		for b in pe do
+			destroy b
+  	 	end; 
+		
+   		destroy pe;
+	end
+ -- nota: quando se apaga um objeto, são destruídas automaticamente as ligações que esse objeto tinha com outros objetos
+
+
+--PRE-CONDITIONS
+--@EliminarDevolucoesVerificaSeCozinheiro(rationale="Só o tipo de empregado Cozinheiro é que pode deitar fora os pedidos devolvidos", type="E", msg="Só o tipo de empregado Cozinheiro é que pode deitar fora os pedidos devolvidos")
+   			 --pre FazerPedidoVerificaSeCozinheiro: Empregado.allInstances()->select(tipo = #Cozinheiro)->includes(self)=true
+
+--VerificarIngredientesProdutoComposto(pc: ProdutoComposto)
+
+--POST-CONDITIONS
+@EliminarDevolucoesInsusesso(rationale="Devolucoes nao eliminadas", type="E", msg="Devolucoes nao eliminadas")
+            post EliminarDevolucoesInsusesso: Pedido.allInstances -> asBag -> exists(p|p.devolvido=true)=false
+
+
+
+CriarProdutoComposto(nome : String, tipop : TipoProduto, unidade : Unidade, precoVenda : Real, quantidade : Integer, quantidades_ingredientes : Sequence(Integer), ingredientes : Set(ProdutoSimples), grupo : GrupoProdutoComposto)
+	begin
+		declare
+			itr : Integer,
+			c : Composicao,
+			pc : ProdutoComposto;
+
+		pc := new ProdutoComposto;
+		pc.init(nome, tipop, unidade, precoVenda, quantidade);
+		pc.grupo := grupo;
+
+		itr := 0;
+		for ing in ingredientes do
+			c := new Composicao(pc.nome +itr.toString) between (pc, ing);
+			c.quantidade := quantidades_ingredientes -> at(itr);
+			itr := itr + 1;
+		end;
+	end
+
+--PRE-CONDITIONS
+@CriarProdutoCompostoVerificaSeCozinheiro(rationale="Só o tipo de empregado Cozinheiro é que pode criar um produto composto", type="E", msg="Só o tipo de empregado Cozinheiro é que pode criar um produto composto")
+   			 pre CriarProdutoCompostoVerificaSeCozinheiro: Empregado.allInstances()->select(tipo = #Cozinheiro)->includes(self)=true
+
+@CriarProdutoCompostoVerificaTamanhoListasIgual(rationale="Só o tipo de empregado Cozinheiro é que pode criar um produto composto", type="E", msg="Só o tipo de empregado Cozinheiro é que pode criar um produto composto")
+   			 pre CriarProdutoCompostoVerificaTamanhoListasIgual: (ingredientes -> size) = (quantidades_ingredientes -> size)
+
+--POST-CONDITIONS
+@CriarProdutoCompostoInsucesso(rationale="Nao foi possivel criar o produto composto", type="E",msg="Nao foi possivel criar o produto composto")
+            post CriarProdutoCompostoInsucesso: Pedido.allInstances.produto->select(p|p.nome=nome)->notEmpty()=false
+
+FazerInventario(data : CalendarDate)
+	begin
+		declare
+			quantidade : Integer,
+			contagem : Contagem,
+			produtos_simples : Set(Produto),
+			invent : Inventario;
+
+		invent := new Inventario;
+		invent.init(data);
+		
+		produtos_simples:=self.empregadores.produtos -> asSet;
+
+		for ps in produtos_simples do
+			quantidade := produtos_simples -> select(p | p.nome=ps.nome).quantidade -> sum;
+			contagem := new Contagem;
+			contagem.existencias := quantidade;
+			insert(contagem, ps.oclAsType(ProdutoSimples)) into Contagem_ProdutoSimples;
+			insert(invent,contagem) into Inventario_Contagem;
+		end;
+	end
+
+--PRE-CONDITIONS
+--@FazerInventarioVerificaSeCozinheiro(rationale="Só o tipo de empregado Cozinheiro é que pode criar um inventário", type="E", msg="Só o tipo de empregado Cozinheiro é que pode criar um inventário")
+   			 --pre FazerPedidoVerificaSeCozinheiro: Empregado.allInstances()->select(tipo = #Cozinheiro)->includes(self)=true
+
+--POST-CONDITIONS
+
+	
+    constraints
+        @TipoDeveSerPreenchido(rationale="O tipo de empregado deve ser preenchido!")
+        inv TipoDeveSerPreenchido: self.tipo.isDefined()
+
+
+        --@TemQueHaverUmTipoDeCadaEmpregado(rationale="Tem que existir pelo menos um gerente, um empregado de mesa e um cozinheiro")
+        --inv TemQueHaverUmTipoDeCadaEmpregado: Empregado.allInstances -> sortedBy(nome)->forAll(oclAsType (Empregado).tipo = TipoEmpregado::Cozinheiro  )
+
+        @EmpregadoSoTemUmaMorada(rationale="Empregado so tem uma morada!")
+        inv EmpregadoSoTemUmaMorada: Empregado.allInstances()->select(oclIsKindOf(Entidade))->isUnique(morada)    
+
+end
+--------------------------------------------
+class Cliente < Entidade
+    constraints
+
+
+        --@ClienteTemFaturaPedidoProduto(rationale="O cliente tem de ter uma fatura, um pedido e um produto!")
+        --inv ClienteTemFaturaPedidoProduto: self.faturas.pedidos.produto -> asSequence() -> size() > 1
+
+        @ClienteTemUmaFaturaEmesa(rationale="O cliente tem uma fatura associada a uma e so uma mesa!")
+        inv ClienteTemUmaFaturaEmesa: self.faturas.mesa -> isUnique (m:Mesa | Tuple {numero:Integer = m.numero})
+
+
+end
+--------------------------------------------
+class Fornecedor < Entidade
+    constraints
+
+
+        @MoradaFornecedorTemDeSerPreenchida(rationale="A morada do fornecedor tem de ser sempre preenchida!")
+        inv MoradaFornecedorTemDeSerPreenchida: self.morada.isDefined()
+
+
+end
+--------------------------------------------
+abstract class Produto
+    attributes
+        nome: String
+        tipo: TipoProduto
+        unidade: Unidade    
+        precoVenda: Real
+        quantidade: Integer
+
+    operations
+    	init(nome: String, tipo: TipoProduto, unidade: Unidade, precoVenda: Real, quantidade: Integer)
+    	 begin
+    	 	self.nome:=nome;
+    	 	self.tipo:=tipo;
+    	 	self.unidade:=unidade;
+    	 	self.precoVenda:=precoVenda;
+			self.quantidade:=quantidade;
+    	 end
+    	  
+    constraints
+        @NomeDeveSerPreenchido(rationale="O nome do produto deve ser preenchido!")
+        inv NomeDeveSerPreenchido: self.nome.isDefined()
+        
+        @TipoDeveSerPreenchido(rationale="O tipo de produto deve ser preenchido!")
+        inv TipoDeveSerPreenchido: self.tipo.isDefined()
+        
+        @UnidadeDeveSerPreenchida(rationale="A unidade do produto deve ser preenchida!")
+        inv UnidadeDeveSerPreenchida: self.unidade.isDefined()
+        
+        @PrecoDeveSerPreenchido(rationale="O preço de venda do produto deve ser preenchido!")
+        inv PrecoDeveSerPreenchido: self.precoVenda.isDefined()
+
+
+        --@ProdutoTemDeTerPedidos(rationale="O produto tem que ser pedido!")
+        --inv ProdutoTemDeTerPedidos: self.pedidos -> size()=1 implies self.quantidade >0
+
+
+end
+--------------------------------------------
+class ProdutoSimples < Produto
+    attributes
+        codigoBarras: Integer
+        familia: FamiliaProdutoSimples
+        
+    constraints
+        @FamiliaDeveSerPreenchida(rationale="A familia do produto simples deve ser preenchida!")
+        inv FamiliaDeveSerPreenchida: self.familia.isDefined()
+        
+        @CodigoBarrasDeveSerUnico(rationale="O código de barras do produto deve ser único!")
+        inv CodigoBarrasDeveSerUnico: ProdutoSimples.allInstances->select(codigoBarras.isDefined())->isUnique(codigoBarras)
+
+
+        @CodigoBarrasMinDigitos(rationale="O valor minimo do codigo de barras tem que ter 9 digitos")
+            inv CodigoBarrasMinDigitos:
+                ProdutoSimples.allInstances->collect(codigoBarras)->min >= 000000000
+
+        @CodigoBarrasMaxDigitos(rationale="O valor maximo do codigo de barras tem que ter 9 digitos")
+            inv CodigoBarrasMaxDigitos:
+                ProdutoSimples.allInstances->collect(codigoBarras)->max <= 999999999
+
+        @NaoPodeHaverMaisQue300produtos ( rationale= " O valor das existencias tem de ser <300")
+        inv NaoPodeHaverMaisQue300produtos : ProdutoSimples.allInstances->collect(contagens.existencias)->asSequence()->last() <300
+
+        @NaoPodeHaverMaisQue20Quebras( rationale= " O valor das quebras tem de ser =< 20")
+        inv NaoPodeHaverMaisQue20Quebras: ProdutoSimples.allInstances->collect(contagens.quebras)->asSequence()->last() <20
+
+        @TemQueTerPeloMenosUmProduto(rationale="Tem que existir pelo menos uma produto!")
+        inv TemQueTerPeloMenosUmProduto: ProdutoSimples.allInstances -> collect(contagens.existencias) -> asSequence() -> first >= 1    
+
+
+end
+--------------------------------------------
+class ProdutoComposto < Produto
+    attributes
+        grupo: GrupoProdutoComposto
+        
+    constraints
+        @GrupoDeveSerPreenchido(rationale="O grupo do produto composto deve ser preenchido!")
+        inv GrupoDeveSerPreenchido: self.grupo.isDefined()
+
+
+        @ProdutoCompostoTemNoMinimoTresIngredientes (rationale="Um produto composto tem de ter no minimo tres ingredientes!")
+        inv ProdutoCompostoTemNoMinimoTresIngredientes: self.ingredientes->size()>=3
+
+        @ProdutoCompostoTemQueSerConfecionado(rationale="Um produto composto tem de ser confecionado")
+        inv ProdutoCompostoTemQueSerConfecionado: self.confecionados -> asSequence() -> size() > 0
+
+
+end
+--------------------------------------------
+class Mesa
+    attributes
+        numero: Integer
+        
+    constraints
+        @NumeroDeveSerPreenchido(rationale="O número de mesa deve ser preenchido!")
+        inv NumeroDeveSerPreenchido: self.numero.isDefined()
+
+
+        @MesaTemUmEmpregado(rationale="Uma mesa tem apenas um empregado")
+        inv MesaTemUmEmpregado: restaurante.contratados->asSet->size >= 1
+
+        @NumeroMesaFixo(rationale="O restaurante tem apenas quatro mesas.")
+        inv NumeroMesaFixo: if Mesa.allInstances -> size() <= 4 then true else false endif
+
+
+end
+--------------------------------------------
+class Fatura
+    attributes
+        numero: Integer
+        data: CalendarDate
+        
+operations
+    init(numero : Integer, data : CalendarDate)
+        begin
+            self.numero := numero;
+            self.data := data;
+        end
+
+    constraints
+        @NumeroDeveSerPreenchido(rationale="O número de mesa deve ser preenchido!")    
+        inv NumeroDeveSerPreenchido: self.numero.isDefined()
+
+        @DataDeveSerPreenchida(rationale="A data da fatura deve ser preenchida!")
+        inv DataDeveSerPreenchida: self.data.isDefined()
+        
+        @CozinheirosNaoFaturam(rationale="Os cozinheiros não passam faturas!")
+        inv CozinheirosNaoFaturam: self.empregado.tipo <> TipoEmpregado::Cozinheiro
+
+
+        @RestauranteNaoPodeTerMaisQue10ProdutosDevolvidos(rationale="No Restaurante nao se pode devolver mais que dez produtos")
+        inv RestauranteNaoPodeTerMaisQue10ProdutosDevolvidos : Pedido.allInstances.devolvido->count(true)<100
+
+
+end
+--------------------------------------------
+class Pedido
+    attributes
+        quantidade: Integer
+        devolvido: Boolean
+       
+
+    operations
+	init(quantidade: Integer)
+		begin
+			self.quantidade:=quantidade;
+			self.devolvido:=false;
+		end
+
+ 
+    constraints
+        --@QuantidadeDeveSerPreenchida(rationale="A quantidade do pedido deve ser preenchida!")        
+        --inv QuantidadeDeveSerPreenchida: self.quantidade.isDefined()
+
+
+        --@PedidoFaturaCliente(rationale="O pedido tem fatura e fatura tem cliente!")
+        --inv PedidoFaturaCliente: self.fatura.cliente -> asSequence() -> size() > 1
+
+        --@PedidoTemFaturaSeDevolvido(rationale="Se o produto for devolvido, o pedido tem fatura a mesma")
+        --inv PedidoTemFaturaSeNaoDevolvido: self.fatura -> size()=1 implies self.devolvido and self.quantidade >0
+
+
+end
+--------------------------------------------
+class Inventario
+    attributes
+        data: CalendarDate
+		
+	operations
+		init(data : CalendarDate)
+		begin
+			self.data := data;
+        end
+		
+    constraints
+        --@DataDeveSerPreenchida(rationale="A data do inventário deve ser preenchida!")        
+        --inv DataDeveSerPreenchida: self.data.isDefined()
+
+
+        --@NaoHaExistenciasVazias(rationale="Tudo que existir tem que ser preenchido!")
+        --inv NaoHaExistenciasVazias: contagens.existencias -> notEmpty
+
+
+end
+--------------------------------------------
+associationclass Composicao
+    between
+        ProdutoComposto [*] role confecionados
+        Produto [*] role ingredientes
+    attributes
+        quantidade: Real
+
+    constraints
+        @QuantidadeDeveSerPreenchida(rationale="A quantidade do ingrediente na composição do produto composto deve ser preenchida!")        
+        inv QuantidadeDeveSerPreenchida: self.quantidade.isDefined()
+end
+--------------------------------------------
+class Contagem
+    attributes
+        existencias: Integer
+        quebras: Integer
+    constraints
+
+        @ExistenciasTeemDeSerPreenchidas(rationale="Todas as existencias teem que ser preenchidas na contagem")        
+        inv ExistenciasTeemDeSerPreenchidas: self.existencias.isDefined()
+
+
+end
+--------------------------------------------
+class Compra
+    attributes
+        quantidade: Integer
+        precoAquisicao: Real
+        data: CalendarDate
+
+    operations
+	init(quantidade: Integer, precoAquisicao: Real, data: CalendarDate)
+		begin
+			self.quantidade:=quantidade;
+			self.precoAquisicao:=precoAquisicao;
+			self.data:=data;
+		end
+    
+    constraints
+        --@QuantidadeDeveSerPreenchida(rationale="A quantidade do produto simples comprado deve ser preenchida!")        
+        --inv QuantidadeDeveSerPreenchida: self.quantidade.isDefined()
+
+        --@PrecoAquisicaoDeveSerPreenchido(rationale="O preço de aquisição do produto simples deve ser preenchido!")                
+        --inv PrecoAquisicaoDeveSerPreenchido: self.precoAquisicao.isDefined()
+
+        @DataDeveSerPreenchida(rationale="A data da compra deve ser preenchida!")    
+        inv DataDeveSerPreenchida: self.data.isDefined()
+
+
+        --@QuantidadeDaCompraMinimo2(rationale="A quantidade do produto simples deve ser pelo menos de 2!")
+        --inv QuantidadeDaCompraMinimo2: self.quantidade >= 2
+
+
+end
+--------------------------------------------
+associationclass Contrato
+    between
+        Restaurante [1..*] role empregadores
+        Empregado [1..*] role contratados
+    attributes
+        inicio: CalendarDate
+        fim: CalendarDate
+        vencimento: Real
+        
+    constraints
+        @DataInicioDeveSerPreenchida(rationale="A data de início do contrato deve ser preenchida!")            
+        inv DataInicioDeveSerPreenchida: self.inicio.isDefined()
+        
+        @VencimentoDeveSerPreenchido(rationale="O vencimento a pagar mensalmente ao empregado no âmbito do contrato deve ser preenchido!")                
+        inv VencimentoDeveSerPreenchido: self.vencimento.isDefined()
+
+
+        @DataFimDeveSerPreenchida(rationale="A data de fim do contrato deve ser preenchida!")            
+        inv DataFimDeveSerPreenchida: self.fim.isDefined()
+
+
+end
+
+--LEMBRETE
+-- let , asOrderedSet , append , prepend , subSequence , subOrderedSet , min , reject , iterate , union , intersection , excludes , including , excluding , oclEmpty , @pre
+
+--------------------------------------------------------------
+-- Associations
+--------------------------------------------------------------
+association Restaurante_Produto between
+    Restaurante [*] role restaurantes
+    Produto [*] role produtos
+end
+
+composition Restaurante_Compra between
+    Restaurante [1]
+    Compra [*] role compras
+end
+
+composition Restaurante_Fatura between
+    Restaurante [1]
+    Fatura [*] role faturas
+end
+
+composition Restaurante_Mesa between
+    Restaurante [1]
+    Mesa [*] role mesas ordered
+end
+
+association Fatura_Mesa between
+    Fatura [*] role faturas
+    Mesa [1]
+end
+
+association Fatura_Cliente between
+    Fatura [*] role faturas
+    Cliente [0..1]
+end
+
+association Fatura_Empregado between
+    Fatura [*] role faturas
+    Empregado [1]
+end
+
+composition Fatura_Pedido between
+    Fatura [1]
+    Pedido [1..*] role pedidos
+end
+
+association Pedido_Produto between
+    Pedido [*] role pedidos
+    Produto [1]
+end
+
+composition Restaurante_Inventarios    between
+    Restaurante [1]
+    Inventario [*] role inventarios
+end
+
+composition Inventario_Contagem    between
+    Inventario [1]
+    Contagem [*] role contagens
+end
+
+association Contagem_ProdutoSimples between
+    Contagem [*] role contagens
+    ProdutoSimples [1]
+end
+    
+association Compra_ProdutoSimples between    
+    Compra [*] role compras
+    ProdutoSimples [1]
+end
+
+association Compra_Fornecedor between    
+    Compra [*] role compras
+    Fornecedor [1]
+end
+
+--------------------------------------------------------------
+-- Library types
+--------------------------------------------------------------
+class CalendarDate
+
+    attributes
+        day: Integer
+        month: Integer
+        year: Integer
+
+    operations
+
+        init(day: Integer, month: Integer, year: Integer)
+            begin
+                self.day:= day;
+                self.month:= month;
+                self.year:= year
+            end
+            
+        -- date format: yyyy-mm-dd
+        initS(date: String)
+            begin
+                self.year:= date.substring(1,4).toInteger();
+                self.month:= date.substring(6,7).toInteger();
+                self.day:= date.substring(9,10).toInteger()
+            end
+            
+        isBefore(t: CalendarDate):Boolean =
+            if self.year = t.year then
+                if self.month = t.month then
+                self.day < t.day
+                 else
+                self.month < t.month
+                 endif
+            else
+                self.year < t.year
+            endif
+
+        isAfter(t: CalendarDate):Boolean =
+            if self.year = t.year then
+                if self.month = t.month then
+                    self.day > t.day
+                 else
+                    self.month > t.month
+                endif
+            else
+                self.year > t.year
+            endif
+
+        isEqual(t: CalendarDate):Boolean =
+            self.year  = t.year and
+            self.month = t.month and
+            self.day   = t.day
+
+        yearsSince(t: CalendarDate):Integer =
+            if self.month < t.month or
+               self.month = t.month and self.day < t.day then
+                    self.year - t.year -1
+            else
+                self.year - t.year
+            endif
+
+        isDivisible(x: Integer, y: Integer): Boolean = x div y * y = x
+        
+        isLeap(): Boolean =
+            if isDivisible(self.year, 400) or isDivisible(self.year, 4) then
+                true
+            else
+                if isDivisible(self.year, 100) then
+                     false
+                else
+                    if isDivisible(self.year, 4) then
+                        true
+                    else
+                        false
+                    endif
+                endif
+            endif
+            
+        isValid(): Boolean =
+                self.month>=1 and self.month<=12 and self.day>=1 and
+                if self.isLeap() then
+                    self.day<=Sequence{31,29,31,30,31,30,31,31,30,31,30,31}->at(self.month)
+                else
+                    self.day<=Sequence{31,28,31,30,31,30,31,31,30,31,30,31}->at(self.month)
+                endif
+
+        stringToDate(date: String): CalendarDate
+            begin
+              declare
+                    date_year : String,
+                    date_month : String,
+                    date_day : String;
+                    
+                date_year:= date.substring(1,4);
+                date_month:= date.substring(6,7);
+                date_day:= date.substring(9,10);
+                result:= CalendarDate.allInstances-> select(cd |
+                    cd.year=date_year.toInteger() and
+                    cd.month=date_month.toInteger() and
+                    cd.day=date_day.toInteger())->asSequence()->first();
+                if result.isUndefined() then
+                    result:= new CalendarDate('D'+date_year+date_month+date_day);
+                  result.initS(date)
+                end
+            end
+            
+        toString(): String =
+            self.year.toString().concat('/').concat(self.month.toString()).concat('/').concat(self.day.toString())
+            
+    constraints
+        @DateIsValid(rationale="The current date must be a valid one")
+        inv DateIsValid: self.isValid()
+        
+        @DatesAreDistinct(rationale="CalendarDate objects contain distinct dates")
+        inv DatesAreDistinct:
+            CalendarDate.allInstances->isUnique(toString())
+        
+end --CalendarDate
+
+
+
+
+
+
+
+
+
