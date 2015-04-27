@@ -32,6 +32,7 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     	this.restaurante = restaurante;
         initComponents();
         setTitle("Gerente");
+        setLocation(550, 350);
     }
 
     /**
@@ -124,23 +125,22 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDespedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespedirActionPerformed
-        janelaDespedir = new IULChef_Despedir();
+        janelaDespedir = new IULChef_Despedir(empregado,restaurante);
         janelaDespedir.setVisible(true);
     }//GEN-LAST:event_jButtonDespedirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        janelaComprarIngrediente = new IULChef_ComprarIngrediente();
+        janelaComprarIngrediente = new IULChef_ComprarIngrediente(empregado,restaurante);
         janelaComprarIngrediente.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContratarActionPerformed
-        janelaContratar = new IULChef_ContratarEmpregado();
+        janelaContratar = new IULChef_ContratarEmpregado(empregado,restaurante);
         janelaContratar.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonContratarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        Database.close();
         janelaLogin = new IULChef_Login();
         janelaLogin.setVisible(true);
         dispose();

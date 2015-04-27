@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Entidade;
+import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.persistenceLayer.Database;
 
 /**
@@ -17,14 +18,21 @@ import org.quasar.IULChef.persistenceLayer.Database;
  */
 public class IULChef_Despedir extends javax.swing.JDialog {
 
-    /**
+    private Empregado empregado;
+	private Restaurante restaurante;
+	/**
      * Creates new form IULChef_Despedir
+     * @param restaurante 
+     * @param empregado 
      */
-    public IULChef_Despedir() {
+    public IULChef_Despedir(Empregado empregado, Restaurante restaurante) {
+    	this.empregado = empregado;
+    	this.restaurante = restaurante;
         initComponents();
         this.setTitle("Despedir");
         preencheComboBox();
         setModalityType(DEFAULT_MODALITY_TYPE);
+        setLocation(550, 350);
     }
 
     /**

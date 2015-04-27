@@ -5,19 +5,30 @@
  */
 package org.quasar.IULChef.presentationLayer;
 
+import org.quasar.IULChef.businessLayer.Empregado;
+import org.quasar.IULChef.businessLayer.Restaurante;
+import org.quasar.IULChef.businessLayer.TipoEmpregado;
+
 /**
  *
  * @author terroma
  */
 public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
 
-    /**
+    private Empregado empregado;
+	private Restaurante restaurante;
+	/**
      * Creates new form IULChef_ContratarEmpregado
+     * @param restaurante 
+     * @param empregado 
      */
-    public IULChef_ContratarEmpregado() {
+    public IULChef_ContratarEmpregado(Empregado empregado, Restaurante restaurante) {
+    	this.empregado = empregado;
+    	this.restaurante = restaurante;
         initComponents();
         this.setTitle("Contratar Empregado");
         setModalityType(DEFAULT_MODALITY_TYPE);
+        setLocation(550, 350);
     }
 
     /**
@@ -42,9 +53,9 @@ public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
         jLabelIdade = new javax.swing.JLabel();
         jTextFieldIdade = new javax.swing.JTextField();
         jLabelTipo = new javax.swing.JLabel();
-        jComboBoxTipoEmpregado = new javax.swing.JComboBox();
+        jComboBoxTipoEmpregado = new javax.swing.JComboBox(TipoEmpregado.values());
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabelEmpregado2.setText("Empregado");
 
@@ -68,17 +79,10 @@ public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
 
         jLabelNome.setText("Nome:");
 
-        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeActionPerformed(evt);
-            }
-        });
-
         jLabelIdade.setText("Idade:");
 
         jLabelTipo.setText("Tipo:");
 
-        jComboBoxTipoEmpregado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,52 +169,27 @@ public class IULChef_ContratarEmpregado extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void jButtonContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContratarActionPerformed
-        // TODO add your handling code here:
+    	Empregado novoEmpregado = new Empregado(jTextFieldMorada.getText(), Integer.parseInt(jTextFieldNcEmpregado1.getText()), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()), getSelectedTipo());
+    	empregado.ContrataEmpregado(restaurante, novoEmpregado);
     }//GEN-LAST:event_jButtonContratarActionPerformed
 
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        // TODO add your handling code here:
+    private TipoEmpregado getSelectedTipo() {
+		for(TipoEmpregado t: TipoEmpregado.values()){
+			if(jComboBoxTipoEmpregado.getSelectedItem().toString()==t.name()){
+				return t;
+			}
+		}
+		return null;
+	}
+
+	private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
-    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IULChef_ContratarEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IULChef_ContratarEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IULChef_ContratarEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IULChef_ContratarEmpregado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IULChef_ContratarEmpregado().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContratar;
