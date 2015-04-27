@@ -1,17 +1,17 @@
 K 25
 svn:wc:ra_dav:version-url
-V 26
-/svn/!svn/ver/30/J-USE/src
+V 22
+/svn/!svn/ver/30/J-USE
 END
-classDiagram.mgc
+.classpath
 K 25
 svn:wc:ra_dav:version-url
-V 43
-/svn/!svn/ver/31/J-USE/src/classDiagram.mgc
+V 33
+/svn/!svn/ver/31/J-USE/.classpath
 END
-PackageDependencies.mgp
+.project
 K 25
 svn:wc:ra_dav:version-url
-V 50
-/svn/!svn/ver/31/J-USE/src/PackageDependencies.mgp
+V 30
+/svn/!svn/ver/7/J-USE/.project
 END
