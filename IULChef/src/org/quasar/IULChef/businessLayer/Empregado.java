@@ -428,10 +428,11 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// declare pe : Bag(Pedido); pe := Pedido.allInstances->asBag->select(p
 		// : Pedido | (p.devolvido = true)); for b in pe do destroy b end;
 		// destroy pe
-		Set<Pedido> pedidos_devolvidos = null;
+		Set<Pedido> pedidos_devolvidos = new HashSet<Pedido>();
 
 		for (Pedido pe : Pedido.allInstances()) {
 			if (pe.devolvido() == true) {
+//				System.out.println("sdg");
 				pedidos_devolvidos.add(pe);
 			}
 		}
@@ -475,11 +476,13 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		Integer quantidade = 0;
 		Contagem contagem = new Contagem();
 		Inventario invent = new Inventario();
-		Set<Produto> produto_simples = null;
-		for (Restaurante res : empregadores()) {
-			produto_simples = res.produtos();
-		}
-		for (Produto produto : produto_simples) {
+		invent.setData(data);
+		Restaurante r = empregadores().iterator().next();
+		invent.setRestaurante(r);
+		
+		Set<Produto> produtos_simples = r.produtos();
+
+		for (Produto produto : produtos_simples) {
 			quantidade += produto.quantidade();
 			contagem.setExistencias(quantidade);
 			Database.insert(contagem, produto);

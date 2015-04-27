@@ -65,9 +65,6 @@ public class IULChef_Login extends JFrame {
 		jButtonLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// System.out.println(Empregado.allInstances().size());
-				// tipoEmpregadoLogado = Database.get(Empregado.class, "nc",
-				// jTextFieldNc.getText()).tipo();
 
 				for (Entidade e : Empregado.allInstances()) {
 					if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {

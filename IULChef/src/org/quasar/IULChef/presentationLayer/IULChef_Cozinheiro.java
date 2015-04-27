@@ -7,7 +7,11 @@ package org.quasar.IULChef.presentationLayer;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
 
+import javax.swing.JOptionPane;
+
+import org.quasar.IULChef.businessLayer.CalendarDate;
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.persistenceLayer.Database;
@@ -129,15 +133,17 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEliminarDevolucoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarDevolucoesActionPerformed
-        // TODO add your handling code here:
+        empregado.EliminarDevolucoes();
+        JOptionPane.showMessageDialog(this, "Foram eliminados todos os pedidos devolvidos!");
     }//GEN-LAST:event_jButtonEliminarDevolucoesActionPerformed
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
-        // TODO add your handling code here:
+    	empregado.FazerInventario(new CalendarDate(Calendar.DAY_OF_MONTH, Calendar.MONTH, Calendar.YEAR));
+        JOptionPane.showMessageDialog(this, "Inventário criado com sucesso!");
     }//GEN-LAST:event_jButtonInventarioActionPerformed
 
     private void jButtonNovoProdutoCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoProdutoCompostoActionPerformed
-        // TODO add your handling code here:
+    	new IULChef_NovoProdutoComposto();
     }//GEN-LAST:event_jButtonNovoProdutoCompostoActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed

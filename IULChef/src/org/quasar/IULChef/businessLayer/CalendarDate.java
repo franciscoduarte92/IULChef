@@ -251,7 +251,7 @@ public class CalendarDate implements Comparable<Object>
 	public void checkDateIsValid()
 	{
 		//	self.isValid()
-		boolean invariant = this.isValid();
+		boolean invariant = (0 < day && day <= 31) && (0 < month && month <= 12) && (year.toString().length() == 4);
 		
 		assert invariant : "The current date must be a valid one";
 	}
