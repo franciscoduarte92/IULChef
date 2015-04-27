@@ -13,10 +13,14 @@ import javax.swing.JTextField;
 
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Entidade;
+import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.businessLayer.TipoEmpregado;
+import org.quasar.IULChef.persistenceLayer.Database;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -47,6 +51,13 @@ public class IULChef_Login extends JFrame {
 	// desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e){
+				System.out.println("Desconectar BD");
+                Database.close();
+            }
+		});
+		
 		jPanel1 = new javax.swing.JPanel();
 		jLabelNc = new javax.swing.JLabel();
 		jTextFieldNc = new javax.swing.JTextField();
@@ -60,11 +71,45 @@ public class IULChef_Login extends JFrame {
 
 				for (Entidade e : Empregado.allInstances()) {
 					if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {
-						tipoEmpregadoLogado = ((Empregado) e).tipo();
+						empregado = ((Empregado) e);
+					}
+				}
+				
+				for (Entidade r : Restaurante.allInstances()) {
+					if (r.nome() == NOME_RESTAURANTE) {
+						restaurante = ((Restaurante) r);
 					}
 				}
 
-				System.out.println(tipoEmpregadoLogado);
+				openCorrectWindow();
+			}
+
+			private void openCorrectWindow() {
+				switch(empregado.tipo()) {
+				case Cozinheiro:
+					
+					dispose();
+					
+					new IULChef_Cozinheiro();
+					
+					break;
+				case Gerente:
+					
+					dispose();
+					
+					new IULChef_Gerente();
+					
+					break;
+				case EmpregadoMesa:
+					
+					dispose();
+					
+					new IULChef_EmpregadoMesa();
+					
+					break;
+				default:
+					break;
+				}
 			}
 		});
 
@@ -159,62 +204,20 @@ public class IULChef_Login extends JFrame {
 						.addContainerGap(12, Short.MAX_VALUE)));
 
 		pack();
+		setVisible(true);
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonLoginActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_jButtonLoginActionPerformed
-
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed"
-		// desc=" Look and feel setting code (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the
-		 * default look and feel. For details see
-		 * http://download.oracle.com/javase
-		 * /tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(IULChef_Login.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(IULChef_Login.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(IULChef_Login.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(IULChef_Login.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		// </editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new IULChef_Login().setVisible(true);
-			}
-		});
-	}
-
+	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JButton jButtonLogin;
 	private JLabel jLabelNc;
 	private JPanel jPanel1;
 	private JTextField jTextFieldNc;
-	private TipoEmpregado tipoEmpregadoLogado;
+	private Empregado empregado;
+	private static final String NOME_RESTAURANTE = "Pizzaria Mr. Pizza";
+	private Restaurante restaurante;
 	// End of variables declaration//GEN-END:variables
 }
