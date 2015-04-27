@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package org.quasar.IULChef.presentationLayer;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+
+import org.quasar.IULChef.persistenceLayer.Database;
 
 /**
  *
@@ -57,7 +61,7 @@ public class IULChef_Gerente extends javax.swing.JFrame {
             }
         });
 
-        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.setText("Logout");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVoltarActionPerformed(evt);
@@ -89,35 +93,42 @@ public class IULChef_Gerente extends javax.swing.JFrame {
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDespedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespedirActionPerformed
-        // TODO add your handling code here:
+        janelaDespedir = new IULChef_Despedir();
+        janelaDespedir.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonDespedirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        janelaComprarIngrediente = new IULChef_ComprarIngrediente();
+        janelaComprarIngrediente.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContratarActionPerformed
-        // TODO add your handling code here:
+        janelaContratar = new IULChef_ContratarEmpregado();
+        janelaContratar.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonContratarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        // TODO add your handling code here:
+        Database.close();
+        janelaLogin = new IULChef_Login();
+        janelaLogin.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
@@ -161,5 +172,9 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDespedir;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JPanel jPanel1;
+    private IULChef_Despedir janelaDespedir;
+    private IULChef_ComprarIngrediente janelaComprarIngrediente;
+    private IULChef_ContratarEmpregado janelaContratar;
+    private IULChef_Login janelaLogin;
     // End of variables declaration//GEN-END:variables
 }
