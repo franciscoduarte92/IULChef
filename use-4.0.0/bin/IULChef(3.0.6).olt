@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram_Layout version="4">
+  <diagramOptions>
+    <autolayout>false</autolayout>
+    <antialiasing>true</antialiasing>
+    <showassocnames>false</showassocnames>
+    <showattributes>true</showattributes>
+    <showmultiplicities>false</showmultiplicities>
+    <showoperations>false</showoperations>
+    <showrolenames>false</showrolenames>
+    <showgrid>false</showgrid>
+  </diagramOptions>
+  <node type="Object">
+    <name>leiteCreme</name>
+    <x_coord>334.9671738349499</x_coord>
+    <y_coord>266.39875978659705</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>p3_f1</name>
+    <x_coord>532.9491974460063</x_coord>
+    <y_coord>175.60981755367453</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>p1_f1</name>
+    <x_coord>556.7144930615689</x_coord>
+    <y_coord>260.09201835184183</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>f1</name>
+    <x_coord>725.1101002244193</x_coord>
+    <y_coord>267.4765272331979</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>f2</name>
+    <x_coord>990.2861030035568</x_coord>
+    <y_coord>492.8799151559326</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>acucar</name>
+    <x_coord>9.41337783665449</x_coord>
+    <y_coord>18.506806126472952</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>inv2</name>
+    <x_coord>561.5926995225059</x_coord>
+    <y_coord>485.99439716543543</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>ontem</name>
+    <x_coord>495.7082706076619</x_coord>
+    <y_coord>80.16783663720264</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>compra2</name>
+    <x_coord>806.1003811644059</x_coord>
+    <y_coord>19.18358806353075</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>ovos_2015_02_25</name>
+    <x_coord>243.22017366269006</x_coord>
+    <y_coord>522.3597016513098</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>compra1</name>
+    <x_coord>303.8431320201694</x_coord>
+    <y_coord>128.73735306391472</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>srLuis</name>
+    <x_coord>898.2792953890801</x_coord>
+    <y_coord>204.1074197033572</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>inv_2015_02_25</name>
+    <x_coord>501.28762181741126</x_coord>
+    <y_coord>532.6662619282574</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>leite</name>
+    <x_coord>9.244738817200073</x_coord>
+    <y_coord>315.0031344153667</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>duqueAvila</name>
+    <x_coord>696.193781121334</x_coord>
+    <y_coord>486.9185639979937</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>mesa3</name>
+    <x_coord>727.7476202895692</x_coord>
+    <y_coord>179.29812824248842</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>mesa2</name>
+    <x_coord>784.2055356337033</x_coord>
+    <y_coord>369.60238710882345</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>mesa1</name>
+    <x_coord>705.7625837028334</x_coord>
+    <y_coord>368.1706178398831</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>antonio</name>
+    <x_coord>878.956702297363</x_coord>
+    <y_coord>297.09210852636454</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>Contrato1</name>
+    <x_coord>995.704131073822</x_coord>
+    <y_coord>394.3480003302186</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>p2_f1</name>
+    <x_coord>524.0229365093323</x_coord>
+    <y_coord>395.605728866852</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>c1</name>
+    <x_coord>192.1226788229617</x_coord>
+    <y_coord>282.9083820321689</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>c2</name>
+    <x_coord>257.99792844898036</x_coord>
+    <y_coord>421.8814257505832</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>c3</name>
+    <x_coord>164.0</x_coord>
+    <y_coord>205.3068409742051</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>c4</name>
+    <x_coord>195.65904754417375</x_coord>
+    <y_coord>356.8427890981708</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>hoje</name>
+    <x_coord>641.6574960918238</x_coord>
+    <y_coord>77.68640686586568</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>maizena</name>
+    <x_coord>8.381008440014114</x_coord>
+    <y_coord>164.87874477961475</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>sonae</name>
+    <x_coord>942.1839698895926</x_coord>
+    <y_coord>124.88786952719272</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <node type="Object">
+    <name>ovos</name>
+    <x_coord>8.918365045977907</x_coord>
+    <y_coord>463.7731170368211</y_coord>
+    <hidden>false</hidden>
+  </node>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>p2_f1</target>
+    <name>Fatura_Pedido</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Pedido</name>
+      <x_coord>632.5</x_coord>
+      <y_coord>338.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>pedidos</name>
+      <x_coord>615.0</x_coord>
+      <y_coord>355.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1..*</name>
+      <x_coord>588.3125</x_coord>
+      <y_coord>355.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>fatura</name>
+      <x_coord>682.453125</x_coord>
+      <y_coord>355.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>723.0</x_coord>
+      <y_coord>355.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>721.0</x_coord>
+      <y_coord>314.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>613.0</x_coord>
+      <y_coord>391.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>p2_f1</source>
+    <target>ovos</target>
+    <name>Pedido_Produto</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Pedido_Produto</name>
+      <x_coord>289.5</x_coord>
+      <y_coord>451.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>produto</name>
+      <x_coord>136.0</x_coord>
+      <y_coord>437.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>121.109375</x_coord>
+      <y_coord>437.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>pedidos</name>
+      <x_coord>473.640625</x_coord>
+      <y_coord>469.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>522.0</x_coord>
+      <y_coord>469.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>520.0</x_coord>
+      <y_coord>428.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>134.0</x_coord>
+      <y_coord>503.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>duqueAvila</source>
+    <target>mesa1</target>
+    <name>Restaurante_Mesa</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Restaurante_Mesa</name>
+      <x_coord>718.0</x_coord>
+      <y_coord>427.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>mesas {ordered}</name>
+      <x_coord>747.0</x_coord>
+      <y_coord>434.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>731.453125</x_coord>
+      <y_coord>434.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>restaurante</name>
+      <x_coord>717.0625</x_coord>
+      <y_coord>439.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>784.0</x_coord>
+      <y_coord>438.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>782.0</x_coord>
+      <y_coord>482.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>745.0</x_coord>
+      <y_coord>401.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>p1_f1</source>
+    <target>leiteCreme</target>
+    <name>Pedido_Produto</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Pedido_Produto</name>
+      <x_coord>477.5</x_coord>
+      <y_coord>280.9375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>produto</name>
+      <x_coord>480.0</x_coord>
+      <y_coord>248.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>465.109375</x_coord>
+      <y_coord>247.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>pedidos</name>
+      <x_coord>505.640625</x_coord>
+      <y_coord>325.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>554.0</x_coord>
+      <y_coord>325.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="true">
+      <name>0</name>
+      <x_coord>552.0</x_coord>
+      <y_coord>284.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+      <deltaX>-4.714493061568874</deltaX>
+      <deltaY>23.90798164815817</deltaY>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="true">
+      <name>1</name>
+      <x_coord>478.0</x_coord>
+      <y_coord>306.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+      <deltaX>143.0328261650501</deltaX>
+      <deltaY>39.601240213402946</deltaY>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>duqueAvila</source>
+    <target>f2</target>
+    <name>Restaurante_Fatura</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Restaurante_Fatura</name>
+      <x_coord>897.5</x_coord>
+      <y_coord>500.9375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>faturas</name>
+      <x_coord>942.03125</x_coord>
+      <y_coord>479.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>988.0</x_coord>
+      <y_coord>479.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>restaurante</name>
+      <x_coord>907.0</x_coord>
+      <y_coord>472.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>892.109375</x_coord>
+      <y_coord>471.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>905.0</x_coord>
+      <y_coord>515.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>986.0</x_coord>
+      <y_coord>515.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>compra2</source>
+    <target>acucar</target>
+    <name>Compra_ProdutoSimples</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Compra_ProdutoSimples</name>
+      <x_coord>425.0</x_coord>
+      <y_coord>34.296875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>produtoSimples</name>
+      <x_coord>167.0</x_coord>
+      <y_coord>120.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>152.109375</x_coord>
+      <y_coord>120.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>compras</name>
+      <x_coord>751.359375</x_coord>
+      <y_coord>96.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>804.0</x_coord>
+      <y_coord>96.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>802.0</x_coord>
+      <y_coord>48.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="true">
+      <name>1</name>
+      <x_coord>165.0</x_coord>
+      <y_coord>49.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+      <deltaX>155.5866221633455</deltaX>
+      <deltaY>30.493193873527048</deltaY>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>compra1</source>
+    <target>sonae</target>
+    <name>Compra_Fornecedor</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Compra_Fornecedor</name>
+      <x_coord>622.5</x_coord>
+      <y_coord>141.296875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>fornecedor</name>
+      <x_coord>874.296875</x_coord>
+      <y_coord>202.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>940.0</x_coord>
+      <y_coord>202.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>compras</name>
+      <x_coord>408.0</x_coord>
+      <y_coord>114.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>392.453125</x_coord>
+      <y_coord>113.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>406.0</x_coord>
+      <y_coord>157.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>938.0</x_coord>
+      <y_coord>154.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>mesa1</target>
+    <name>Fatura_Mesa</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Mesa</name>
+      <x_coord>714.0</x_coord>
+      <y_coord>325.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>mesa</name>
+      <x_coord>743.0</x_coord>
+      <y_coord>336.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>728.109375</x_coord>
+      <y_coord>335.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>faturas</name>
+      <x_coord>706.03125</x_coord>
+      <y_coord>356.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>752.0</x_coord>
+      <y_coord>356.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>750.0</x_coord>
+      <y_coord>315.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>741.0</x_coord>
+      <y_coord>364.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>duqueAvila</source>
+    <target>inv_2015_02_25</target>
+    <name>Restaurante_Inventarios</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Restaurante_Inventarios</name>
+      <x_coord>605.5</x_coord>
+      <y_coord>519.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>inventarios</name>
+      <x_coord>639.0</x_coord>
+      <y_coord>509.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>623.453125</x_coord>
+      <y_coord>508.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>restaurante</name>
+      <x_coord>627.0625</x_coord>
+      <y_coord>578.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>694.0</x_coord>
+      <y_coord>578.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>692.0</x_coord>
+      <y_coord>530.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>637.0</x_coord>
+      <y_coord>537.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>mesa2</target>
+    <name>Fatura_Mesa</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Mesa</name>
+      <x_coord>756.0</x_coord>
+      <y_coord>325.9375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>mesa</name>
+      <x_coord>768.0625</x_coord>
+      <y_coord>337.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>805.0</x_coord>
+      <y_coord>336.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>faturas</name>
+      <x_coord>774.0</x_coord>
+      <y_coord>356.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>758.453125</x_coord>
+      <y_coord>356.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>772.0</x_coord>
+      <y_coord>315.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>803.0</x_coord>
+      <y_coord>365.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>duqueAvila</source>
+    <target>inv2</target>
+    <name>Restaurante_Inventarios</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Restaurante_Inventarios</name>
+      <x_coord>605.5</x_coord>
+      <y_coord>490.9375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>inventarios</name>
+      <x_coord>639.0</x_coord>
+      <y_coord>536.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>623.453125</x_coord>
+      <y_coord>536.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>restaurante</name>
+      <x_coord>627.0625</x_coord>
+      <y_coord>464.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>694.0</x_coord>
+      <y_coord>463.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>692.0</x_coord>
+      <y_coord>507.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>637.0</x_coord>
+      <y_coord>503.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>p3_f1</target>
+    <name>Fatura_Pedido</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Pedido</name>
+      <x_coord>643.0</x_coord>
+      <y_coord>232.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>pedidos</name>
+      <x_coord>636.0</x_coord>
+      <y_coord>264.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1..*</name>
+      <x_coord>609.3125</x_coord>
+      <y_coord>264.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>fatura</name>
+      <x_coord>682.453125</x_coord>
+      <y_coord>234.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>723.0</x_coord>
+      <y_coord>234.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>721.0</x_coord>
+      <y_coord>270.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>634.0</x_coord>
+      <y_coord>223.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>duqueAvila</source>
+    <target>compra1</target>
+    <name>Restaurante_Compra</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Restaurante_Compra</name>
+      <x_coord>523.5</x_coord>
+      <y_coord>322.296875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>compras</name>
+      <x_coord>396.0</x_coord>
+      <y_coord>239.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>380.453125</x_coord>
+      <y_coord>239.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>restaurante</name>
+      <x_coord>690.0625</x_coord>
+      <y_coord>439.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>757.0</x_coord>
+      <y_coord>438.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>755.0</x_coord>
+      <y_coord>482.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>394.0</x_coord>
+      <y_coord>191.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>duqueAvila</source>
+    <target>mesa2</target>
+    <name>Restaurante_Mesa</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Restaurante_Mesa</name>
+      <x_coord>762.5</x_coord>
+      <y_coord>427.9375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>mesas {ordered}</name>
+      <x_coord>723.359375</x_coord>
+      <y_coord>435.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>815.0</x_coord>
+      <y_coord>435.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>restaurante</name>
+      <x_coord>805.0</x_coord>
+      <y_coord>439.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>790.109375</x_coord>
+      <y_coord>438.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>803.0</x_coord>
+      <y_coord>482.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>813.0</x_coord>
+      <y_coord>402.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>ovos_2015_02_25</source>
+    <target>ovos</target>
+    <name>Contagem_ProdutoSimples</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Contagem_ProdutoSimples</name>
+      <x_coord>122.5</x_coord>
+      <y_coord>514.671875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>produtoSimples</name>
+      <x_coord>136.0</x_coord>
+      <y_coord>594.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>121.109375</x_coord>
+      <y_coord>594.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>contagens</name>
+      <x_coord>179.359375</x_coord>
+      <y_coord>499.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>241.0</x_coord>
+      <y_coord>499.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>239.0</x_coord>
+      <y_coord>535.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>134.0</x_coord>
+      <y_coord>523.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>inv_2015_02_25</source>
+    <target>ovos_2015_02_25</target>
+    <name>Inventario_Contagem</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Inventario_Contagem</name>
+      <x_coord>392.7734375</x_coord>
+      <y_coord>531.171875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>contagens</name>
+      <x_coord>392.0</x_coord>
+      <y_coord>586.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>376.453125</x_coord>
+      <y_coord>586.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>inventario</name>
+      <x_coord>441.03125</x_coord>
+      <y_coord>518.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>499.0</x_coord>
+      <y_coord>517.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>497.0</x_coord>
+      <y_coord>546.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>390.0</x_coord>
+      <y_coord>545.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>compra1</source>
+    <target>acucar</target>
+    <name>Compra_ProdutoSimples</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Compra_ProdutoSimples</name>
+      <x_coord>173.5</x_coord>
+      <y_coord>103.796875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>produtoSimples</name>
+      <x_coord>167.0</x_coord>
+      <y_coord>167.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>152.109375</x_coord>
+      <y_coord>167.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>compras</name>
+      <x_coord>248.359375</x_coord>
+      <y_coord>97.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>301.0</x_coord>
+      <y_coord>96.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>299.0</x_coord>
+      <y_coord>140.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>165.0</x_coord>
+      <y_coord>96.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>antonio</target>
+    <name>Fatura_Empregado</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Empregado</name>
+      <x_coord>787.0</x_coord>
+      <y_coord>288.8125</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>empregado</name>
+      <x_coord>810.703125</x_coord>
+      <y_coord>260.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>876.0</x_coord>
+      <y_coord>260.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>faturas</name>
+      <x_coord>793.0</x_coord>
+      <y_coord>336.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>777.453125</x_coord>
+      <y_coord>336.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>791.0</x_coord>
+      <y_coord>295.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>874.0</x_coord>
+      <y_coord>311.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>srLuis</target>
+    <name>Fatura_Cliente</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Cliente</name>
+      <x_coord>808.0</x_coord>
+      <y_coord>255.296875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>cliente</name>
+      <x_coord>853.78125</x_coord>
+      <y_coord>306.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>0..1</name>
+      <x_coord>896.0</x_coord>
+      <y_coord>306.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>faturas</name>
+      <x_coord>793.0</x_coord>
+      <y_coord>245.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>777.453125</x_coord>
+      <y_coord>245.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>791.0</x_coord>
+      <y_coord>281.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>894.0</x_coord>
+      <y_coord>258.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>f1</source>
+    <target>p1_f1</target>
+    <name>Fatura_Pedido</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Fatura_Pedido</name>
+      <x_coord>642.5</x_coord>
+      <y_coord>270.4375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>pedidos</name>
+      <x_coord>635.0</x_coord>
+      <y_coord>323.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1..*</name>
+      <x_coord>608.3125</x_coord>
+      <y_coord>323.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>fatura</name>
+      <x_coord>682.453125</x_coord>
+      <y_coord>251.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1</name>
+      <x_coord>723.0</x_coord>
+      <y_coord>251.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>721.0</x_coord>
+      <y_coord>287.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="true">
+      <name>1</name>
+      <x_coord>633.0</x_coord>
+      <y_coord>282.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+      <deltaX>76.28550693843113</deltaX>
+      <deltaY>21.90798164815817</deltaY>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="NodeEdge">
+    <source>leiteCreme</source>
+    <target>acucar</target>
+    <name>Composicao</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Composicao</name>
+      <x_coord>219.5</x_coord>
+      <y_coord>179.796875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>ingredientes</name>
+      <x_coord>161.0</x_coord>
+      <y_coord>197.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>145.453125</x_coord>
+      <y_coord>197.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>confecionados</name>
+      <x_coord>258.359375</x_coord>
+      <y_coord>204.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>341.0</x_coord>
+      <y_coord>203.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>339.0</x_coord>
+      <y_coord>262.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>159.0</x_coord>
+      <y_coord>126.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="NodeEdge">
+    <source>leiteCreme</source>
+    <target>leite</target>
+    <name>Composicao</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Composicao</name>
+      <x_coord>218.5</x_coord>
+      <y_coord>323.796875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>ingredientes</name>
+      <x_coord>168.0</x_coord>
+      <y_coord>286.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>152.453125</x_coord>
+      <y_coord>286.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>confecionados</name>
+      <x_coord>249.359375</x_coord>
+      <y_coord>387.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>332.0</x_coord>
+      <y_coord>387.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>330.0</x_coord>
+      <y_coord>324.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>166.0</x_coord>
+      <y_coord>352.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="NodeEdge">
+    <source>duqueAvila</source>
+    <target>antonio</target>
+    <name>Contrato</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Contrato</name>
+      <x_coord>872.5</x_coord>
+      <y_coord>414.51318359375</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>contratados</name>
+      <x_coord>884.359375</x_coord>
+      <y_coord>431.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>1..*</name>
+      <x_coord>953.0</x_coord>
+      <y_coord>431.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>empregadores</name>
+      <x_coord>837.0</x_coord>
+      <y_coord>439.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>1..*</name>
+      <x_coord>810.3125</x_coord>
+      <y_coord>438.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>835.0</x_coord>
+      <y_coord>482.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>951.0</x_coord>
+      <y_coord>375.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="NodeEdge">
+    <source>leiteCreme</source>
+    <target>maizena</target>
+    <name>Composicao</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Composicao</name>
+      <x_coord>205.0</x_coord>
+      <y_coord>247.796875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>ingredientes</name>
+      <x_coord>141.0</x_coord>
+      <y_coord>306.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>125.453125</x_coord>
+      <y_coord>306.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>confecionados</name>
+      <x_coord>249.359375</x_coord>
+      <y_coord>231.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>332.0</x_coord>
+      <y_coord>230.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>330.0</x_coord>
+      <y_coord>289.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>139.0</x_coord>
+      <y_coord>235.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="NodeEdge">
+    <source>leiteCreme</source>
+    <target>ovos</target>
+    <name>Composicao</name>
+    <edgeproperty type="associationName" userDefined="false">
+      <name>Composicao</name>
+      <x_coord>202.5</x_coord>
+      <y_coord>401.796875</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="rolename" userDefined="false">
+      <name>ingredientes</name>
+      <x_coord>136.0</x_coord>
+      <y_coord>410.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>120.453125</x_coord>
+      <y_coord>410.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="rolename" userDefined="false">
+      <name>confecionados</name>
+      <x_coord>249.359375</x_coord>
+      <y_coord>419.0</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty kind="source" type="multiplicity" userDefined="false">
+      <name>*</name>
+      <x_coord>332.0</x_coord>
+      <y_coord>419.5</y_coord>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>0</name>
+      <x_coord>330.0</x_coord>
+      <y_coord>356.0</y_coord>
+      <hidden>false</hidden>
+      <id>0</id>
+      <specialid>1</specialid>
+    </edgeproperty>
+    <edgeproperty type="WayPoint" userDefined="false">
+      <name>1</name>
+      <x_coord>134.0</x_coord>
+      <y_coord>476.0</y_coord>
+      <hidden>false</hidden>
+      <id>1</id>
+      <specialid>2</specialid>
+    </edgeproperty>
+    <hidden>false</hidden>
+  </edge>
+</diagram_Layout>

@@ -1,0 +1,178 @@
+-- IULChef snapshot
+-- FBA, February 2015
+
+reset
+
+-- Datas
+
+!new CalendarDate('ontem')
+!ontem.day := 25
+!ontem.month := 2
+!ontem.year := 2015
+
+!new CalendarDate('hoje')
+!@hoje.day := 25
+!@hoje.month := 2
+!@hoje.year := 2015
+
+
+-- Produtos adquiridos no mercado
+
+!new ProdutoSimples('ovos')
+!ovos.unidade := Unidade::Avulso
+!ovos.tipo := TipoProduto::Perecivel
+!ovos.familia := FamiliaProdutoSimples::LacteosOvos
+!ovos.precoVenda := 0.15
+
+!new ProdutoSimples('acucar')
+!acucar.nome := 'acúcar branco refinado'
+!acucar.codigoBarras := 233243455
+!acucar.unidade := Unidade::Kilo
+!acucar.tipo := TipoProduto::NaoPerecivel
+!acucar.familia := #Doces
+!acucar.precoVenda := 1.6
+
+!new ProdutoSimples('maizena')
+!maizena.nome := 'farinha maizena'
+!maizena.codigoBarras := 956567543
+!maizena.unidade := Unidade::Kilo
+!maizena.tipo := TipoProduto::NaoPerecivel
+!maizena.familia := FamiliaProdutoSimples::Cereais
+!maizena.precoVenda := 2.4
+
+!new ProdutoSimples('leite')
+!leite.nome := 'leite Mimosa meio-gordo'
+!leite.codigoBarras := 233243455
+!leite.unidade := Unidade::Litro
+!leite.tipo := TipoProduto::NaoPerecivel
+!leite.familia := FamiliaProdutoSimples::LacteosOvos
+!leite.precoVenda := 0.65
+
+
+-- Receita dos produtos confecionados no restaurante
+
+!new ProdutoComposto('leiteCreme')
+!leiteCreme.unidade := Unidade::Dose
+!leiteCreme.precoVenda := 6
+!leiteCreme.nome := 'Leite creme caseiro'
+!leiteCreme.tipo := TipoProduto::Perecivel
+!leiteCreme.grupo := GrupoProdutoComposto::Sobremesa
+
+!c1 := new Composicao('c1') between (@leiteCreme,@maizena)
+!@c1.quantidade := 0.1
+
+!c2 := new Composicao('c2') between (@leiteCreme,@ovos)
+!@c2.quantidade := 2
+
+!c3 := new Composicao('c3') between (@leiteCreme,@acucar)
+!@c3.quantidade := 0.25
+
+!c4 := new Composicao('c4') between (@leiteCreme,@leite)
+!@c4.quantidade := 0.5
+
+
+-- Dados do restaurante
+
+!new Restaurante('duqueAvila')
+!duqueAvila.nome := 'Restaurante Alfa'
+!duqueAvila.morada := 'Av. Duque de Ávila, 23A, Lisboa'
+!duqueAvila.nc := 1122334455
+
+!new Mesa('mesa1')
+!mesa1.numero := 1
+!insert (duqueAvila,mesa1) into Restaurante_Mesa
+
+!new Mesa('mesa2')
+!mesa2.numero := 1
+!insert (duqueAvila,mesa2) into Restaurante_Mesa
+
+!new Mesa('mesa3')
+!mesa3.numero := 3
+
+!new Empregado('antonio')
+!antonio.tipo := TipoEmpregado::Cozinheiro
+!antonio.nome := 'António Batista Fernandes'
+!antonio.morada := 'Praceta Pedro Nunes, 12, 3dto, Lisboa'
+!antonio.nc := 234191999
+
+!insert (duqueAvila,antonio) into Contrato
+!Contrato1.inicio := hoje
+!Contrato1.vencimento := 740
+
+
+-- Dados de faturação
+
+!new Cliente('srLuis')
+!@srLuis.nome := 'Luis Santos'
+!@srLuis.morada := 'Rua do La Vai Um, 2, 3esq, Lisboa'
+!@srLuis.nc := 12345678
+
+!new Fatura('f1')
+!f1.numero := 456
+!f1.data := hoje
+
+!insert (@f1,@srLuis) into Fatura_Cliente
+!insert (@f1,@antonio) into Fatura_Empregado
+!insert (@f1,@mesa1) into Fatura_Mesa
+!insert (f1,mesa2) into Fatura_Mesa
+
+!new Pedido('p1_f1')
+!insert (@f1,@p1_f1) into Fatura_Pedido
+!insert (@p1_f1,@leiteCreme) into Pedido_Produto
+!p1_f1.quantidade := 2
+!p1_f1.devolvido := false
+
+!new Pedido('p2_f1')
+!insert (@f1,@p2_f1) into Fatura_Pedido
+!insert (@p2_f1,@ovos) into Pedido_Produto
+!p2_f1.quantidade := 3
+!p1_f1.devolvido := true
+
+!new Pedido('p3_f1')
+!insert (@f1,@p3_f1) into Fatura_Pedido
+
+!new Fatura('f2')
+!f2.numero := 456
+!f2.data := hoje
+!insert (duqueAvila, @f2) into Restaurante_Fatura
+
+
+-- Inventários
+
+!new Inventario('inv_2015_02_25')
+!insert (duqueAvila,inv_2015_02_25) into Restaurante_Inventarios
+
+!new Contagem('ovos_2015_02_25')
+!@ovos_2015_02_25.existencias := 120
+!@ovos_2015_02_25.quebras := 6
+
+!insert (@inv_2015_02_25,@ovos_2015_02_25) into Inventario_Contagem
+!insert (ovos_2015_02_25,ovos) into Contagem_ProdutoSimples
+!inv_2015_02_25.data := hoje
+
+!new Inventario('inv2')
+!inv2.data := hoje
+!insert (duqueAvila,inv2) into Restaurante_Inventarios
+
+
+-- Compras
+
+!new Fornecedor('sonae')
+!sonae.nome := 'Sonae S.A.'
+!sonae.morada := 'Rua dos Aliados, 1, Porto'
+!sonae.nc := 123456543
+
+!new Compra('compra1')
+!insert (compra1,acucar) into Compra_ProdutoSimples
+!compra1.quantidade := 30
+!compra1.precoAquisicao := 1.6
+!compra1.data := hoje
+!insert (compra1,sonae) into Compra_Fornecedor
+!insert (duqueAvila,compra1) into Restaurante_Compra
+
+!new Compra('compra2')
+!insert (compra2,acucar) into Compra_ProdutoSimples
+!compra2.quantidade := 20
+!compra2.precoAquisicao := 1.8
+!compra2.data := hoje
+

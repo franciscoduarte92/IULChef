@@ -1,0 +1,44 @@
+Considerando que os caracteres na 5ª e 6ª posição do número do voo são um código que identifica univocamente a companhia aérea (ex: Voo_TP125 tem o código TP que identifica a TAP), quantas companhias aéreas diferentes têm voos?
+R: ?Voo.allInstances->collect(numero.substring(5,6))->asSet->size  178
+
+Quantas cidades têm 2 voos de partida? 15
+R: ?Cidade.allInstances->select(servem.voos_partida->size=2)->size
+
+Quantas moedas oficiais existem?(124)
+R: ? Pais.allInstances.moeda_oficial->reject(e | e = Undefined)->asSet->size
+
+Quantos voos partem da parte da manhã? (considere apenas instantes com a hora no intervalo [7, 12] e esqueça os minutos e segundos) 61
+R: ?Voo.allInstances->select(hora_partida.hours>=7 and hora_partida.hours<=12)->size
+
+Quantos lugares de executiva existem para o total dos aviões?(492)
+R:  ?Capacidade.allInstances->select(classe.tipo=#executiva).Lotacao()->sum
+
+A quantos aeroportos diferentes chega pelo menos um voo?283
+R: ?Aeroporto.allInstances->select(voos_chegada->notEmpty)->asSet->size
+
+Quantos paises têm 5 voos de chegada?4
+R: ?Pais.allInstances->select(cidades.servem.voos_chegada->size=5)->size
+
+De quantos aeroportos diferentes parte pelo menos um voo? 286
+R: ?Aeroporto.allInstances->select(voos_partida->notEmpty)->asSet->size
+
+
+Para quantos paises não se conhece qual é a lingua usada (está indefinida)? 33
+R:  ?Pais.allInstances->select(lingua.isUndefined)->size
+
+Quantos aviões com 3 classes têm uma lotacao inferior a 200 lugares? 7
+R:  ?Aviao.allInstances->select(classe->size=3)->select(Lotacao()<200)->size
+
+Quantas cidades são servidas por mais de um aeroporto? 147
+R:  ?Cidade.allInstances->select(servem->size>1)->size
+
+ Quantos aeroportos têm um nome com mais de 20 caracteres? 496
+R: ?Aeroporto.allInstances->select(nome.size>20)->size
+
+
+Quantos caracteres tem o nome do aeroporto com o nome mais comprido?47
+?Aeroporto.allInstances->collect(nome.size)->max
+p.s. max deveria funcionar, sem o max ve-se o maior valor.
+
+Quantos aeroportos servem o pais que é servido por mais aeroportos? 453
+R: ?Pais.allInstances->collect(cidades.servem->size)->max

@@ -1,0 +1,835 @@
+--------------------------------------------------------------
+
+model AirNova
+
+--------------------------------------------------------------
+-- Domain types
+--------------------------------------------------------------
+
+enum EstadoPagamento {pendente, efetuado}
+
+enum TipoClasse {executiva, negocio, turistica}
+
+enum Sexo {masculino, feminino}
+
+-------------------------------------------------------------------------------------------------
+class Voo
+	attributes
+		numero: String
+		hora_partida: Instant
+		hora_chegada: Instant
+		milhas: Integer
+
+	operations
+		/************************************************************
+		* 
+		*************************************************************/	
+		inicializa(numero: String, hora_partida: Instant, hora_chegada: Instant, milhas: Integer, origem: Aeroporto, destino: Aeroporto)
+			begin
+				self.numero:= numero;
+				self.hora_partida:= hora_partida;
+				self.hora_chegada:= hora_chegada;
+				self.milhas:= milhas;
+				insert (origem, self) into Aeroporto_VoosPartida;
+				insert (destino, self) into Aeroporto_VoosChegada
+			end
+			
+		@OrigemDestinoDefinidos(rationale="Todos os voos têm uma origem e um destino!")
+		pre OrigemDestinoDefinidos:
+			origem.isDefined() and destino.isDefined()
+			
+			
+		-- Ocupação média de um voo entre duas datas (resultado de operação)
+		ocupacaoMedia(inicio: CalendarDate, fim: CalendarDate): Real =
+			let realizacoes_voo:Set(Realizacao) = realizacao->reject(cancelada)->
+				select(ocorre_em = inicio or ocorre_em = fim or ocorre_em.isAfter(inicio) and ocorre_em.isBefore(fim)) in
+			realizacoes_voo.bilhetes->size() / realizacoes_voo.aviao.lotacao()->sum()
+
+			
+		/************************************************************
+		* Criar realização deste voo na data indicada, com o aviao indicado
+		*************************************************************/				
+		criarRealizacao(data: CalendarDate, aviao: Aviao)
+			begin
+				declare
+					nova: Realizacao;
+					
+				nova := new Realizacao(self.numero+'_'+data.year.toString()+'_'+data.month.toString()+'_'+data.day.toString()) between (self, data);
+				nova.cancelada:= false;
+				insert (aviao, nova) into Aviao_Realizacao;
+			end
+		
+		@ParametrosInicializados(rationale="Tem de ser indicada uma data e um avião válidos!")
+		pre ParametrosInicializados:
+			data.isDefined() and aviao.isDefined()
+
+		@RealizacaoNaoExiste(rationale="Não se pode criar uma realização se ela já existir!")
+		pre RealizacaoNaoExiste:
+			ocorre_em->excludes(data)
+			
+		post RealizacaoJaExiste:
+			ocorre_em->includes(data)
+			
+			
+		/************************************************************
+		* Apagar realização deste voo na data indicada
+		*************************************************************/			
+		apagarRealizacao(data: CalendarDate)
+			begin	
+				declare
+					r: Realizacao;
+				
+				r:= self.realizacao->any(r | r.ocorre_em = data);
+				
+				for b in r.bilhetes do
+					destroy b
+				end;
+			
+				destroy r;
+				-- nota: quando se apaga um objeto, são destruídas automaticamente as ligações que esse objeto tinha com outros objetos
+			end
+		
+		@RealizacaoExiste(rationale="Tem de existir uma realização válida deste voo na data indicada!")
+		pre RealizacaoExiste:
+			data.isDefined() and ocorre_em->includes(data)
+/*
+		@NaoHaBilhetesParaEssaRealizacao(rationale="Não se pode apagar uma realização quando já há bilhetes emitidos! Só se pode cancelar essa realização.")
+		pre NaoHaBilhetesParaEssaRealizacao:
+			realizacao->any(ocorre_em = data).bilhetes->isEmpty()
+*/		
+		post RealizacaoJaNaoExiste:
+			ocorre_em->excludes(data)
+			
+			
+		/************************************************************
+		* Cancelar realização deste voo na data indicada
+		*************************************************************/			
+		cancelarRealizacao(data: CalendarDate)
+			begin
+				self.realizacao->any(r | r.ocorre_em = data).cancelada := true
+			end
+		
+		@RealizacaoExiste(rationale="Tem de existir uma realização válida deste voo na data indicada!")
+		pre RealizacaoExiste:
+			data.isDefined() and ocorre_em->includes(data)
+
+		@RealizacaoNaoEstaCancelada(rationale="Não se pode cancelar uma realização quando esta já está cancelada!")
+		pre RealizacaoNaoEstaCancelada:
+			not realizacao->any(ocorre_em = data).cancelada
+		
+		post RealizacaoEstaCancelada:
+			realizacao->any(ocorre_em = data).cancelada
+			
+	constraints
+	
+		@UmVooNaoPodeOcorrerVariasVezesNoMesmoDia(rationale="um voo só se pode realizar uma vez para cada data.")
+		inv UmVooNaoPodeOcorrerVariasVezesNoMesmoDia: 
+			self.ocorre_em->isUnique(d | d.toString())
+
+		@AeroportoChegadaDiferentePartida(rationale="Aeroporto de chegada diferente do de partida")
+		inv AeroportoChegadaDiferentePartida:
+			self.partida <> self.chegada
+
+end --Voo
+
+-------------------------------------------------------------------------------------------------	
+class Aeroporto
+	attributes
+		nome: String
+
+	operations
+		
+		voosPartidaEntre(horaInicial: Integer, horaFinal: Integer): OrderedSet(Voo) = voos_partida ->
+			select(hora_partida.hours >= horaInicial and hora_partida.hours <= horaFinal)
+		
+		voosChegadaEntre(horaInicial: Integer, horaFinal: Integer): OrderedSet(Voo) = voos_chegada ->
+			select(hora_chegada.hours >= horaInicial and hora_chegada.hours <= horaFinal)
+	
+		-- A cidade mais próxima do aeroporto
+		maisProxima(): Cidade = 
+			let distanciaMaisProxima = self.proximidade.distancia->min in
+
+			if self.servidas->isEmpty then
+				oclUndefined(Cidade)
+			else
+				self.proximidade->select(distancia=distanciaMaisProxima)->asOrderedSet->first.servidas
+			endif
+							
+		-- Conjunto de todos os aviões que aterraram no aeroporto
+		avioesQueAterraram(): Set(Aviao) = self.voos_chegada.realizacao->select(not cancelada).aviao->asSet
+		
+		-- Aeroporto em que há voos de chegada em mais datas diferentes
+		calendarioMaisCoberto(): Aeroporto =
+			let maisDatasChegada:Integer =			
+				Aeroporto.allInstances->collect(voos_chegada.ocorre_em->asSet->size)->max
+			in Aeroporto.allInstances->any(voos_chegada.ocorre_em->asSet->size = maisDatasChegada)
+			
+		-- Conjunto de datas em que ocorrem voos de partida ou de chegada no aeroporto
+		datasComVoos(): Set(CalendarDate) =
+			self.voos_partida->union(voos_chegada).ocorre_em->asSet
+		
+		datasComVoos2(): Set(CalendarDate) =
+			self.voos_partida.ocorre_em->union(voos_chegada.ocorre_em)->asSet			
+			
+	constraints
+		
+		@NaoHaCidadesMesmaDistancia(rationale="Não há mais do que uma cidade servida que fique à mesma distância do aeroporto")
+		inv NaoHaCidadesMesmaDistancia:
+			self.proximidade->isUnique(distancia)
+
+		@VoosRealizadosComPartidaNaoCoincidente (rationale = "Não podem existir duas realizações de voos a partir à mesma hora no mesmo aeroporto")
+		inv VoosRealizadosComPartidaNaoCoincidente: self.voos_partida.realizacao->
+			forAll (r1, r2: Realizacao | r1 <> r2 and r1.ocorre_em.isEqual(r2.ocorre_em) implies 
+				not r1.realiza_se.hora_partida.isEqual(r2.realiza_se.hora_partida))
+		
+		@VoosRealizadosComChegadaNaoCoincidente (rationale = "Não podem existir duas realizações de voos a chegar à mesma hora no mesmo aeroporto")
+		inv VoosRealizadosComChegadaNaoCoincidente: self.voos_chegada.realizacao->
+			forAll (r1, r2: Realizacao | r1 <> r2 and r1.ocorre_em.isEqual(r2.ocorre_em) implies 
+				not r1.realiza_se.hora_chegada.isEqual(r2.realiza_se.hora_chegada))
+
+end --Aeroporto
+
+-------------------------------------------------------------------------------------------------	
+class Cidade
+	attributes
+		nome: String
+		
+	operations
+	
+		voosPartida(): Sequence(Voo) = servem.voos_partida
+	
+		voosChegada(): Sequence(Voo) = servem.voos_chegada
+	
+		-- O aeroporto mais próximo da cidade
+		maisProximo(): Aeroporto = 
+			let distanciaMaisProximo = self.proximidade.distancia->min in
+			
+			if self.servem->isEmpty then
+				oclUndefined(Aeroporto)
+			else
+				self.proximidade->select(distancia=distanciaMaisProximo)->asOrderedSet->first.servem
+			endif
+		
+	constraints
+		
+		@NaoHaAeroportosMesmaDistancia(rationale="Não há mais do que um aeroporto que fique à mesma distância da cidade")
+		inv NaoHaAeroportosMesmaDistancia:
+			self.proximidade->isUnique(distancia)
+end --Cidade
+
+-------------------------------------------------------------------------------------------------	
+class Pais
+	attributes
+		nome: String
+		lingua: String
+		moeda_oficial: String
+		delta_GMT: Integer
+	operations
+		inicializa(nome: String, lingua: String, moeda_oficial: String, delta_GMT: Integer)
+			begin
+				self.nome:= nome;
+				self.lingua:= lingua;
+				self.moeda_oficial:= moeda_oficial;
+				self.delta_GMT:= delta_GMT
+			end
+			
+		-- País com maior número de voos de chegada
+		paisMaisVisitado():Pais = 
+			let maisVisitas: Integer = Pais.allInstances->collect(cidades.servem.voos_chegada->size)->max
+in
+			Pais.allInstances->any(cidades.servem.voos_chegada->size = maisVisitas)
+			
+	constraints
+	
+		@HaPeloMenosUmAeroportoProximo(rationale="Existe pelo menos um aeroporto a menos de 50 Km de distância de uma cidade do país")
+		inv HaPeloMenosUmAeroportoProximo:
+			self.cidades.proximidade->exists(distancia<50)
+			
+		@NumeroContribuinteUnico(rationale="Os nacionais de um país têm números de contribuinte diferentes entre si")
+		inv NumeroContribuinteUnico:
+			self.nacionais->isUnique(n_contribuinte)
+end --Pais
+
+-------------------------------------------------------------------------------------------------	
+abstract class Cliente
+	attributes
+		codigo_cliente: Integer
+		nome: String
+		n_contribuinte: Integer
+		morada: String
+		
+	operations
+	
+		/************************************************************
+		* 
+		*************************************************************/
+		efetuarReserva(bilhetes_reservados: Set(Bilhete), cartao_credito: CartaoCredito)
+			begin
+				declare
+					novo_numero: Integer,
+					nova_reserva: Reserva;
+					
+				novo_numero:= Reserva.allInstances.n_reserva->max + 1;
+				if novo_numero.isUndefined() then 
+						novo_numero:= 1
+				end;
+				nova_reserva:= new Reserva('R'+novo_numero.toString()+'_'+self.codigo_cliente.toString());
+				nova_reserva.n_reserva:= novo_numero;
+				nova_reserva.pagamento:= EstadoPagamento::pendente;
+				
+				insert (self, nova_reserva) into Cliente_Reserva;
+				
+				if cartao_credito.isDefined() then
+					insert (cartao_credito, nova_reserva) into CartaoCredito_Reserva
+				end;
+				
+				for b in bilhetes_reservados do
+					insert (nova_reserva, b) into Reserva_Bilhete
+				end;
+			end
+
+		@HaBilhetes(rationale="Tem de haver pelo menos 1 bilhete para se fazer uma reserva!")
+		pre HaBilhetes:
+			bilhetes_reservados->notEmpty()			
+			
+		/************************************************************
+		* 
+		*************************************************************/			
+		confirmarReserva(reserva: Reserva)
+			begin
+				reserva.pagamento:= EstadoPagamento::efetuado
+			end
+		
+		@ReservaEhValida(rationale="Tem de ser indicada uma reserva válida!")
+		pre ReservaEhValida:
+			reserva.isDefined() and reserva.cliente = self
+			
+		@ReservaEstaPendente(rationale="Só se pode pagar uma reserva se esta estiver pendente!")	
+		pre ReservaEstaPendente:
+			reserva.pagamento = EstadoPagamento::pendente
+		
+		post ReservaEstaPaga:
+			reserva.pagamento = EstadoPagamento::efetuado
+		
+		/************************************************************
+		* 
+		*************************************************************/		
+		desistirReserva(reserva: Reserva, data_cancelamento: CalendarDate)
+			begin
+				for b in reserva.bilhetes do
+					destroy b;
+				end;
+				destroy reserva;
+			end
+		
+		@ParametrosInicializados(rationale="Tem de ser indicada uma reserva e uma data válidas!")
+		pre ParametrosInicializados:
+			reserva.isDefined() and reserva.cliente = self and data_cancelamento.isDefined()
+		
+		@NaoPodeEstarPaga(rationale="Só se podem apagar reservas pendentes!")
+		pre NaoPodeEstarPaga:
+			reserva.pagamento = EstadoPagamento::pendente
+		
+		@NaoPodeSerTardia(rationale="Uma reserva não se pode apagar se algum dos bilhetes correspondentes é respeitante à realização de um voo que já foi efetuado à data do cancelamento!")
+		pre NaoPodeSerTardia:
+			not reserva.bilhetes->exists(realizacao.ocorre_em.isBefore(data_cancelamento))
+		-- Implementação alternativa:	
+		--	reserva.bilhetes->forAll(realizacao.ocorre_em.isAfter(data_cancelamento))
+
+end --Cliente
+
+-------------------------------------------------------------------------------------------------	
+class Individual < Cliente 
+	attributes
+		n_passaporte: Integer
+		telefone_movel: Integer
+		email: String
+		sexo: Sexo
+		
+	operations
+	
+		/************************************************************
+		* 
+		*************************************************************/		
+		inicializa(codigo_cliente: Integer, n_contribuinte: Integer, morada: String, nome: String, 
+		           n_passaporte: Integer, telefone_movel: Integer, email: String, sexo: Sexo, pais: Pais)
+			begin	
+				self.codigo_cliente:= codigo_cliente;
+				self.n_contribuinte:= n_contribuinte;
+				self.morada:= morada;
+				self.nome:= nome;
+				self.n_passaporte:= n_passaporte;
+				self.telefone_movel:= telefone_movel;
+				self.email:= email;
+				self.sexo:= sexo;
+				insert (pais, self) into Pais_Individual
+			end
+
+end --Individual
+
+-------------------------------------------------------------------------------------------------	
+class Empresa < Cliente 
+	attributes
+		website: String
+end --Empresa
+
+-------------------------------------------------------------------------------------------------	
+class Reserva
+	attributes
+		n_reserva: Integer
+		pagamento: EstadoPagamento
+		
+	operations	
+			
+		-- Número total de reservas pendentes (não pagas) feitas por clientes individuais	
+		totalReservasIndividuaisNaoPagas(): Integer = 
+			Reserva.allInstances->select(cliente.oclIsTypeOf(Individual) and pagamento = #pendente)->size
+			
+		totalReservasIndividuaisNaoPagas2(): Integer = 
+			Individual.allInstances.reservas->select(pagamento = #pendente)->size
+			
+		-- Número total de reservas pagas que foram feitas por clientes empresariais	
+		totalReservasEmpresariaisPagas(): Integer = 
+			Reserva.allInstances->select(cliente.oclIsTypeOf(Empresa) and pagamento = #efetuado)->size
+			
+		totalReservasEmpresariaisPagas2(): Integer = 
+			Empresa.allInstances.reservas->select(pagamento = #efetuado)->size		
+		
+		-- Número de bilhetes que foram emitidos para a classe indicada. Se a reserva não foi paga devolve 0.
+		bilhetesPagosPorClasse(classePretendida: Classe): Integer =
+			if self.pagamento = #efetuado then
+				bilhetes->select(classe=classePretendida)->size
+			else
+				0
+			endif	
+		
+	constraints
+	
+		@ClientelaDiferente(rationale="Os clientes portugueses fazem menos reservas que os americanos")
+		inv ClientelaDiferente:
+			Pais.allInstances->any(nome='Portugal').nacionais.reservas->size <
+			Pais.allInstances->any(nome='USA').nacionais.reservas->size
+			
+		@MesmaClasse(rationale="Os bilhetes de uma reserva relativos a realizações não canceladas têm que ser todos da mesma classe")
+		inv MesmaClasse:
+			self.bilhetes->select(not realizacao.cancelada)->isUnique(classe)
+
+		inv MesmaClasse2:
+			self.bilhetes->select(not realizacao.cancelada).classe->asSet->size=1
+end --Reserva
+
+-------------------------------------------------------------------------------------------------	
+class Bilhete
+	attributes
+		primeiro_nome: String
+		ultimo_nome: String
+		lugar: Integer
+
+	operations
+
+		inicializa(realizacao: Realizacao, classe: Classe, primeiro_nome: String, ultimo_nome: String, lugar: Integer)
+		begin
+			insert (realizacao, self) into Realizacao_Bilhete;
+			insert (classe, self) into Classe_Bilhete;
+			self.primeiro_nome:= primeiro_nome;
+			self.ultimo_nome:= ultimo_nome;
+			self.lugar:= lugar
+		end	
+
+		-- aeroporto de origem de um bilhete
+		origem(): Aeroporto = realizacao.realiza_se.partida
+		-- aeroporto de destino de um bilhete
+		destino(): Aeroporto = realizacao.realiza_se.chegada
+
+	constraints
+
+		@CartaoValido(rationale="Um bilhete não pode ser reservado com um cartão que estará expirado na data de realização do voo correspondente")
+		inv CartaoValido:
+			self.reserva.isDefined and self.reserva.cartaoCredito.isDefined implies 
+				self.reserva.cartaoCredito.data_expira.isAfter(self.realizacao.ocorre_em)
+				
+		@LugarDoBilheteValidoDentroDaClasse(rationale=
+			"Um bilhete só é válido se o seu lugar estiver entre o primeiro e último número da sua classe no avião.")
+		inv LugarDoBilheteValidoDentroDaClasse:
+			let aviaoDoBilhete: Aviao = self.realizacao.aviao in
+			let	capacidadeClasseAviao: Capacidade = Capacidade.allInstances->
+					select(aviao=aviaoDoBilhete and classe= self.classe)->asOrderedSet()->first
+			in
+				self.lugar >= capacidadeClasseAviao.primeiro_numero and self.lugar <= capacidadeClasseAviao.ultimo_numero
+
+end --Bilhete
+
+-------------------------------------------------------------------------------------------------	
+associationclass Realizacao
+	between
+		Voo [*] role realiza_se
+		CalendarDate [*] role ocorre_em
+
+	attributes
+		cancelada: Boolean
+		
+	operations
+		inicializa(aviao: Aviao)
+			begin
+				insert (aviao, self) into Aviao_Realizacao;
+				if (self.ocorre_em.day + self.ocorre_em.month + self.ocorre_em.year).mod(10)=0 then
+					self.cancelada:= false
+				else
+					self.cancelada:= true
+				end
+			end
+			
+	constraints
+	
+		@VooDeveTerOcupacaoMinima(rationale="A realização de um voo é cancelada se não estiverem ocupados pelo menos 20% dos lugares do avião respectivo")
+		inv VooDeveTerOcupacaoMinima:
+			bilhetes->size() / aviao.lotacao() < 0.2 implies cancelada
+
+		@CanceladaPorOcupacaoReduzida(rationale="Uma realização é cancelada se tiver uma ocupação inferior a 30%")
+		inv CanceladaPorOcupacaoReduzida:
+			self.bilhetes->size() / self.aviao.capacidade.ultimo_numero->max < 0.3 implies cancelada
+				
+end --Realizacao
+
+-------------------------------------------------------------------------------------------------	
+class Aviao
+	attributes
+		nome: String
+		modelo: String
+
+	operations
+		inicializa(nome: String, modelo: String)
+			begin
+				self.nome:= nome;
+				self.modelo:= modelo
+			end
+			
+		lotacao(): Integer = capacidade.lotacao()->sum
+				
+		lotacao2(): Integer = capacidade.ultimo_numero->max
+
+		-- Conjunto de cidades de onde o avião levantou voo
+		cidadesDePartida(): Set(Cidade) =
+			self.realizacoes->select(not cancelada).realiza_se.partida.servidas ->asSet
+			
+		-- Número de voos nocturnos realizados pelo avião
+		-- Nota: um voo nocturno é aquele em que a hora de chegada é anterior à hora de partida
+		numeroVoosNoturnos(): Integer =
+			self.realizacoes->select(realiza_se.hora_chegada.hours < realiza_se.hora_partida.hours)->size
+		
+	constraints
+		@NaoAndaAsVoltas(rationale="Não há aviões a fazer viagens circulares (aeroporto de chegada igual ao da partida)")
+		inv NaoAndaAsVoltas:
+			self.realizacoes->select(not cancelada).realiza_se->forAll(chegada<>partida)
+		inv NaoAndaAsVoltas2:
+			self.realizacoes->select(not cancelada)->forAll(realiza_se.chegada<>realiza_se.partida)
+			
+end --Aviao
+
+-------------------------------------------------------------------------------------------------	
+class Classe
+	attributes
+		tipo: TipoClasse
+end --Classe
+
+-------------------------------------------------------------------------------------------------	
+associationclass Capacidade
+	between 
+		Aviao [*]
+		Classe [*]
+	attributes
+		primeiro_numero: Integer
+		ultimo_numero: Integer
+		
+	operations
+		inicializa(primeiro_numero: Integer, ultimo_numero: Integer)
+			begin
+				self.primeiro_numero:= primeiro_numero;
+				self.ultimo_numero:= ultimo_numero
+			end	
+	
+		lotacao(): Integer = ultimo_numero - primeiro_numero + 1
+		
+	constraints
+	
+		@MaisLugaresEmTuristica(rationale="Globalmente, há mais lugares em classe turística do que em classe executiva")
+		inv MaisLugaresEmTuristica:
+			Capacidade.allInstances->select(classe.tipo=#turistica)->collect(ultimo_numero-primeiro_numero+1)->sum >
+			Capacidade.allInstances->select(classe.tipo=#executiva)->collect(ultimo_numero-primeiro_numero+1)->sum
+		
+end --Capacidade
+
+-------------------------------------------------------------------------------------------------	
+class CartaoCredito
+	attributes
+		numero: Integer
+		data_expira: CalendarDate
+		
+	operations
+	
+		inicializa(cliente: Cliente, numero: Integer, data_expira: CalendarDate)
+			begin
+				insert (cliente, self) into Cliente_CartaoCredito;
+				self.numero:= numero;
+				self.data_expira:= data_expira
+			end	
+	
+	constraints
+
+		@NaoHaCreditoFacil(rationale="Um cartão de crédito não pode ter mais do que duas reservas com pagamento não efetuado (pendente)")
+		inv NaoHaCreditoFacil:
+			self.reservas->select(pagamento=#pendente)->size<=2
+
+end --CartaoCredito
+
+-------------------------------------------------------------------------------------------------	
+associationclass Proximidade
+	between
+		Aeroporto [*] role servem ordered
+		Cidade [*] role servidas
+	attributes
+		distancia: Real
+	constraints
+	
+		@DistanciaTemUmLimite(rationale="Um aeroporto só pode dizer-se que serve uma cidade a mais de 100 Km de distância se não houver outro aeroporto a uma distância menor que essa distância que sirva a mesma cidade")
+		inv DistanciaTemUmLimite:
+			self.distancia>100 implies servidas.proximidade->forAll(distancia>=self.distancia)
+
+end --Proximidade
+
+--------------------------------------------------------------
+-- Associations
+--------------------------------------------------------------
+
+association Aeroporto_VoosPartida between 
+	Aeroporto [1] role partida
+	Voo [*] role voos_partida ordered
+end
+
+association Aeroporto_VoosChegada between 
+	Aeroporto [1] role chegada
+	Voo [*] role voos_chegada ordered
+end
+
+composition Pais_Cidade between 
+	Pais [1]
+	Cidade [*] role cidades
+end
+
+association Pais_Individual between 
+	Pais [*] role nacionalidade
+	Individual [*] role nacionais
+end
+
+association Cliente_Reserva between 
+	Cliente [1]
+	Reserva [*] role reservas
+end
+
+association Cliente_CartaoCredito between 
+	Cliente [1] role possuidor
+	CartaoCredito [*] role cartoes
+end
+
+aggregation Reserva_Bilhete between 
+	Reserva [0..1]
+	Bilhete [1..*] role bilhetes ordered
+end
+
+association CartaoCredito_Reserva between 
+	CartaoCredito [0..1]
+	Reserva [*] role reservas ordered
+end
+
+association Realizacao_Bilhete between 
+	Realizacao [1]
+	Bilhete [*] role bilhetes
+end
+
+association Classe_Bilhete between 
+	Classe [1]
+	Bilhete [*] role bilhetes
+end
+
+association Aviao_Realizacao between 
+	Aviao [1]
+	Realizacao [*] role realizacoes ordered
+end
+
+
+--------------------------------------------------------------
+-- Library types
+--------------------------------------------------------------
+
+class CalendarDate
+
+	attributes
+		day: Integer
+		month: Integer
+		year: Integer
+
+	operations
+		init(day: Integer, month: Integer, year: Integer)
+			begin
+				self.day:= day;
+				self.month:= month;
+				self.year:= year
+			end
+			
+		-- date format: yyyy-mm-dd
+		initS(date: String)
+			begin
+				self.year:= date.substring(1,4).toInteger();
+				self.month:= date.substring(6,7).toInteger();
+				self.day:= date.substring(9,10).toInteger()
+			end
+
+		stringToDate(date: String): CalendarDate
+			begin
+			  declare 
+					date_year : String,
+					date_month : String,
+					date_day : String;
+					
+				date_year:= date.substring(1,4);
+				date_month:= date.substring(6,7);
+				date_day:= date.substring(9,10);
+				result:= CalendarDate.allInstances-> select(cd |
+					cd.year=date_year.toInteger() and
+					cd.month=date_month.toInteger() and 
+					cd.day=date_day.toInteger())->asSequence()->first();
+				if result.isUndefined() then
+					result:= new CalendarDate('D'+date_year+date_month+date_day);
+				  result.initS(date)
+				end
+			end
+			
+		isBefore(t: CalendarDate):Boolean = 
+			if self.year = t.year then
+				if self.month = t.month then
+				self.day < t.day
+				 else
+				self.month < t.month
+				 endif
+			else 
+				self.year < t.year
+			endif
+
+		isAfter(t: CalendarDate):Boolean =
+			if self.year = t.year then
+				if self.month = t.month then
+					self.day > t.day
+				 else
+					self.month > t.month
+				endif
+			else 
+				self.year > t.year
+			endif
+
+		isEqual(t: CalendarDate):Boolean =
+			self.year  = t.year and
+			self.month = t.month and
+			self.day   = t.day
+
+		yearsSince(t: CalendarDate):Integer =
+			if self.month < t.month or
+			   self.month = t.month and self.day < t.day then
+					self.year - t.year -1
+			else
+				self.year - t.year
+			endif
+
+		isDivisible(x: Integer, y: Integer): Boolean = x div y * y = x
+		
+		isLeap(): Boolean =
+			if isDivisible(self.year, 400) or isDivisible(self.year, 4) then
+				true
+			else
+				if isDivisible(self.year, 100) then
+					 false
+				else
+					if isDivisible(self.year, 4) then
+						true
+					else
+						false
+					endif
+				endif
+			endif
+			
+		valid(): Boolean =
+			self.month>=1 and self.month<=12 and self.day>=1 and
+			if self.isLeap() then
+				self.day<=Sequence{31,29,31,30,31,30,31,31,30,31,30,31}->at(self.month)
+			else 
+				self.day<=Sequence{31,28,31,30,31,30,31,31,30,31,30,31}->at(self.month)
+			endif
+			
+		-- format: yyyy-mm-dd
+		toString(): String = year.toString()+'-'+month.toString()+'-'+day.toString()
+		
+end --CalendarDate
+
+-------------------------------------------------------------------------------------------------	
+class Instant
+	attributes
+		hours: Integer
+		minutes: Integer
+		seconds: Integer
+		
+	operations
+		init(hours: Integer, minutes: Integer, seconds: Integer)
+			begin
+				self.hours:= hours;
+				self.minutes:= minutes;
+				self.seconds:= seconds
+			end		
+			
+		isEqual(i: Instant):Boolean =
+			self.hours   = i.hours and
+			self.minutes = i.minutes and
+			self.seconds = i.seconds
+			
+		-- format: hh:mm:ss
+		toString(): String = hours.toString()+':'+minutes.toString()+':'+seconds.toString()
+			
+end --Instant
+
+-------------------------------------------------------------------------------------------------
+class Random
+
+	attributes
+		-- Linear congruential values for x(i+1) = (a * x(i) + b) % m.
+		a: Integer
+		b: Integer
+		m: Integer
+		x: Integer
+
+	operations
+		init(seed: Integer)
+			begin
+				self.a:= 25173;
+				self.b:= 13849;
+				self.m:= 32768;
+				self.x:= seed
+				-- self.x:= self.m div 2
+			end
+
+		nextReal(): Real
+			begin
+				-- Calculate next value in sequence.
+				self.x := (self.a * self.x + self.b).mod(self.m);
+
+			-- Return its 0-to-1 value
+				result:= self.x / self.m
+			end
+
+		nextInteger(initial: Integer, last: Integer): Integer
+			begin
+				declare 
+					next: Real;
+					
+				next:= self.nextReal();		
+				result:= initial + (next * (last - initial)).round()
+			end
+			
+end --Random
