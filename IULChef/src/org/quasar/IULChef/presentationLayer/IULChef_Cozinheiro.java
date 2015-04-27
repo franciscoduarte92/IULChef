@@ -5,6 +5,11 @@
  */
 package org.quasar.IULChef.presentationLayer;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import org.quasar.IULChef.persistenceLayer.Database;
+
 /**
  *
  * @author terroma
