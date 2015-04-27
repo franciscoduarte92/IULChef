@@ -9,13 +9,14 @@ package org.quasar.IULChef.presentationLayer;
  *
  * @author terroma
  */
-public class IULChef_NovoProdutoComposro extends javax.swing.JFrame {
+public class IULChef_NovoProdutoComposto extends javax.swing.JFrame {
 
     /**
      * Creates new form IULChef_EliminarDevolucoes
      */
-    public IULChef_NovoProdutoComposro() {
+    public IULChef_NovoProdutoComposto() {
         initComponents();
+        setTitle("Novo Produto Composto");
     }
 
     /**
@@ -252,13 +253,13 @@ public class IULChef_NovoProdutoComposro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IULChef_NovoProdutoComposto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -266,7 +267,7 @@ public class IULChef_NovoProdutoComposro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IULChef_NovoProdutoComposro().setVisible(true);
+                new IULChef_NovoProdutoComposto().setVisible(true);
             }
         });
     }

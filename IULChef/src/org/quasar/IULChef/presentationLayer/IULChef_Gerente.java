@@ -16,6 +16,7 @@ public class IULChef_Gerente extends javax.swing.JFrame {
      */
     public IULChef_Gerente() {
         initComponents();
+        setTitle("Gerente");
     }
 
     /**

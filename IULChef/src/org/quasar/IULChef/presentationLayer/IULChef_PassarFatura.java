@@ -16,6 +16,7 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
      */
     public IULChef_PassarFatura() {
         initComponents();
+        setTitle("Passar Fatura");
     }
 
     /**
