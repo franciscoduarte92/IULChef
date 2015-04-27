@@ -423,7 +423,6 @@ public class Empregado extends Entidade implements Comparable<Object> {
 	/**********************************************************************
 	 * User-defined operation specified in SOIL/OCL
 	 **********************************************************************/
-	@SuppressWarnings("null")
 	public void EliminarDevolucoes() {
 		// declare pe : Bag(Pedido); pe := Pedido.allInstances->asBag->select(p
 		// : Pedido | (p.devolvido = true)); for b in pe do destroy b end;
@@ -432,7 +431,6 @@ public class Empregado extends Entidade implements Comparable<Object> {
 
 		for (Pedido pe : Pedido.allInstances()) {
 			if (pe.devolvido() == true) {
-//				System.out.println("sdg");
 				pedidos_devolvidos.add(pe);
 			}
 		}
