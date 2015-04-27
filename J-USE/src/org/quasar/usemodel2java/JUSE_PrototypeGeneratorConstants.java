@@ -13,23 +13,23 @@ public abstract class JUSE_PrototypeGeneratorConstants
 	protected static final String	DB4O_JAR	= "db4o-8.0.249.16098-core-java5.jar";
 	protected final static String	DATABASE_DIRECTORY	= "database";
 	//-----------------------------------------------------------------------------------------
-	protected static final String	USE_BASE_DIRECTORY	= "D:/Dropbox/TEACH/Java/workspace/use-4.0.0";
+	protected static final String	USE_BASE_DIRECTORY	= "C:/Users/Francisco/Documents/GitHub/IULChef/use-4.0.0";
 	
-	protected static final String	JAVA_WORKSPACE	= "D:/Dropbox/TEACH/Java/workspace";
+	protected static final String	JAVA_WORKSPACE	= "C:/Users/Francisco/Documents/GitHub/IULChef";
 	
-	protected static final String AUTHORS = "Fernando Brito e Abreu";
+	protected static final String AUTHORS = "Francisco Duarte & Hugo Chaves";
 	//-----------------------------------------------------------------------------------------
 //	protected static final String	MODEL_DIRECTORY	= "D:/Dropbox/TEACH/UML/Exemplos/PT_IULChef";
 //	protected static final String	MODEL_FILE	= "IULChef.use";
 //	protected final static String SOIL_FILE = "IULChef.soil";
 //	protected static final String	TARGET_PACKAGE	= "org.quasar.IULChef";
 	//-----------------------------------------------------------------------------------------
-	 protected final static String MODEL_DIRECTORY = "D:/Dropbox/TEACH/UML/Exemplos/PT_RUTIEO_CompanhiaAerea_O";
-	 protected final static String MODEL_FILE = "AirNova.use";
+	 protected final static String MODEL_DIRECTORY = "C:/Users/Francisco/Documents/GitHub/IULChef";
+	 protected final static String MODEL_FILE = "IULChef.use";
 //	 protected final static String SOIL_FILE = "Data/InheritanceExample.soil";
-	 protected final static String SOIL_FILE = "Data/AirNova4.soil";
-	 protected final static String CMD_FILE = "Data/AirNova4.cmd";
-	 protected final static String TARGET_PACKAGE = "org.quasar.airNova";
+	 protected final static String SOIL_FILE = "IULChef.soil";
+	 protected final static String CMD_FILE = "IULChef.cmd";
+	 protected final static String TARGET_PACKAGE = "org.quasar.IULChef";
 	//-----------------------------------------------------------------------------------------
 	//	protected final static String	MODEL_DIRECTORY		= "D:/Dropbox/TEACH/UML/Exemplos/PT_RUTIEO_OrganizacaoAcademica_OC/USE";
 	//	protected final static String	MODEL_FILE			= "Phoenix2.use";
