@@ -16,6 +16,7 @@ public class IULChef_ContratarEmpregado extends javax.swing.JFrame {
      */
     public IULChef_ContratarEmpregado() {
         initComponents();
+        this.setTitle("Contratar Empregado");
     }
 
     /**

@@ -16,6 +16,7 @@ public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
      */
     public IULChef_EmpregadoMesa() {
         initComponents();
+        this.setTitle("Empregado de Mesa");
     }
 
     /**
