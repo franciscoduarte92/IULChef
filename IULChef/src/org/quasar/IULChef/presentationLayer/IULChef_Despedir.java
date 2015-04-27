@@ -5,6 +5,11 @@
  */
 package org.quasar.IULChef.presentationLayer;
 
+import javax.swing.JComboBox;
+
+import org.quasar.IULChef.businessLayer.Empregado;
+import org.quasar.IULChef.businessLayer.Entidade;
+
 /**
  *
  * @author terroma
@@ -17,6 +22,7 @@ public class IULChef_Despedir extends javax.swing.JFrame {
     public IULChef_Despedir() {
         initComponents();
         this.setTitle("Despedir");
+        preencheComboBox();
     }
 
     /**
@@ -114,7 +120,16 @@ public class IULChef_Despedir extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDespedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespedirActionPerformed
-        // TODO add your handling code here:
+    	String[] empregados = null;
+    	int i=0;
+    	for (Entidade e : Empregado.allInstances()) {
+//			if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {
+//				tipoEmpregadoLogado = ((Empregado) e).tipo();
+//			}
+    		empregados[i] = e.nome()+"-"+e.nc();
+    		i++;
+		}
+    	jComboBoxEmpregados = new JComboBox<>(empregados);
     }//GEN-LAST:event_jButtonDespedirActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
@@ -123,6 +138,20 @@ public class IULChef_Despedir extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    private void preencheComboBox(){
+    	String empregados = null;
+    	int i=0;
+    	for (Entidade e : Empregado.allInstances()) {
+//			if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {
+//				tipoEmpregadoLogado = ((Empregado) e).tipo();
+//			}
+    		empregados = e.nome()+"-"+e.nc();
+    		jComboBoxEmpregados.addItem(empregados);
+		}
+    	
+    }//GEN-LAST:event
+    
+    
     /**
      * @param args the command line arguments
      */
