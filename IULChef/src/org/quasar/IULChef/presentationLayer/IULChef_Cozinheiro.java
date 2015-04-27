@@ -16,6 +16,7 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
      */
     public IULChef_Cozinheiro() {
         initComponents();
+        this.setTitle("Cozinheiro");
     }
 
     /**

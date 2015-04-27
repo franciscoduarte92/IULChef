@@ -16,6 +16,7 @@ public class IULChef_ComprarIngrediente extends javax.swing.JFrame {
      */
     public IULChef_ComprarIngrediente() {
         initComponents();
+        this.setTitle("Comprar Ingrediente");
     }
 
     /**

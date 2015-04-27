@@ -16,6 +16,7 @@ public class IULChef_DevolverPedido extends javax.swing.JFrame {
      */
     public IULChef_DevolverPedido() {
         initComponents();
+        this.setTitle("Devolver Pedido");
     }
 
     /**

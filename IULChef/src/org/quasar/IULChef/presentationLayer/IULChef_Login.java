@@ -32,7 +32,7 @@ public class IULChef_Login extends javax.swing.JFrame {
         jLabelNc = new javax.swing.JLabel();
         jTextFieldNc = new javax.swing.JTextField();
         jButtonLogin = new javax.swing.JButton();
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelNc.setText("Nc:");

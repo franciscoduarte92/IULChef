@@ -16,6 +16,7 @@ public class IULChef_Despedir extends javax.swing.JFrame {
      */
     public IULChef_Despedir() {
         initComponents();
+        this.setTitle("Despedir");
     }
 
     /**
