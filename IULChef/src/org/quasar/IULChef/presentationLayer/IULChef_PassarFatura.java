@@ -16,7 +16,6 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
      */
     public IULChef_PassarFatura() {
         initComponents();
-        setTitle("Passar Fatura");
     }
 
     /**
@@ -36,9 +35,9 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
         jLabelNrMesa = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldNc = new javax.swing.JTextField();
-        jTextFieldNrMesa = new javax.swing.JTextField();
         jButtonPassarFatura = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
+        jComboBoxNumeroMesa = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +65,8 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxNumeroMesa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -81,12 +82,12 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
                             .addComponent(jLabelNc)
                             .addComponent(jLabelNrMesa))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNrMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldNc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(jLabelMesa)
-                            .addComponent(jLabelCliente))))
+                            .addComponent(jLabelCliente)
+                            .addComponent(jComboBoxNumeroMesa, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -106,10 +107,10 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
                     .addComponent(jLabelNc))
                 .addGap(12, 12, 12)
                 .addComponent(jLabelMesa)
-                .addGap(6, 6, 6)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNrMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNrMesa))
+                    .addComponent(jLabelNrMesa)
+                    .addComponent(jComboBoxNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonPassarFatura, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -177,6 +178,7 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPassarFatura;
     private javax.swing.JButton jButtonVoltar;
+    private javax.swing.JComboBox jComboBoxNumeroMesa;
     private javax.swing.JLabel jLabelCliente;
     private javax.swing.JLabel jLabelMesa;
     private javax.swing.JLabel jLabelNc;
@@ -185,6 +187,5 @@ public class IULChef_PassarFatura extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldNc;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldNrMesa;
     // End of variables declaration//GEN-END:variables
 }
