@@ -16,6 +16,7 @@ public class IULChef_Login extends javax.swing.JFrame {
      */
     public IULChef_Login() {
         initComponents();
+        setTitle("Login");
     }
 
     /**

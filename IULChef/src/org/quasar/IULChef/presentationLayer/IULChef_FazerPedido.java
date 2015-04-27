@@ -16,6 +16,7 @@ public class IULChef_FazerPedido extends javax.swing.JFrame {
      */
     public IULChef_FazerPedido() {
         initComponents();
+        setTitle("Fazer Pedido");
     }
 
     /**
