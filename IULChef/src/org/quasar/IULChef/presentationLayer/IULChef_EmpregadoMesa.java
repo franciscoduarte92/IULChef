@@ -54,8 +54,6 @@ public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
         jButtonVoltar = new javax.swing.JButton();
         jButtonDevolverPedido = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jButtonPassarFatura.setText("Passar Fatura");
         jButtonPassarFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

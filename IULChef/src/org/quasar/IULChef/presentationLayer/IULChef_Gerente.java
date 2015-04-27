@@ -56,8 +56,6 @@ public class IULChef_Gerente extends javax.swing.JFrame {
         jButtonContratar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jButtonDespedir.setText("Despedir");
         jButtonDespedir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
