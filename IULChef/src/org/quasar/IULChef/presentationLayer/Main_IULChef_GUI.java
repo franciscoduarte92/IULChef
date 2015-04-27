@@ -8,7 +8,7 @@ import org.quasar.IULChef.persistenceLayer.Database;
 public class Main_IULChef_GUI {
 
 	public static void main(String[] args) {
-			Database.open("/Users/terroma/git/IULChef/IULChef/database/", "IULChef", "db4o");
+			Database.open("/Users/terroma/git/IULChef/IULChef/database", "IULChef", "db4o");
 			
 			IULChef_Login login = new IULChef_Login();
 			login.addWindowListener(new WindowAdapter() {

@@ -109,13 +109,11 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     private void jButtonDespedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespedirActionPerformed
         janelaDespedir = new IULChef_Despedir();
         janelaDespedir.setVisible(true);
-        dispose();
     }//GEN-LAST:event_jButtonDespedirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         janelaComprarIngrediente = new IULChef_ComprarIngrediente();
         janelaComprarIngrediente.setVisible(true);
-        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonContratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContratarActionPerformed
