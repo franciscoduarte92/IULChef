@@ -46,7 +46,7 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
         jButtonNovoProdutoComposto = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
 
-        jButtonEliminarDevolucoes.setText("Eliminar DevoluÃ§Ãµes");
+        jButtonEliminarDevolucoes.setText("Eliminar Devoluções");
         jButtonEliminarDevolucoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarDevolucoesActionPerformed(evt);
