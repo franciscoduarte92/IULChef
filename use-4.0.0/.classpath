@@ -16,7 +16,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/vtd-xml.jar" sourcepath="D:/Install/ximpleware_2.10_java"/>
 	<classpathentry exported="true" kind="lib" path="lib/gsbase.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jruby-1.7.2.jar"/>
-	<classpathentry kind="lib" path="/home/francisco/Dropbox/ESII/t2/org.eclipse.jdt.annotation_1.1.0.v20130513-1648.jar"/>
 	<classpathentry kind="lib" path="lib/itextpdf-5.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Francisco/Documents/GitHub/IULChef/use-4.0.0/lib/org.eclipse.jdt.annotation_1.1.0.v20130513-1648.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
