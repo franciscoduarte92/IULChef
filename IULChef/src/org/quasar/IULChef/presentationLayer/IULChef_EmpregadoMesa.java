@@ -8,6 +8,8 @@ package org.quasar.IULChef.presentationLayer;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import org.quasar.IULChef.businessLayer.Empregado;
+import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.persistenceLayer.Database;
 
 /**
@@ -16,10 +18,16 @@ import org.quasar.IULChef.persistenceLayer.Database;
  */
 public class IULChef_EmpregadoMesa extends javax.swing.JFrame {
 
-    /**
+    private Empregado empregado;
+	private Restaurante restaurante;
+	/**
      * Creates new form IULChef_swing
+     * @param restaurante 
+     * @param empregado 
      */
-    public IULChef_EmpregadoMesa() {
+    public IULChef_EmpregadoMesa(Empregado empregado, Restaurante restaurante) {
+    	this.empregado = empregado;
+    	this.restaurante = restaurante;
         initComponents();
         this.setTitle("Empregado de Mesa");
     }

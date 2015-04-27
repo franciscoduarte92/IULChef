@@ -90,21 +90,21 @@ public class IULChef_Login extends JFrame {
 					
 					dispose();
 					
-					new IULChef_Cozinheiro();
+					new IULChef_Cozinheiro(empregado, restaurante);
 					
 					break;
 				case Gerente:
 					
 					dispose();
 					
-					new IULChef_Gerente();
+					new IULChef_Gerente(empregado, restaurante);
 					
 					break;
 				case EmpregadoMesa:
 					
 					dispose();
 					
-					new IULChef_EmpregadoMesa();
+					new IULChef_EmpregadoMesa(empregado, restaurante);
 					
 					break;
 				default:

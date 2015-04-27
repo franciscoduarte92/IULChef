@@ -10,6 +10,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 
+import org.quasar.IULChef.businessLayer.Empregado;
+import org.quasar.IULChef.businessLayer.Restaurante;
 import org.quasar.IULChef.persistenceLayer.Database;
 
 /**
@@ -18,10 +20,16 @@ import org.quasar.IULChef.persistenceLayer.Database;
  */
 public class IULChef_Gerente extends javax.swing.JFrame {
 
-    /**
+    private Empregado empregado;
+	private Restaurante restaurante;
+	/**
      * Creates new form IULChef_Gerente
+     * @param restaurante 
+     * @param empregado 
      */
-    public IULChef_Gerente() {
+    public IULChef_Gerente(Empregado empregado, Restaurante restaurante) {
+    	this.empregado = empregado;
+    	this.restaurante = restaurante;
         initComponents();
         setTitle("Gerente");
     }
