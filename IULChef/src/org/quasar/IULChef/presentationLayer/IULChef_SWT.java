@@ -3,29 +3,14 @@ package org.quasar.IULChef.presentationLayer;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JSplitPane;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import java.awt.GridLayout;
-import net.miginfocom.swing.MigLayout;
-import java.awt.GridBagLayout;
-import javax.swing.Box;
-import java.awt.GridBagConstraints;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Insets;
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
-import java.awt.Component;
 import javax.swing.JSeparator;
-import java.awt.Canvas;
-import java.awt.Panel;
 import javax.swing.SwingConstants;
-import java.awt.Choice;
 
 public class IULChef_SWT {
 
@@ -39,7 +24,6 @@ public class IULChef_SWT {
 	/**
 	 * @wbp.nonvisual location=168,161
 	 */
-	private final Choice choice = new Choice();
 
 	/**
 	 * Launch the application.
