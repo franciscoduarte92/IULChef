@@ -37,7 +37,7 @@ public class IULChef_Login extends javax.swing.JFrame {
 
         jLabelNc.setText("Nc:");
 
-        jTextFieldNc.setText("nc");
+        
 
         jButtonLogin.setText("Login");
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
