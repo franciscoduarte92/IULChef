@@ -402,11 +402,12 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		assert pre_DespedirVerificaContratado : "Só se pode despedir o empregado se ele estiver já contratado no mesmo restaurante";
 		// -----------------------------------------------------------------------------
 		// ((empre.faturas->size < 5) = true)
-		boolean pre_DespedirMinimoDeVendas = this.faturas().size() <= 1;
+		boolean pre_DespedirMinimoDeVendas = this.faturas().size() >= 5;
 
 		assert pre_DespedirMinimoDeVendas : "Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas";
 		// -----------------------------------------------------------------------------
 		// delete (r,empre) from Contrato
+//		TODO
 		Database.delete(r, empre);
 		// -----------------------------------------------------------------------------
 		// (self.empregadores->collect($e : Restaurante |
