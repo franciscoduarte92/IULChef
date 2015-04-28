@@ -368,7 +368,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		for (ProdutoSimples ing : ingredientes) {
 
 			new Composicao(pc, ing,
-					(double) quantidades_ingredientes.toArray()[itr]);
+					Double.parseDouble(quantidades_ingredientes.toArray()[itr].toString()));
 			itr++;
 
 		}
@@ -381,7 +381,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 
 		assert post_CriarProdutoCompostoInsucesso : "Nao foi possivel criar o produto composto";
 	}
-
+	
 	/**********************************************************************
 	 * User-defined operation specified in SOIL/OCL
 	 * 
