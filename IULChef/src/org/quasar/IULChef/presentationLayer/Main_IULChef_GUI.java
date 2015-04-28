@@ -6,7 +6,7 @@ public class Main_IULChef_GUI {
 
 	public static void main(String[] args) {
 			Database.open("/Users/terroma/git/IULChef/IULChef/database", "IULChef", "db4o");
-			
+			System.out.println("Database Connected!");
 			new IULChef_Login();
 	}
 }

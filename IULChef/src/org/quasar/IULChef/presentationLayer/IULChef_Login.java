@@ -8,6 +8,7 @@ package org.quasar.IULChef.presentationLayer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -66,7 +67,6 @@ public class IULChef_Login extends JFrame {
 		jButtonLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
 				for (Entidade e : Empregado.allInstances()) {
 					if (e.nc().equals(Integer.parseInt(jTextFieldNc.getText()))) {
 						empregado = ((Empregado) e);

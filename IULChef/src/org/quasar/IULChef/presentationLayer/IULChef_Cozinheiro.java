@@ -7,7 +7,9 @@ package org.quasar.IULChef.presentationLayer;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -25,6 +27,9 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
 
 	private Empregado empregado;
 	private Restaurante restaurante;
+	private String day;
+	private String month;
+	private String year;
 
 	/**
 	 * Creates new form IULChef_Cozinheiro
@@ -57,6 +62,17 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
 			}
 		});
 
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+		Date date = new Date();
+
+		String time = sdf.format(date);
+		
+		String[] parts = time.split("-");
+		day = parts[0]; 
+		month = parts[1]; 
+		year = parts[2];
+		
 		jPanel1 = new javax.swing.JPanel();
 		jButtonEliminarDevolucoes = new javax.swing.JButton();
 		jButtonInventario = new javax.swing.JButton();
@@ -198,8 +214,7 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
 	}// GEN-LAST:event_jButtonEliminarDevolucoesActionPerformed
 
 	private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonInventarioActionPerformed
-		empregado.FazerInventario(new CalendarDate(Calendar.DAY_OF_MONTH,
-				Calendar.MONTH, Calendar.YEAR),restaurante);
+		empregado.FazerInventario(new CalendarDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year)),restaurante);
 		JOptionPane.showMessageDialog(this, "Inventário criado com sucesso!");
 	}// GEN-LAST:event_jButtonInventarioActionPerformed
 

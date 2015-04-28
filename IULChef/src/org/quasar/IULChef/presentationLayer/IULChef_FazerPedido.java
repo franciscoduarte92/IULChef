@@ -179,7 +179,6 @@ public class IULChef_FazerPedido extends javax.swing.JDialog {
     	for (Fatura f : Fatura.allInstances()) {
 			jComboBoxFaturas.addItem(f.numero());
 		}
-//    	TODO produtos compostos
     	for (Produto p : ProdutoComposto.allInstances()) {
 			jComboBoxProdutos.addItem(p.nome());
 		}

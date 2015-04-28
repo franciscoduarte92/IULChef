@@ -5,7 +5,9 @@
  */
 package org.quasar.IULChef.presentationLayer;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.quasar.IULChef.businessLayer.CalendarDate;
 import org.quasar.IULChef.businessLayer.Compra;
@@ -34,6 +36,9 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 	private Fornecedor fornecedor;
 	private ProdutoSimples produto;
 	private JComboBox jComboBoxNomeProduto;
+	private String day;
+	private String month;
+	private String year;
 	/**
 	 * Creates new form IULChef_ComprarIngrediente
 	 * @param restaurante 
@@ -87,6 +92,17 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 
 		jLabelPreco.setText("Preço:");
 
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+		Date date = new Date();
+
+		String time = sdf.format(date);
+		
+		String[] parts = time.split("-");
+		day = parts[0]; 
+		month = parts[1]; 
+		year = parts[2];
+		
 		jButton1.setText("Comprar Ingrediente");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +234,7 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		int quantidadeComprasAnt = Compra.allInstances().size();
-		empregado.ComprarIngredientes(restaurante, getSelectedFornecedor(), getSelectedProduto(), Integer.parseInt(jTextFieldQuantidade.getText()), Double.parseDouble(jTextFieldPreco.getText()), new CalendarDate(Calendar.DAY_OF_MONTH,Calendar.MONTH, Calendar.YEAR));
+		empregado.ComprarIngredientes(restaurante, getSelectedFornecedor(), getSelectedProduto(), Integer.parseInt(jTextFieldQuantidade.getText()), Double.parseDouble(jTextFieldPreco.getText()), new CalendarDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year)));
 		if(Compra.allInstances().size()>quantidadeComprasAnt){
 			JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso!");
 		}else{

@@ -6,7 +6,9 @@
 package org.quasar.IULChef.presentationLayer;
 
 import java.nio.channels.NetworkChannel;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.quasar.IULChef.businessLayer.CalendarDate;
 import org.quasar.IULChef.businessLayer.Cliente;
@@ -32,6 +34,9 @@ public class IULChef_PassarFatura extends javax.swing.JDialog {
     private Empregado empregado;
 	private Restaurante restaurante;
 	private Mesa mesa;
+	private String day;
+	private String month;
+	private String year;
 	/**
      * Creates new form IULChef_PassarFatura
      */
@@ -78,6 +83,17 @@ public class IULChef_PassarFatura extends javax.swing.JDialog {
 
         jLabelNrMesa.setText("Nr:");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+		Date date = new Date();
+
+		String time = sdf.format(date);
+		
+		String[] parts = time.split("-");
+		day = parts[0]; 
+		month = parts[1]; 
+		year = parts[2];
+        
         jButtonPassarFatura.setText("Passar Fatura");
         jButtonPassarFatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +244,7 @@ public class IULChef_PassarFatura extends javax.swing.JDialog {
     private void jButtonPassarFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPassarFaturaActionPerformed
     	int quantiFaturas = Fatura.allInstances().size();
     	getSelectedMesa();
-    	empregado.PassaFatura(verificaCliente(), mesa, new CalendarDate(Calendar.DAY_OF_MONTH,Calendar.MONTH, Calendar.YEAR), criaNumeroFatura());
+    	empregado.PassaFatura(verificaCliente(), mesa, new CalendarDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year)), criaNumeroFatura());
     	if(Fatura.allInstances().size()>quantiFaturas){
     		JOptionPane.showMessageDialog(this, "Fatura passada com susseco!");
     	}else{
