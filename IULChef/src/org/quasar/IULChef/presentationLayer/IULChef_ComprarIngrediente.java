@@ -235,6 +235,13 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		int quantidadeComprasAnt = Compra.allInstances().size();
 		empregado.ComprarIngredientes(restaurante, getSelectedFornecedor(), getSelectedProduto(), Integer.parseInt(jTextFieldQuantidade.getText()), Double.parseDouble(jTextFieldPreco.getText()), new CalendarDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year)));
+		for(int i=0;i<jComboBoxFornecedores.getItemCount();i++){
+	        jComboBoxFornecedores.removeItemAt(0);
+	     }
+		for(int i=0;i<jComboBoxNomeProduto.getItemCount();i++){
+	        jComboBoxNomeProduto.removeItemAt(0);
+	     }
+		preencheComboBox();
 		if(Compra.allInstances().size()>quantidadeComprasAnt){
 			JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso!");
 		}else{

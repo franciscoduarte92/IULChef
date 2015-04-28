@@ -205,6 +205,13 @@ public class IULChef_FazerPedido extends javax.swing.JDialog {
     private void jButtonPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoActionPerformed
         int numeroPedidos = Pedido.allInstances().size();
     	empregado.FazerPedido(getSelectedFatura(), getSelectedProduto(), Integer.parseInt(jTextFieldQuantidade.getText()));
+    	for(int i=0;i<jComboBoxFaturas.getItemCount();i++){
+	        jComboBoxFaturas.removeItemAt(0);
+	     }
+    	for(int i=0;i<jComboBoxProdutos.getItemCount();i++){
+	        jComboBoxProdutos.removeItemAt(0);
+	     }
+    	preencheComboBox();
     	if(Pedido.allInstances().size()>numeroPedidos){
     		JOptionPane.showMessageDialog(this, "Pedido efetuado com sucesso!");
     	}else{

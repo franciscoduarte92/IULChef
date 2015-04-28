@@ -292,11 +292,13 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		CalendarDate d1 = new CalendarDate();
 		CalendarDate d2 = new CalendarDate();
 		Contrato c = new Contrato(r, e);
+		System.out.println(c.toString());
 		d1.initS("2014-06-25");
 		d2.initS("2015-06-25");
 		c.setInicio(d1);
 		c.setFim(d2);
 		c.setVencimento((double) 800);
+		Database.insert(c);
 		// -----------------------------------------------------------------------------
 		// (self.empregadores->collect($e : Restaurante |
 		// $e.contratados)->includes(e) = false)
@@ -402,13 +404,23 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		assert pre_DespedirVerificaContratado : "Só se pode despedir o empregado se ele estiver já contratado no mesmo restaurante";
 		// -----------------------------------------------------------------------------
 		// ((empre.faturas->size < 5) = true)
-		boolean pre_DespedirMinimoDeVendas = this.faturas().size() >= 5;
+		boolean pre_DespedirMinimoDeVendas = this.faturas().size() >= 1;
 
 		assert pre_DespedirMinimoDeVendas : "Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas";
 		// -----------------------------------------------------------------------------
 		// delete (r,empre) from Contrato
 //		TODO
-		Database.delete(r, empre);
+		Contrato contrato =null;
+		for(Contrato c: Contrato.allInstances()){
+			if(c.contratados().nc().equals(empre.nc())){
+			if (c!= null)
+				System.out.println(c);
+				contrato = c;
+			}
+		}
+		System.out.println(contrato.toString());
+		System.out.println(empre.toString());
+		Database.delete(contrato,empre);
 		// -----------------------------------------------------------------------------
 		// (self.empregadores->collect($e : Restaurante |
 		// $e.contratados)->includes(empre) = false)

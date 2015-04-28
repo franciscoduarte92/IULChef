@@ -138,13 +138,19 @@ public class IULChef_Despedir extends javax.swing.JDialog {
 					empre = (Empregado) e;
 			}
 		}
+		System.out.println(empre.toString());
+		System.out.println(restaurante.toString());
 		empregado.Despedir(restaurante, empre);
-		preencheComboBox();
+		
 		if(numeroEmpregados<Empregado.allInstances().size()){
 			JOptionPane.showMessageDialog(this, "O Empregado foi despedido com susseco!");
 		}else{
 			JOptionPane.showMessageDialog(this, "Nao foi possivel despedir o empregado!");
 		}
+		for(int i=0;i<jComboBoxEmpregados.getItemCount();i++){
+	        jComboBoxEmpregados.removeItemAt(0);
+	     }
+		preencheComboBox();
 	}//GEN-LAST:event_jButtonDespedirActionPerformed
 
 	private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed

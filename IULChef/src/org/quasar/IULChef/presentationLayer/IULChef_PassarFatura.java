@@ -245,6 +245,10 @@ public class IULChef_PassarFatura extends javax.swing.JDialog {
     	int quantiFaturas = Fatura.allInstances().size();
     	getSelectedMesa();
     	empregado.PassaFatura(verificaCliente(), mesa, new CalendarDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year)), criaNumeroFatura());
+    	for(int i=0;i<jComboBoxNumeroMesa.getItemCount();i++){
+	        jComboBoxNumeroMesa.removeItemAt(0);
+	     }
+    	preencheComboBox();
     	if(Fatura.allInstances().size()>quantiFaturas){
     		JOptionPane.showMessageDialog(this, "Fatura passada com susseco!");
     	}else{
