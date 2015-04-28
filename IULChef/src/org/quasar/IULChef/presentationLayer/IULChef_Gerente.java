@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+import javax.swing.WindowConstants;
 
 import org.quasar.IULChef.businessLayer.Empregado;
 import org.quasar.IULChef.businessLayer.Restaurante;
@@ -45,10 +46,10 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     private void initComponents() {
 
     	addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
+			public void windowClosed(WindowEvent e) {
 				Database.close();
 				new IULChef_Login();
-            }
+			}
 		});
     	
         jPanel1 = new javax.swing.JPanel();
@@ -120,8 +121,9 @@ public class IULChef_Gerente extends javax.swing.JFrame {
         );
         getContentPane().setLayout(layout);
 
-        pack();
-        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		pack();
+		setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDespedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespedirActionPerformed
@@ -152,6 +154,5 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     private IULChef_Despedir janelaDespedir;
     private IULChef_ComprarIngrediente janelaComprarIngrediente;
     private IULChef_ContratarEmpregado janelaContratar;
-    private IULChef_Login janelaLogin;
     // End of variables declaration//GEN-END:variables
 }

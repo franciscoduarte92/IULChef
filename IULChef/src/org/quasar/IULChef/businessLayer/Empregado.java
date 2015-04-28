@@ -459,7 +459,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 	 * @param data
 	 *            the data to set
 	 **********************************************************************/
-	public void FazerInventario(CalendarDate data) {
+	public void FazerInventario(CalendarDate data, Restaurante r) {
 		// declare quantidade : Integer, contagem : Contagem, produtos_simples :
 		// Set(Produto), invent : Inventario;
 		// invent := new Inventario; invent.init(data);
@@ -471,20 +471,22 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// contagem := new Contagem; contagem.existencias := quantidade; insert
 		// (contagem,ps.oclAsType(ProdutoSimples)) into Contagem_ProdutoSimples;
 		// insert (invent,contagem) into Inventario_Contagem end
-		Integer quantidade = 0;
-		Contagem contagem = new Contagem();
 		Inventario invent = new Inventario();
-		invent.setData(data);
-		Restaurante r = empregadores().iterator().next();
+		CalendarDate cd = new CalendarDate();
+		cd.initS("2015-08-12");
+		invent.setData(cd);
+//		invent.setData(data);
+//		Restaurante r = empregadores().iterator().next();
 		invent.setRestaurante(r);
 		
 		Set<Produto> produtos_simples = r.produtos();
 
 		for (Produto produto : produtos_simples) {
-			quantidade += produto.quantidade();
-			contagem.setExistencias(quantidade);
-			Database.insert(contagem, produto);
-			Database.insert(invent, contagem);
+			Contagem c = new Contagem();
+			c.setExistencias(produto.quantidade());
+			
+			Database.insert(c, produto);
+			Database.insert(invent, c);
 		}
 	}
 

@@ -37,6 +37,7 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
 		this.restaurante = restaurante;
 		initComponents();
 		this.setTitle("Cozinheiro");
+		setLocation(550, 350);
 	}
 
 	/**
@@ -198,7 +199,7 @@ public class IULChef_Cozinheiro extends javax.swing.JFrame {
 
 	private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonInventarioActionPerformed
 		empregado.FazerInventario(new CalendarDate(Calendar.DAY_OF_MONTH,
-				Calendar.MONTH, Calendar.YEAR));
+				Calendar.MONTH, Calendar.YEAR),restaurante);
 		JOptionPane.showMessageDialog(this, "Inventário criado com sucesso!");
 	}// GEN-LAST:event_jButtonInventarioActionPerformed
 

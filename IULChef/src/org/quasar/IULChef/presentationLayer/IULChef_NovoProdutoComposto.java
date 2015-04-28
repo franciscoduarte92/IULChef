@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 
@@ -65,7 +66,6 @@ public class IULChef_NovoProdutoComposto extends javax.swing.JDialog {
 		this.iulChef_Cozinheiro = iulChef_Cozinheiro;
 		initComponents();
 		setTitle("Novo Produto Composto");
-		setLocation(450, 350);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class IULChef_NovoProdutoComposto extends javax.swing.JDialog {
 
 		jLabel1.setText("Grupo:");
 
-		final ArrayList<String> l = new ArrayList<String>();
+		 l = new ArrayList<String>();
 		for (Entidade r : Restaurante.allInstances()) {
 			for (Produto p : ((Restaurante) r).produtos()) {
 				l.add(p.nome());
@@ -142,7 +142,7 @@ public class IULChef_NovoProdutoComposto extends javax.swing.JDialog {
 
 		jScrollPane1.setViewportView(jListIngredientes);
 
-		final DefaultListModel model = new DefaultListModel();
+		 model = new DefaultListModel();
 
 		jListIngredientesQuantidade.setModel(model);
 
@@ -620,4 +620,6 @@ public class IULChef_NovoProdutoComposto extends javax.swing.JDialog {
 	private javax.swing.JTextField jTextFieldPreco;
 	private javax.swing.JTextField jTextFieldQuantidade;
 	private JTextField txtQtdComposto;
+	private DefaultListModel model;
+	private ArrayList<String> l = new ArrayList<String>();
 }

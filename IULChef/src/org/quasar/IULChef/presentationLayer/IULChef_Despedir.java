@@ -134,10 +134,12 @@ public class IULChef_Despedir extends javax.swing.JDialog {
 		Integer numeroEmpregados = Empregado.allInstances().size();
 		Empregado empre = new Empregado();
 		for (Entidade e : Empregado.allInstances()) {
-			if(e.nc() == Integer.parseInt(jComboBoxEmpregados.getSelectedItem().toString())) empre = (Empregado) e;
+			if(e.nome().equals(jComboBoxEmpregados.getSelectedItem())){
+					empre = (Empregado) e;
+			}
 		}
 		empregado.Despedir(restaurante, empre);
-		jComboBoxEmpregados.remove(jComboBoxEmpregados.getSelectedIndex());
+		preencheComboBox();
 		if(numeroEmpregados<Empregado.allInstances().size()){
 			JOptionPane.showMessageDialog(this, "O Empregado foi despedido com susseco!");
 		}else{
