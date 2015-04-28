@@ -13,6 +13,7 @@ import org.quasar.IULChef.businessLayer.Fatura;
 import org.quasar.IULChef.businessLayer.Mesa;
 import org.quasar.IULChef.businessLayer.Pedido;
 import org.quasar.IULChef.businessLayer.Produto;
+import org.quasar.IULChef.businessLayer.ProdutoComposto;
 import org.quasar.IULChef.businessLayer.ProdutoSimples;
 import org.quasar.IULChef.businessLayer.Restaurante;
 
@@ -87,9 +88,7 @@ public class IULChef_FazerPedido extends javax.swing.JDialog {
             }
         });
 
-        jComboBoxFaturas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBoxProdutos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,7 +179,8 @@ public class IULChef_FazerPedido extends javax.swing.JDialog {
     	for (Fatura f : Fatura.allInstances()) {
 			jComboBoxFaturas.addItem(f.numero());
 		}
-    	for (Produto p : ProdutoSimples.allInstances()) {
+//    	TODO produtos compostos
+    	for (Produto p : ProdutoComposto.allInstances()) {
 			jComboBoxProdutos.addItem(p.nome());
 		}
 	}
@@ -194,10 +194,10 @@ public class IULChef_FazerPedido extends javax.swing.JDialog {
     	return null;
     }
     
-    private ProdutoSimples getSelectedProduto(){
-    	for (Produto p : ProdutoSimples.allInstances()) {
+    private ProdutoComposto getSelectedProduto(){
+    	for (Produto p : ProdutoComposto.allInstances()) {
 			if(p.nome().equals(jComboBoxProdutos.getSelectedItem())){
-				return (ProdutoSimples) p;
+				return (ProdutoComposto) p;
 			}
 		}
     	return null;

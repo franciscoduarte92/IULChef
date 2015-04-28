@@ -193,13 +193,12 @@ public class IULChef_PassarFatura extends javax.swing.JDialog {
 		}
 	}
     
-    private Mesa getSelectedMesa(){
+    private void getSelectedMesa(){
     	
     	for (Mesa m : Mesa.allInstances()) {
 			if(m.numero().toString() == jComboBoxNumeroMesa.getSelectedItem().toString());
 				mesa = m;
 		}
-    	return null;
     }
     
     private Integer criaNumeroFatura(){
@@ -228,6 +227,7 @@ public class IULChef_PassarFatura extends javax.swing.JDialog {
     
     private void jButtonPassarFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPassarFaturaActionPerformed
     	int quantiFaturas = Fatura.allInstances().size();
+    	getSelectedMesa();
     	empregado.PassaFatura(verificaCliente(), mesa, new CalendarDate(Calendar.DAY_OF_MONTH,Calendar.MONTH, Calendar.YEAR), criaNumeroFatura());
     	if(Fatura.allInstances().size()>quantiFaturas){
     		JOptionPane.showMessageDialog(this, "Fatura passada com susseco!");

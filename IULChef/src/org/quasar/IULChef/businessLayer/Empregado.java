@@ -219,7 +219,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// declare c : Compra; c := new Compra; c.init(quantidade, preco, data);
 		// insert (c,p) into Compra_ProdutoSimples; insert (c,f) into
 		// Compra_Fornecedor; insert (r,c) into Restaurante_Compra
-		Compra comp = new Compra();
+		Compra comp = new Compra(r,f,p,data,preco,quantidade);
 		comp.init(quantidade, preco, data);
 		Database.insert(comp, p);
 		Database.insert(comp, f);
@@ -402,7 +402,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		assert pre_DespedirVerificaContratado : "Só se pode despedir o empregado se ele estiver já contratado no mesmo restaurante";
 		// -----------------------------------------------------------------------------
 		// ((empre.faturas->size < 5) = true)
-		boolean pre_DespedirMinimoDeVendas = this.faturas().size() < 5;
+		boolean pre_DespedirMinimoDeVendas = this.faturas().size() <= 1;
 
 		assert pre_DespedirMinimoDeVendas : "Para despedir o empregado é necessario esse empregado alcançar o minimo de vendas";
 		// -----------------------------------------------------------------------------
@@ -514,7 +514,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// declare pe : Pedido; pe := new Pedido; pe.init(quantidade); insert
 		// (pe,p) into Pedido_Produto; insert (f,pe) into Fatura_Pedido
 		Pedido pe;
-		pe = new Pedido();
+		pe = new Pedido(p,f,false, null);
 		pe.init(quantidade);
 
 		Database.insert(pe, p);
@@ -561,7 +561,7 @@ public class Empregado extends Entidade implements Comparable<Object> {
 		// into Fatura_Cliente; insert (f,self) into Fatura_Empregado; insert
 		// (f,m) into Fatura_Mesa
 		Fatura f;
-		f = new Fatura();
+		f = new Fatura(this,c,m.restaurante(),m,data,numF);
 		f.init(numF, data);
 
 		Database.insert(f, c);

@@ -39,6 +39,7 @@ public class IULChef_Login extends JFrame {
 	public IULChef_Login() {
 		initComponents();
 		setTitle("Login");
+		setLocation(550, 350);
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class IULChef_Login extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 
 				for (Entidade e : Empregado.allInstances()) {
-					if (e.nc() == Integer.parseInt(jTextFieldNc.getText())) {
+					if (e.nc().equals(Integer.parseInt(jTextFieldNc.getText()))) {
 						empregado = ((Empregado) e);
 					}
 				}

@@ -140,8 +140,6 @@ public class IULChef_Gerente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonContratarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        janelaLogin = new IULChef_Login();
-        janelaLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 

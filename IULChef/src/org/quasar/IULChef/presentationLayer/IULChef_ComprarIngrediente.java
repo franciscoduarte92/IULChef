@@ -46,7 +46,7 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 		this.setTitle("Comprar Ingrediente");
 		preencheComboBox();
 		setModalityType(DEFAULT_MODALITY_TYPE);
-		setLocation(450, 350);
+		setLocation(550, 350);
 	}
 
 
@@ -188,12 +188,16 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 
 	@SuppressWarnings("unchecked")
 	private void preencheComboBox() {
-		for (Entidade e : Fornecedor.allInstances()) {
-			jComboBoxFornecedores.addItem(e.nome());
+    	String fornecedores = null;
+    	for (Entidade e : Fornecedor.allInstances()) {
+    		fornecedores = e.nome();
+    		jComboBoxFornecedores.addItem(fornecedores);
 		}
-		for(Produto p : ProdutoSimples.allInstances()){
-			jComboBoxNomeProduto.addItem(p.nome());
-		}
+    	String produtoSimples = null;
+    	for(Produto p : ProdutoSimples.allInstances()){
+    		produtoSimples = p.nome();
+    		jComboBoxNomeProduto.addItem(produtoSimples);
+    	}
 	}
 
 	private Fornecedor getSelectedFornecedor(){
@@ -203,7 +207,7 @@ public class IULChef_ComprarIngrediente extends javax.swing.JDialog {
 		}
 		return null;
 	}
-
+//	TODO
 	private ProdutoSimples getSelectedProduto(){
 		for (Produto p : ProdutoSimples.allInstances()) {
 			if(jComboBoxNomeProduto.getSelectedItem().toString()==p.nome())
